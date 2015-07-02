@@ -86,7 +86,7 @@ export default function() {
       y1,
       y2;
 
-  function quadtree(data) {
+  function quadtree(points) {
     var d,
         fx = typeof x === "function" ? x : functor(x),
         fy = typeof y === "function" ? y : functor(y),
@@ -99,7 +99,7 @@ export default function() {
         x2_,
         y2_;
 
-    if (!data) data = [];
+    if (!points) points = [];
 
     if (x1 != null) {
       x1_ = x1, y1_ = y1, x2_ = x2, y2_ = y2;
@@ -107,9 +107,9 @@ export default function() {
       // Compute bounds, and cache points temporarily.
       x2_ = y2_ = -(x1_ = y1_ = Infinity);
       xs = [], ys = [];
-      n = data.length;
+      n = points.length;
       for (i = 0; i < n; ++i) {
-        var x_ = +fx(d = data[i], i),
+        var x_ = +fx(d = points[i], i),
             y_ = +fy(d, i);
         if (x_ < x1_) x1_ = x_;
         if (y_ < y1_) y1_ = y_;
@@ -199,15 +199,15 @@ export default function() {
     i = -1;
     if (x1 == null) {
       while (++i < n) {
-        insert(root, data[i], xs[i], ys[i], x1_, y1_, x2_, y2_);
+        insert(root, points[i], xs[i], ys[i], x1_, y1_, x2_, y2_);
       }
       --i; // index of last insertion
     } else {
-      data.forEach(root.add);
+      points.forEach(root.add);
     }
 
     // Discard captured fields.
-    xs = ys = data = d = null;
+    xs = ys = points = d = null;
 
     return root;
   }
