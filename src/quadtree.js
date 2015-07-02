@@ -99,6 +99,8 @@ export default function() {
         x2_,
         y2_;
 
+    if (!data) data = [];
+
     if (x1 != null) {
       x1_ = x1, y1_ = y1, x2_ = x2, y2_ = y2;
     } else {

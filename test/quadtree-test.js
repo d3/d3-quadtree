@@ -50,6 +50,16 @@ tape("quadtree(points) allows points to contain only a single point", function(t
   test.end();
 });
 
+tape("quadtree() is an alias for quadtree([])", function(test) {
+  var root = quadtree.quadtree()();
+  test.equal(root.x, null);
+  test.equal(root.y, null);
+  test.equal(root.leaf, true);
+  test.equal(root.point, null);
+  test.deepEqual(root.nodes, []);
+  test.end();
+});
+
 tape("quadtree(points) allows points to be empty", function(test) {
   var root = quadtree.quadtree()([]);
   test.equal(root.x, null);
