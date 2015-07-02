@@ -1,11 +1,11 @@
 import "point";
 
-function pointX(d) {
-  return d[0];
+function pointX(p) {
+  return p[0];
 }
 
-function pointY(d) {
-  return d[1];
+function pointY(p) {
+  return p[1];
 }
 
 function functor(x) {
@@ -22,15 +22,15 @@ function Node() {
   this.nodes = [];
 }
 
-function visit(f, node, x1, y1, x2, y2) {
-  if (!f(node, x1, y1, x2, y2)) {
+function visit(callback, node, x1, y1, x2, y2) {
+  if (!callback(node, x1, y1, x2, y2)) {
     var sx = (x1 + x2) * .5,
         sy = (y1 + y2) * .5,
         children = node.nodes;
-    if (children[0]) visit(f, children[0], x1, y1, sx, sy);
-    if (children[1]) visit(f, children[1], sx, y1, x2, sy);
-    if (children[2]) visit(f, children[2], x1, sy, sx, y2);
-    if (children[3]) visit(f, children[3], sx, sy, x2, y2);
+    if (children[0]) visit(callback, children[0], x1, y1, sx, sy);
+    if (children[1]) visit(callback, children[1], sx, y1, x2, sy);
+    if (children[2]) visit(callback, children[2], x1, sy, sx, y2);
+    if (children[3]) visit(callback, children[3], sx, sy, x2, y2);
   }
 }
 
@@ -87,7 +87,7 @@ export default function() {
       y2;
 
   function quadtree(points) {
-    var d,
+    var point,
         fx = typeof x === "function" ? x : functor(x),
         fy = typeof y === "function" ? y : functor(y),
         xs,
@@ -109,8 +109,8 @@ export default function() {
       xs = [], ys = [];
       n = points.length;
       for (i = 0; i < n; ++i) {
-        var x_ = +fx(d = points[i], i),
-            y_ = +fy(d, i);
+        var x_ = +fx(point = points[i], i),
+            y_ = +fy(point, i);
         if (x_ < x1_) x1_ = x_;
         if (y_ < y1_) y1_ = y_;
         if (x_ > x2_) x2_ = x_;
@@ -128,38 +128,38 @@ export default function() {
       else x2_ = x1_ + dy;
     }
 
-    // Recursively inserts the specified point p at the node n or one of its
+    // Recursively inserts the specified point at the node or one of its
     // descendants. The bounds are defined by [x1, x2] and [y1, y2].
-    function insert(n, d, x, y, x1, y1, x2, y2) {
+    function insert(node, point, x, y, x1, y1, x2, y2) {
       if (isNaN(x) || isNaN(y)) return; // ignore invalid points
-      if (n.leaf) {
-        var nx = n.x,
-            ny = n.y;
+      if (node.leaf) {
+        var nx = node.x,
+            ny = node.y;
         if (nx != null) {
           // If the point at this leaf node is at the same position as the new
           // point we are adding, we leave the point associated with the
           // internal node while adding the new point to a child node. This
           // avoids infinite recursion.
           if ((Math.abs(nx - x) + Math.abs(ny - y)) < .01) {
-            insertChild(n, d, x, y, x1, y1, x2, y2);
+            insertChild(node, point, x, y, x1, y1, x2, y2);
           } else {
-            var nPoint = n.point;
-            n.x = n.y = n.point = null;
-            insertChild(n, nPoint, nx, ny, x1, y1, x2, y2);
-            insertChild(n, d, x, y, x1, y1, x2, y2);
+            var nPoint = node.point;
+            node.x = node.y = node.point = null;
+            insertChild(node, nPoint, nx, ny, x1, y1, x2, y2);
+            insertChild(node, point, x, y, x1, y1, x2, y2);
           }
         } else {
-          n.x = x, n.y = y, n.point = d;
+          node.x = x, node.y = y, node.point = point;
         }
       } else {
-        insertChild(n, d, x, y, x1, y1, x2, y2);
+        insertChild(node, point, x, y, x1, y1, x2, y2);
       }
     }
 
     // Recursively inserts the specified point [x, y] into a descendant of node
     // n. The bounds are defined by [x1, x2] and [y1, y2].
-    function insertChild(n, d, x, y, x1, y1, x2, y2) {
-      // Compute the split point, and the quadrant in which to insert p.
+    function insertChild(node, point, x, y, x1, y1, x2, y2) {
+      // Compute the split point, and the quadrant in which to insert the point.
       var xm = (x1 + x2) * .5,
           ym = (y1 + y2) * .5,
           right = x >= xm,
@@ -167,24 +167,23 @@ export default function() {
           i = below << 1 | right;
 
       // Recursively insert into the child node.
-      n.leaf = false;
-      n = n.nodes[i] || (n.nodes[i] = new Node);
+      node.leaf = false;
+      node = node.nodes[i] || (node.nodes[i] = new Node);
 
       // Update the bounds as we recurse.
       if (right) x1 = xm; else x2 = xm;
       if (below) y1 = ym; else y2 = ym;
-      insert(n, d, x, y, x1, y1, x2, y2);
+      insert(node, point, x, y, x1, y1, x2, y2);
     }
 
-    // Create the root node.
     var root = new Node;
 
-    root.add = function(d) {
-      insert(root, d, +fx(d, ++i), +fy(d, i), x1_, y1_, x2_, y2_);
+    root.add = function(point) {
+      insert(root, point, +fx(point, ++i), +fy(point, i), x1_, y1_, x2_, y2_);
     };
 
-    root.visit = function(f) {
-      visit(f, root, x1_, y1_, x2_, y2_);
+    root.visit = function(callback) {
+      visit(callback, root, x1_, y1_, x2_, y2_);
     };
 
     // Find the closest point to the specified point.
@@ -207,7 +206,7 @@ export default function() {
     }
 
     // Discard captured fields.
-    xs = ys = points = d = null;
+    xs = ys = points = point = null;
 
     return root;
   }
