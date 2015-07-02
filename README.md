@@ -38,13 +38,15 @@ Adds the specified new *point* to this quadtree.
 
 <a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>visit</b>(<i>callback</i>)
 
-Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited and the remaining arguments are the coordinates of the top-left and bottom-right corners of the node respectively. The definition of the coordinate system used by the quadtree is arbitrary, so a more precision rule is that *x1* <= *x2* and *y1* <= *y2*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x1*, *y1*⟩ is also the top-left corner of the current node.
+Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited and the remaining arguments are the coordinates of the top-left and bottom-right corners of the node respectively.
+
+Note that the coordinate system used by the quadtree is arbitrary, so a more precise definition is that *x1* <= *x2* and *y1* <= *y2*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x1*, *y1*⟩ is also the top-left corner of the current node.
 
 Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
 
 <a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>find</b>(<i>point</i>)
 
-Given any point [*x*, *y*], returns the closest point in this quadtree.
+Given any point ⟨*x*,*y*⟩, returns the closest point in this quadtree.
 
 <a name="quadtree_x" href="#quadtree_x">#</a> <i>quadtree</i>.<b>x</b>([<i>x</i>])
 
@@ -76,7 +78,7 @@ If *extent* is specified, sets the current extent and returns this quadtree fact
 
 <a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>([<i>size</i>])
 
-An alias for [*quadtree*.extent](#quadtree_extent) where the minimum *x* and *y* of the extent are zero. Given a quadtree factory `q`, this is equivalent to:
+An alias for [*quadtree*.extent](#quadtree_extent) where the minimum *x* and *y* of the extent are ⟨0,0⟩. Given a quadtree factory `q`, this is equivalent to:
 
 ```js
 q.extent([[0, 0], size])
