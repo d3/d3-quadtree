@@ -86,6 +86,6 @@ q.extent([[0, 0], size])
 
 * Removed deprecated constructor.
 
-* [*root*.add](#root_add) and [*root*.find](#root_find) now return *root*, allowing method chaining.
+* [*root*.add](#root_add) and [*root*.visit](#root_visit) now return *root*, allowing method chaining.
 
 * [*root*.find](#root_find) now takes two arguments {*x*, *y*} rather than a point object [*x*, *y*].
