@@ -20,7 +20,7 @@ Creates a new [quadtree factory](#_quadtree) with the default [*x*-accessor](#qu
 
 <a name="_quadtree" href="#_quadtree">#</a> <i>quadtree</i>([<i>points</i>])
 
-Constructs a new quadtree for the specified array of data _points_, returning the root node of a new quadtree. The *x*- and *y*-coordinates of each point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessor functions. To build a quadtree by adding points incrementally, the specified *points* array can be empty or omitted, and then points can be later [added](#root_add) to the returned root node; in this case, you must also specify the [extent](#quadtree_extent) of the quadtree.
+Constructs a new quadtree for the specified array of data _points_, returning the root node of a new quadtree. The *x*- and *y*-coordinates of each point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessor functions. To build a quadtree by adding points incrementally, the specified *points* array can be empty or omitted and then points can be later [added](#root_add) to the returned root node; in this case, you must explicitly specify the [extent](#quadtree_extent) of the quadtree.
 
 Each node in the quadtree has several properties:
 
