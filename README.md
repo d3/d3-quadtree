@@ -34,11 +34,11 @@ The returned root node also defines [add](#root_add) and [visit](#root_visit) me
 
 <a name="root_add" href="#root_add">#</a> <i>root</i>.<b>add</b>(<i>point</i>)
 
-Adds the specified new *point* to this quadtree.
+Adds the specified new *point* to this quadtree and returns *root*.
 
 <a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>visit</b>(<i>callback</i>)
 
-Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited, ⟨*x1*, *y1*⟩ is the top-left corner, and ⟨*x2*, *y2*⟩ is the bottom-right corner. Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
+Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited, ⟨*x1*, *y1*⟩ is the top-left corner, and ⟨*x2*, *y2*⟩ is the bottom-right corner. Returns *root*. Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
 
 Note that the coordinate system used by the quadtree is arbitrary, so a more precise definition is that *x1* <= *x2* and *y1* <= *y2*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x1*, *y1*⟩ is also the top-left corner of the current node.
 
@@ -85,5 +85,7 @@ q.extent([[0, 0], size])
 ## Changes from D3 3.x:
 
 * Removed deprecated constructor.
+
+* [*root*.add](#root_add) and [*root*.find](#root_find) now return *root*, allowing method chaining.
 
 * [*root*.find](#root_find) now takes two arguments {*x*, *y*} rather than a point object [*x*, *y*].

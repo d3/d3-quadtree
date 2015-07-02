@@ -180,10 +180,12 @@ export default function() {
 
     root.add = function(point) {
       insert(root, point, +fx(point, ++i), +fy(point, i), x1_, y1_, x2_, y2_);
+      return root;
     };
 
     root.visit = function(callback) {
       visit(callback, root, x1_, y1_, x2_, y2_);
+      return root;
     };
 
     // Find the closest point to the specified point.

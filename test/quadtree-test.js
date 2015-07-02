@@ -94,10 +94,41 @@ tape("quadtree.size([x, y]) is an alias for quadtree().extent([[0, 0], [x, y]])"
   test.end();
 });
 
+tape("root.add(point) adds the specified point to the quadtree", function(test) {
+  var root = quadtree.quadtree().size([1, 1])().add([0, 0]).add([1, 0]).add([0, 1]).add([1, 1]),
+      results = [];
+  root.visit(function() { results.push([].slice.call(arguments)); });
+  test.deepEqual(results, [
+    [         root, 0.0, 0.0, 1.0, 1.0],
+    [root.nodes[0], 0.0, 0.0, 0.5, 0.5],
+    [root.nodes[1], 0.5, 0.0, 1.0, 0.5],
+    [root.nodes[2], 0.0, 0.5, 0.5, 1.0],
+    [root.nodes[3], 0.5, 0.5, 1.0, 1.0]
+  ]);
+  test.end();
+});
+
+tape("root.add(point) applies the quadtree’s x- and y-accessors", function(test) {
+  var x = function(d) { return d.x; },
+      y = function(d) { return d.y; },
+      root = quadtree.quadtree().x(x).y(y).size([1, 1])(),
+      results = [];
+  [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}].forEach(function(p) { root.add(p); });
+  root.visit(function() { results.push([].slice.call(arguments)); });
+  test.deepEqual(results, [
+    [         root, 0.0, 0.0, 1.0, 1.0],
+    [root.nodes[0], 0.0, 0.0, 0.5, 0.5],
+    [root.nodes[1], 0.5, 0.0, 1.0, 0.5],
+    [root.nodes[2], 0.0, 0.5, 0.5, 1.0],
+    [root.nodes[3], 0.5, 0.5, 1.0, 1.0]
+  ]);
+  test.end();
+});
+
 tape("root.visit(callback) visits each node in a quadtree", function(test) {
   var root = quadtree.quadtree()([[0, 0], [1, 0], [0, 1], [1, 1]]),
       results = [];
-  root.visit(function() { results.push([].slice.call(arguments)); });
+  test.equal(root.visit(function() { results.push([].slice.call(arguments)); }), root);
   test.deepEqual(results, [
     [         root, 0.0, 0.0, 1.0, 1.0],
     [root.nodes[0], 0.0, 0.0, 0.5, 0.5],
