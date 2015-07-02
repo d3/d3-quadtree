@@ -18,13 +18,13 @@ If you use NPM, `npm install d3-quadtree`. Otherwise, download the [latest relea
 
 Creates a new quadtree factory with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The [returned function](#_quadtree) can be used to create any number of quadtrees from data with the factory’s configuration.
 
-<a name="_quadtree" href="#_quadtree">#</a> <b>quadtree</b>(<i>points</i>)
+<a name="_quadtree" href="#_quadtree">#</a> <i>quadtree</i>(<i>points</i>)
 
 Constructs a new quadtree for the specified array of data _points_, returning the root node of a new quadtree. The *x*- and *y*-coordinates of each point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y) accessor functions. To build a quadtree by adding points incrementally, the specified *points* array can be empty, and then points can be later [added](#root_add) to the returned root node; in this case, you must also specify the [extent](#quadtree_extent) of the quadtree.
 
 Each node in the quadtree has several properties:
 
-* `nodes` - a sparse array of the four child nodes in order: top-left, top-right, bottom-left, bottom-right.
+* `nodes` - a sparse array of four child nodes: top-left, top-right, bottom-left, bottom-right.
 * `leaf` - a boolean indicating whether this is an internal node or a leaf node.
 * `point` - the point associated with this node, if any (may apply to either internal or leaf nodes).
 * `x` - the *x*-coordinate of the associated point, if any.
