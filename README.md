@@ -42,9 +42,9 @@ Visits each node in this quadtree, invoking the specified *callback* with argume
 
 Note that the coordinate system used by the quadtree is arbitrary, so a more precise definition is that *x1* <= *x2* and *y1* <= *y2*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x1*, *y1*⟩ is also the top-left corner of the current node.
 
-<a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>find</b>(<i>point</i>)
+<a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
-Given any point ⟨*x*,*y*⟩, returns the closest point in this quadtree.
+Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree.
 
 <a name="quadtree_x" href="#quadtree_x">#</a> <i>quadtree</i>.<b>x</b>([<i>x</i>])
 
@@ -85,3 +85,5 @@ q.extent([[0, 0], size])
 ## Changes from D3 3.x:
 
 * Removed deprecated constructor.
+
+* [*root*.find] now takes two arguments {*x*, *y*} rather than a point object [*x*, *y*].
