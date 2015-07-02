@@ -1,0 +1,33 @@
+{
+  "name": "d3-quadtree",
+  "version": "0.0.1",
+  "description": "Two-dimensional recursive spatial subdivision.",
+  "keywords": [
+    "d3",
+    "quadtree"
+  ],
+  "homepage": "https://github.com/d3/d3-quadtree",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Mike Bostock",
+    "url": "http://bost.ocks.org/mike"
+  },
+  "main": "build/quadtree",
+  "jsnext:main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d3/d3-quadtree.git"
+  },
+  "scripts": {
+    "pretest": "mkdir -p build && d3-bundler --format=umd --name=quadtree -- index.js > build/quadtree.js",
+    "test": "faucet `find test -name '*-test.js'`",
+    "prepublish": "npm run test && uglifyjs build/quadtree.js -c -m -o build/quadtree.min.js && rm -f build/quadtree.zip && zip -j build/quadtree.zip -- LICENSE README.md build/quadtree.js build/quadtree.min.js"
+  },
+  "devDependencies": {
+    "d3-arrays": "~0.0.4",
+    "d3-bundler": "~0.2.5",
+    "faucet": "0.0",
+    "tape": "4",
+    "uglify-js": "2"
+  }
+}
