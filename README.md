@@ -16,7 +16,7 @@ If you use NPM, `npm install d3-quadtree`. Otherwise, download the [latest relea
 
 <a name="quadtree" href="#quadtree">#</a> <b>quadtree</b>()
 
-Creates a new quadtree factory with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The [returned function](#_quadtree) can be used to create any number of quadtrees from data with the factory’s configuration.
+Creates a new [quadtree factory](#_quadtree) with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The [returned function](#_quadtree) can be used to create any number of quadtrees from data with the factory’s configuration.
 
 <a name="_quadtree" href="#_quadtree">#</a> <i>quadtree</i>(<i>points</i>)
 
