@@ -26,7 +26,7 @@ Each node in the quadtree has several properties:
 
 * `nodes` - a sparse array of four child nodes: top-left, top-right, bottom-left, bottom-right.
 * `leaf` - a boolean indicating whether this is an internal node or a leaf node.
-* `point` - the point associated with this node, if any (may apply to either internal or leaf nodes).
+* `point` - the point associated with this node, if any; may apply to either internal or leaf nodes.
 * `x` - the *x*-coordinate of the associated point, if any.
 * `y` - the *y*-coordinate of the associated point, if any.
 
