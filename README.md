@@ -38,11 +38,9 @@ Adds the specified new *point* to this quadtree.
 
 <a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>visit</b>(<i>callback</i>)
 
-Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited and the remaining arguments are the coordinates of the top-left and bottom-right corners of the node respectively.
+Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited and the remaining arguments are the coordinates of the top-left and bottom-right corners of the node respectively. Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
 
 Note that the coordinate system used by the quadtree is arbitrary, so a more precise definition is that *x1* <= *x2* and *y1* <= *y2*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x1*, *y1*⟩ is also the top-left corner of the current node.
-
-Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
 
 <a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>find</b>(<i>point</i>)
 
