@@ -1,5 +1,3 @@
-import "point";
-
 function pointX(p) {
   return p[0];
 }
