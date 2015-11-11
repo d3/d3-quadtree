@@ -1,6 +1,6 @@
 {
   "name": "d3-quadtree",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Two-dimensional recursive spatial subdivision.",
   "keywords": [
     "d3",
@@ -12,21 +12,21 @@
     "name": "Mike Bostock",
     "url": "http://bost.ocks.org/mike"
   },
-  "main": "build/quadtree.cjs",
+  "main": "build/d3-quadtree.js",
   "jsnext:main": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/d3/d3-quadtree.git"
   },
   "scripts": {
-    "pretest": "mkdir -p build && d3-bundler -x -f cjs -o build/quadtree.cjs.js",
+    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3-quadtree -n d3_quadtree -o build/d3-quadtree.js -- build/bundle.js",
     "test": "faucet `find test -name '*-test.js'`",
-    "prepublish": "npm run test && d3-bundler -n quadtree -o build/quadtree.js && uglifyjs build/quadtree.js -c -m -o build/quadtree.min.js && rm -f build/quadtree.zip && zip -j build/quadtree.zip -- LICENSE README.md build/quadtree.js build/quadtree.min.js"
+    "prepublish": "npm run test && uglifyjs build/d3-quadtree.js -c -m -o build/d3-quadtree.min.js && rm -f build/d3-quadtree.zip && zip -j build/d3-quadtree.zip -- LICENSE README.md build/d3-quadtree.js build/d3-quadtree.min.js"
   },
   "devDependencies": {
-    "d3-arrays": "~0.1.2",
-    "d3-bundler": "~0.4.0",
+    "d3-arrays": "~0.3.1",
     "faucet": "0.0",
+    "rollup": "0.20.5",
     "tape": "4",
     "uglify-js": "2"
   }
