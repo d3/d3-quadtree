@@ -11,11 +11,17 @@ A [quadtree](https://en.wikipedia.org/wiki/Quadtree) is a two-dimensional recurs
 
 ## Installing
 
-If you use NPM, `npm install d3-quadtree`. Otherwise, download the [latest release](https://github.com/d3/d3-quadtree/releases/latest).
+If you use NPM, `npm install d3-quadtree`. Otherwise, download the [latest release](https://github.com/d3/d3-quadtree/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. Create a custom build using [Rollup](https://github.com/rollup/rollup) or your preferred bundler. You can also load directly from [d3js.org](https://d3js.org):
+
+```html
+<script src="https://d3js.org/d3-quadtree.v0.1.min.js"></script>
+```
+
+In a vanilla environment, a `d3_quadtree` global is exported. [Try d3-quadtree in your browser.](https://tonicdev.com/npm/d3-quadtree)
 
 ## API Reference
 
-<a name="quadtree" href="#quadtree">#</a> <b>quadtree</b>()
+<a name="quadtree" href="#quadtree">#</a> d3_quadtree.<b>quadtree</b>()
 
 Creates a new [quadtree factory](#_quadtree) with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The returned factory function can be used to create any number of quadtrees from data.
 
