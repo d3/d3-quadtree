@@ -1,6 +1,6 @@
 {
   "name": "d3-quadtree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Two-dimensional recursive spatial subdivision.",
   "keywords": [
     "d3",
@@ -24,7 +24,7 @@
     "prepublish": "npm run test && uglifyjs build/d3-quadtree.js -c -m -o build/d3-quadtree.min.js && rm -f build/d3-quadtree.zip && zip -j build/d3-quadtree.zip -- LICENSE README.md build/d3-quadtree.js build/d3-quadtree.min.js"
   },
   "devDependencies": {
-    "d3-array": "~0.6.1",
+    "d3-array": "~0.7.0",
     "faucet": "0.0",
     "rollup": "0.20.5",
     "tape": "4",

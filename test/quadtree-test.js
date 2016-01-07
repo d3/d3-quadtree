@@ -1,5 +1,5 @@
 var tape = require("tape"),
-    arrays = require("d3-arrays"),
+    array = require("d3-array"),
     quadtree = require("../");
 
 tape("quadtree() has the expected defaults", function(test) {
@@ -179,7 +179,7 @@ tape("root.visit(callback) on an empty quadtree has degenerate bounds", function
 tape("root.find(x, y) returns the closest point to the given [x, y]", function(test) {
   var dx = 17,
       dy = 17,
-      root = quadtree.quadtree()(arrays.range(dx * dy).map(function(i) { return [i % dx, i / dx | 0]; }));
+      root = quadtree.quadtree()(array.range(dx * dy).map(function(i) { return [i % dx, i / dx | 0]; }));
   test.deepEqual(root.find( 0.1,  0.1), [ 0,  0]);
   test.deepEqual(root.find( 7.5,  7.5), [ 7,  7]);
   test.deepEqual(root.find( 0.1, 15.9), [ 0, 16]);
@@ -192,7 +192,7 @@ tape("root.find(x, y) works when the quadtre has x- and y-accessors", function(t
       dy = 17,
       x = function(d) { return d.x; },
       y = function(d) { return d.y; },
-      root = quadtree.quadtree().x(x).y(y)(arrays.range(dx * dy).map(function(i) { return {x: i % dx, y: i / dx | 0}; }));
+      root = quadtree.quadtree().x(x).y(y)(array.range(dx * dy).map(function(i) { return {x: i % dx, y: i / dx | 0}; }));
   test.deepEqual(root.find( 0.1,  0.1), {x:  0, y:  0});
   test.deepEqual(root.find( 7.5,  7.5), {x:  7, y:  7});
   test.deepEqual(root.find( 0.1, 15.9), {x:  0, y: 16});
