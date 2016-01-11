@@ -21,7 +21,7 @@ In a vanilla environment, a `d3_quadtree` global is exported. [Try d3-quadtree i
 
 ## API Reference
 
-<a name="quadtree" href="#quadtree">#</a> d3_quadtree.<b>quadtree</b>()
+<a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>()
 
 Creates a new [quadtree factory](#_quadtree) with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The returned factory function can be used to create any number of quadtrees from data.
 
@@ -83,16 +83,4 @@ If *extent* is specified, sets the current extent and returns this quadtree fact
 
 <a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>([<i>size</i>])
 
-An alias for [*quadtree*.extent](#quadtree_extent) where the minimum *x* and *y* of the extent are ⟨0,0⟩. Given a quadtree factory `q`, this is equivalent to:
-
-```js
-q.extent([[0, 0], size])
-```
-
-## Changes from D3 3.x:
-
-* Removed deprecated constructor.
-
-* [*root*.add](#root_add) and [*root*.visit](#root_visit) now return *root*, allowing method chaining.
-
-* [*root*.find](#root_find) now takes two arguments {*x*, *y*} rather than a point object [*x*, *y*].
+An alias for [*quadtree*.extent](#quadtree_extent) where the minimum *x* and *y* of the extent are ⟨0,0⟩. Given a quadtree factory `q`, this is equivalent to `q.extent([[0, 0], size])`.
