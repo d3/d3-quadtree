@@ -16,12 +16,12 @@ tape("quadtree(points) returns the root of a new quadtree of the specified point
   test.equal(root.x, null);
   test.equal(root.y, null);
   test.equal(root.leaf, false);
-  test.equal(root.point, null);
+  test.equal(root.data, null);
   test.deepEqual(root.nodes, [
-    {leaf: true, nodes: [], point: [0, 0], x: 0, y: 0},
-    {leaf: true, nodes: [], point: [1, 0], x: 1, y: 0},
-    {leaf: true, nodes: [], point: [0, 1], x: 0, y: 1},
-    {leaf: true, nodes: [], point: [1, 1], x: 1, y: 1}
+    {leaf: true, nodes: [], data: [0, 0], x: 0, y: 0},
+    {leaf: true, nodes: [], data: [1, 0], x: 1, y: 0},
+    {leaf: true, nodes: [], data: [0, 1], x: 0, y: 1},
+    {leaf: true, nodes: [], data: [1, 1], x: 1, y: 1}
   ]);
   test.end();
 });
@@ -31,11 +31,11 @@ tape("quadtree(points) handles coincident points by nesting nodes", function(tes
   test.equal(root.x, null);
   test.equal(root.y, null);
   test.equal(root.leaf, false);
-  test.equal(root.point, null);
+  test.equal(root.data, null);
   test.deepEqual(root.nodes, [
-    {leaf: true, nodes: [], point: [0, 0], x: 0, y: 0},
-    {leaf: true, nodes: [], point: [1, 0], x: 1, y: 0},
-    {leaf: false, nodes: [,,{leaf: true, nodes: [], point: [0, 1], x: 0, y: 1},], point: [0, 1], x: 0, y: 1},
+    {leaf: true, nodes: [], data: [0, 0], x: 0, y: 0},
+    {leaf: true, nodes: [], data: [1, 0], x: 1, y: 0},
+    {leaf: false, nodes: [,,{leaf: true, nodes: [], data: [0, 1], x: 0, y: 1},], data: [0, 1], x: 0, y: 1},
   ]);
   test.end();
 });
@@ -45,7 +45,7 @@ tape("quadtree(points) allows points to contain only a single point", function(t
   test.equal(root.x, 0);
   test.equal(root.y, 0);
   test.equal(root.leaf, true);
-  test.deepEqual(root.point, [0, 0]);
+  test.deepEqual(root.data, [0, 0]);
   test.deepEqual(root.nodes, []);
   test.end();
 });
@@ -55,7 +55,7 @@ tape("quadtree() is an alias for quadtree([])", function(test) {
   test.equal(root.x, null);
   test.equal(root.y, null);
   test.equal(root.leaf, true);
-  test.equal(root.point, null);
+  test.equal(root.data, null);
   test.deepEqual(root.nodes, []);
   test.end();
 });
@@ -65,7 +65,7 @@ tape("quadtree(points) allows points to be empty", function(test) {
   test.equal(root.x, null);
   test.equal(root.y, null);
   test.equal(root.leaf, true);
-  test.equal(root.point, null);
+  test.equal(root.data, null);
   test.deepEqual(root.nodes, []);
   test.end();
 });
@@ -142,7 +142,7 @@ tape("root.visit(callback) visits each node in a quadtree", function(test) {
 tape("root.visit(callback) applies pre-order traversal", function(test) {
   var root = quadtree.quadtree().size([960, 500])([[100, 100], [200, 200], [300, 300]]),
       results = [];
-  root.visit(function(node, x1, y1, x2, y2) { results.push([node.point, x1, y1, x2, y2]); });
+  root.visit(function(node, x1, y1, x2, y2) { results.push([node.data, x1, y1, x2, y2]); });
   test.deepEqual(results, [
     [      null,   0,   0, 960, 960],
     [      null,   0,   0, 480, 480],
@@ -157,7 +157,7 @@ tape("root.visit(callback) applies pre-order traversal", function(test) {
 tape("root.visit(callback) does not recurse if the callback returns truthy", function(test) {
   var root = quadtree.quadtree().size([960, 500])([[100, 100], [700, 700], [800, 800]]),
       results = [];
-  root.visit(function(node, x1, y1, x2, y2) { results.push([node.point, x1, y1, x2, y2]); return x1 > 0; });
+  root.visit(function(node, x1, y1, x2, y2) { results.push([node.data, x1, y1, x2, y2]); return x1 > 0; });
   test.deepEqual(results, [
     [      null,   0,   0, 960, 960],
     [[100, 100],   0,   0, 480, 480],
