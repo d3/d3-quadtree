@@ -233,4 +233,4 @@ export default function() {
   };
 
   return quadtree;
-};
+}
