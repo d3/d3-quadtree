@@ -18,10 +18,10 @@ tape("quadtree(points) returns the root of a new quadtree of the specified point
   test.equal(root.leaf, false);
   test.equal(root.data, null);
   test.deepEqual(root.nodes, [
-    {leaf: true, nodes: [], data: [0, 0], x: 0, y: 0},
-    {leaf: true, nodes: [], data: [1, 0], x: 1, y: 0},
-    {leaf: true, nodes: [], data: [0, 1], x: 0, y: 1},
-    {leaf: true, nodes: [], data: [1, 1], x: 1, y: 1}
+    {leaf: true, nodes: [], data: [0, 0], index: 0, x: 0, y: 0},
+    {leaf: true, nodes: [], data: [1, 0], index: 1, x: 1, y: 0},
+    {leaf: true, nodes: [], data: [0, 1], index: 2, x: 0, y: 1},
+    {leaf: true, nodes: [], data: [1, 1], index: 3, x: 1, y: 1}
   ]);
   test.end();
 });
@@ -33,9 +33,9 @@ tape("quadtree(points) handles coincident points by nesting nodes", function(tes
   test.equal(root.leaf, false);
   test.equal(root.data, null);
   test.deepEqual(root.nodes, [
-    {leaf: true, nodes: [], data: [0, 0], x: 0, y: 0},
-    {leaf: true, nodes: [], data: [1, 0], x: 1, y: 0},
-    {leaf: false, nodes: [,,{leaf: true, nodes: [], data: [0, 1], x: 0, y: 1},], data: [0, 1], x: 0, y: 1},
+    {leaf: true, nodes: [], data: [0, 0], index: 0, x: 0, y: 0},
+    {leaf: true, nodes: [], data: [1, 0], index: 1, x: 1, y: 0},
+    {leaf: false, nodes: [,,{leaf: true, nodes: [], data: [0, 1], index: 3, x: 0, y: 1},], data: [0, 1], index: 2, x: 0, y: 1},
   ]);
   test.end();
 });

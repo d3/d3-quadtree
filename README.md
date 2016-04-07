@@ -39,24 +39,19 @@ Each node in the quadtree has several properties:
 * `nodes` - a sparse array of four child nodes: top-left, top-right, bottom-left, bottom-right.
 * `leaf` - a boolean indicating whether this is an internal node or a leaf node.
 * `data` - the datum associated with this node, if any; may apply to either internal or leaf nodes.
+* `index` - the index of the datum associated with this node, if any; may apply to either internal or leaf nodes.
 * `x` - the *x*-coordinate of the associated point, if any.
 * `y` - the *y*-coordinate of the associated point, if any.
 
 The returned root node also defines [add](#root_add) and [visit](#root_visit) methods.
 
-<a name="root_add" href="#root_add">#</a> <i>root</i>.<b>add</b>(<i>datum</i>)
-
-Adds the specified new *datum* to this quadtree and returns *root*.
-
 <a name="root_find" href="#root_find">#</a> <i>root</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
 Given a point ⟨*x*,*y*⟩, returns the closest datum in this quadtree.
 
-<a name="root_visit" href="#root_visit">#</a> <i>root</i>.<b>visit</b>(<i>callback</i>)
+<a name="root_each" href="#root_each">#</a> <i>root</i>.<b>each</b>(<i>callback</i>)
 
-Visits each node in this quadtree, invoking the specified *callback* with arguments {*node*, *x1*, *y1*, *x2*, *y2*} for each node, where *node* is the node being visited, ⟨*x1*, *y1*⟩ is the top-left corner, and ⟨*x2*, *y2*⟩ is the bottom-right corner. Returns *root*. Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
-
-Note that the coordinate system used by the quadtree is arbitrary, so a more precise definition is that *x1* <= *x2* and *y1* <= *y2*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x1*, *y1*⟩ is also the top-left corner of the current node.
+Visits each node in this quadtree, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ is the top-left corner, and ⟨*x1*, *y1*⟩ is the bottom-right corner, assuming that positive *x* is right and positive *y* is down. (The coordinate system is arbitrary, so a more precise definition is that *x0* <= *x1* and *y0* <= *y1*. In the typical coordinate system used by SVG and Canvas, the origin ⟨0,0⟩ is in the top-left corner, and thus ⟨*x0*, *y0*⟩ is the top-left corner of the current node.) Returns *root*. Nodes are traversed in pre-order. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
 
 <a name="quadtree_x" href="#quadtree_x">#</a> <i>quadtree</i>.<b>x</b>([<i>x</i>])
 
@@ -68,7 +63,7 @@ function x(d) {
 }
 ```
 
-For each point added to the quadtree, either during [initial construction](#_quadtree) or lazily [added](#root_add), the *x*-accessor is invoked, being passed the current datum `d` and index `i`. The *x*-accessor must then return a numeric value indicating the *x*-coordinate of the point corresponding to the given datum. The *x*-accessor may also be defined as a constant number rather than a function, if desired.
+For each point added to the quadtree, the *x*-accessor is invoked, being passed the current datum `d` and index `i`. The *x*-accessor must then return a numeric value indicating the *x*-coordinate of the point corresponding to the given datum. The *x*-accessor may also be defined as a constant number rather than a function, if desired.
 
 <a name="quadtree_y" href="#quadtree_y">#</a> <i>quadtree</i>.<b>y</b>([<i>y</i>])
 
@@ -80,7 +75,7 @@ function y(d) {
 }
 ```
 
-For each point added to the quadtree, either during [initial construction](#_quadtree) or lazily [added](#root_add), the *y*-accessor is invoked, being passed the current datum `d` and index `i`. The *y*-accessor must then return a numeric value indicating the *y*-coordinate of the point corresponding to the given datum. The *y*-accessor may also be defined as a constant number rather than a function, if desired.
+For each point added to the quadtree, the *y*-accessor is invoked, being passed the current datum `d` and index `i`. The *y*-accessor must then return a numeric value indicating the *y*-coordinate of the point corresponding to the given datum. The *y*-accessor may also be defined as a constant number rather than a function, if desired.
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([<i>extent</i>])
 
