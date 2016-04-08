@@ -1,3 +1,5 @@
+import Leaf from "./leaf";
+
 export default function(point) {
   if (isNaN(x = point[0]) || isNaN(y = point[1])) return; // ignore invalid points
 
@@ -51,7 +53,11 @@ export default function(point) {
   if (!(point0 = parent.point)) return void (parent[i] = new Leaf(point));
 
   // If the new point is exactly coincident with the specified point, add it.
-  if (x === point0[0] && y === point0[1]) return append(parent, point);
+  if (x === point0[0] && y === point0[1]) {
+    point.next = point0;
+    parent.point = point;
+    return;
+  }
 
   // Otherwise, split the leaf node until the old and new point are separated.
   parent = grandparent[i0] = new Array(4);
@@ -64,13 +70,4 @@ export default function(point) {
 
   parent[i0] = new Leaf(point0);
   parent[i] = new Leaf(point);
-}
-
-function Leaf(point) {
-  this.point = point;
-}
-
-function append(leaf, point) {
-  point.next = leaf.point;
-  leaf.point = point;
 }
