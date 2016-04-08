@@ -1,5 +1,3 @@
-var maxDepth = 64;
-
 export default function(point) {
   if (isNaN(x = point[0]) || isNaN(y = point[1])) return; // ignore invalid points
 
@@ -7,7 +5,6 @@ export default function(point) {
       node = this._root,
       parent0,
       parent,
-      depth = 0,
       x,
       y,
       xm,
@@ -70,7 +67,7 @@ export default function(point) {
   do {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-    parent0 = parent, parent = node, node = node[i0 = i, i = bottom << 1 | right], ++depth;
+    parent0 = parent, parent = node, node = node[i0 = i, i = bottom << 1 | right];
   } while (node);
 
   // If the new point is in an empty node, just add it.
@@ -82,7 +79,6 @@ export default function(point) {
   // Otherwise, split the leaf node until the old and new point are separated.
   parent = parent0[i0] = new Array(4);
   while (i === (i0 = (point0[1] >= ym) << 1 | (point0[0] >= xm))) {
-    if (++depth > maxDepth) return void (point.next = point0, parent[i] = new Leaf(point));
     parent = parent[i] = new Array(4);
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
