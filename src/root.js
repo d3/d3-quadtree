@@ -1,5 +1,6 @@
-import add from "./add";
-import {eachAfter, eachBefore} from "./each";
+import root_add from "./add";
+import root_eachAfter from "./eachAfter";
+import root_eachBefore from "./eachBefore";
 // import root_find from "./find";
 
 export default function Root() {
@@ -11,7 +12,7 @@ export default function Root() {
 }
 
 var rootProto = Root.prototype;
-rootProto.add = add;
-rootProto.eachAfter = eachAfter;
-rootProto.eachBefore = eachBefore;
+rootProto.add = root_add;
+rootProto.eachAfter = root_eachAfter;
+rootProto.eachBefore = root_eachBefore;
 // rootProto.find = root_find;
