@@ -7,7 +7,8 @@ function Node(node, x0, y0, x1, y1) {
 }
 
 export default function(callback) {
-  var queue = [new Node(this, this.x0, this.y0, this.x1, this.y1)], q, node, x0, y0, x1, y1;
+  var queue = [], q, node, x0, y0, x1, y1;
+  if (this._root) queue.push(new Node(this._root, this._x0, this._y0, this._x1, this._y1));
   while (q = queue.pop()) {
     if (!callback(node = q.node, x0 = q.x0, y0 = q.y0, x1 = q.x1, y1 = q.y1)) {
       var xm = (x0 + x1) / 2, ym = (y0 + y1) / 2;
