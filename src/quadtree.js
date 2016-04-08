@@ -14,8 +14,13 @@ export default function() {
       y = defaultY;
 
   function quadtree(data) {
-    var d, i, n = data.length, root = new Root;
-    for (i = 0; i < n; ++i) root.add(x(d = data[i], i, data), y(d, i, data), d);
+    var d, i, n = data.length, p, root = new Root;
+    for (i = 0; i < n; ++i) {
+      p = [+x(d = data[i], i, data), +y(d, i, data)];
+      p.data = data;
+      p.index = i;
+      root.add(p);
+    }
     return root;
   }
 
