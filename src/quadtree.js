@@ -33,8 +33,8 @@ export default function() {
 
     for (i = 0; i < n; ++i) {
       xi = +x(d = data[i], i, data), yi = +y(d, i, data);
-      if (!(x0 < xi && xi <= x1 && y0 < yi && yi <= y1)) continue;
-      p = [xi, yi], p.data = data, p.index = i;
+      if (x0 > xi || xi >= x1 || y0 > yi || yi >= y1) continue;
+      p = [xi, yi], p.data = d, p.index = i;
       root.add(p);
     }
 

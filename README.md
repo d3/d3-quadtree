@@ -69,7 +69,7 @@ If *extent* is specified, sets the current extent and returns this quadtree gene
 
 If *size* is specified, sets the current extent and returns this quadtree generator. The *size* must be specified as a two-element array of numbers [[​*x1*, *y1*]​], where *x1* and *y1* are the exclusive upper bounds, or null; the lower bounds of the extent are implicitly ⟨0,0⟩. If *size* is not specified, returns the current upper bounds of the extent, which defaults to null. When the extent is not null, any point outside the extent is ignored when [constructing the quadtree](#_quadtree).
 
-This is a convenience method for setting the [extent](#quadtree_extent) when the lower bounds of the extent are ⟨0,0⟩. For example, this:
+This is a convenience method for setting the [extent](#quadtree_extent) where the lower bounds of the extent are ⟨0,0⟩. For example, this:
 
 ```js
 quadtree.size([960, 500]);

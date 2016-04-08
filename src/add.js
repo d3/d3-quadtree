@@ -27,40 +27,23 @@ export default function(point) {
   }
 
   // If the new point is outside the existing bounds of the tree…
-  if (x0 > x || x >= x1 || y0 > y || y >= y1) {
+  if (x0 > x || x > x1 || y0 > y || y > y1) {
 
-    // If the tree only contains coincident points so far…
-    // If the points have the same x-coordinate but different y,
-    // the bounds are squarified, so this tests exact coincidence!
-    if (x0 === x1) {
-
-      // If the root point is coincident with the new point, just add it.
-      if (x === x0 && y === y0) return append(this._root, point);
-
-      // Otherwise expand the tree to cover the first non-coincident point.
-      xm = Math.max(Math.abs(x0 - x), Math.abs(y0 - y));
-      if (right = x > x0) this._x1 = x0 + xm; else this._x0 = x1 - xm;
-      if (bottom = y > y0) this._y1 = y0 + xm; else this._y0 = y1 - xm;
-      this._root = new Array(4);
-      this._root[i = bottom << 1 | right] = new Leaf(point);
-      this._root[3 - i] = node;
-      return;
-    }
-
+    // If the tree contains only coincident points so far,
+    // expand the tree to cover this first non-coincident point.
     // Otherwise, double the size of the root until the new point fits.
-    xm = x1 - x0;
+    xm = x0 === x1 ? Math.max(Math.abs(x0 - x), Math.abs(y0 - y)) : (x1 - x0) * 2;
+
     switch (i = (y < (y0 + y1) / 2) << 1 | (x < (x0 + x1) / 2)) {
-      case 0: do parent = new Array(4), parent[i] = node, node = parent, x1 = x0 + (xm *= 2), y1 = y0 + xm; while (x >= x1 || y >= y1); break;
-      case 1: do parent = new Array(4), parent[i] = node, node = parent, x0 = x1 - (xm *= 2), y1 = y0 + xm; while (x0 > x || y >= y1); break;
-      case 2: do parent = new Array(4), parent[i] = node, node = parent, x1 = x0 + (xm *= 2), y0 = y1 - xm; while (x >= x1 || y0 > y); break;
-      case 3: do parent = new Array(4), parent[i] = node, node = parent, x0 = x1 - (xm *= 2), y0 = y1 - xm; while (x0 > x || y0 > y); break;
+      case 0: do parent = new Array(4), parent[i] = node, node = parent, x1 = x0 + xm, y1 = y0 + xm, xm *= 2; while (x > x1 || y > y1); break;
+      case 1: do parent = new Array(4), parent[i] = node, node = parent, x0 = x1 - xm, y1 = y0 + xm, xm *= 2; while (x0 > x || y > y1); break;
+      case 2: do parent = new Array(4), parent[i] = node, node = parent, x1 = x0 + xm, y0 = y1 - xm, xm *= 2; while (x > x1 || y0 > y); break;
+      case 3: do parent = new Array(4), parent[i] = node, node = parent, x0 = x1 - xm, y0 = y1 - xm, xm *= 2; while (x0 > x || y0 > y); break;
     }
 
-    node[3 - i] = new Leaf(point);
     this._root = node;
     this._x0 = x0, this._x1 = x1;
     this._y0 = y0, this._y1 = y1;
-    return;
   }
 
   // Find the appropriate leaf node for the new point.
