@@ -28,11 +28,11 @@ var quadtree = d3_quadtree.quadtree();
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>()
 
-Creates a new [quadtree generator](#_quadtree) with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The returned generator can be used to create any number of quadtrees from data.
+Creates a new quadtree generator with the default [*x*-accessor](#quadtree_x), [*y*-accessor](#quadtree_y) and [extent](#quadtree_extent). The returned generator can be used to [create](#_quadtree) any number of quadtree roots from data.
 
 <a name="_quadtree" href="#_quadtree">#</a> <i>quadtree</i>(<i>data</i>)
 
-Constructs a new quadtree for the specified array of *data*, returning the [root](#quadtreeRoot). The *x*- and *y*-coordinates of each data point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors; each point in the quadtree is presented as a two-element array of numbers [*x*, *y*] with the following additional properties:
+Constructs a new [quadtree root](#quadtreeRoot) for the specified array of *data*, returning the [root](#quadtreeRoot). The *x*- and *y*-coordinates of each data point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors; each point in the quadtree is presented as a two-element array of numbers [*x*, *y*] with the following additional properties:
 
 * `data` - the datum associated with this node.
 * `index` - the index of the datum associated with this node.
