@@ -38,14 +38,9 @@ export default function(x, y, data) {
     if (x0 === x1) {
 
       // If the root point is coincident with the new point, just add it.
-      if (x === x0 && y === y0) {
-        point.next = this._root.point;
-        this._root.point = point;
-        return;
-      }
+      if (x === x0 && y === y0) return append(this._root, point);
 
-      // Otherwise wrap expand the tree to cover the first non-coincident point,
-      // making sure that the bounds are squarified.
+      // Otherwise expand the tree to cover the first non-coincident point.
       xm = Math.max(Math.abs(x0 - x), Math.abs(y0 - y));
       if (right = x > x0) this._x1 = x0 + xm; else this._x0 = x1 - xm;
       if (bottom = y > y0) this._y1 = y0 + xm; else this._y0 = y1 - xm;
@@ -72,24 +67,17 @@ export default function(x, y, data) {
   }
 
   // Find the appropriate leaf node for the new point.
-  while (node) {
+  do {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
     parent = node, node = node[i = bottom << 1 | right], ++depth;
-  }
+  } while (node);
 
   // If the new point is in an empty node, just add it.
-  if (!(point0 = parent.point)) {
-    parent[i] = leaf(point);
-    return;
-  }
+  if (!(point0 = parent.point)) return void (parent[i] = leaf(point));
 
   // If the new point is exactly coincident with the specified point, add it.
-  if (x === point0[0] && y === point0[1]) {
-    point.next = point0;
-    parent.point = point;
-    return;
-  }
+  if (x === point0[0] && y === point0[1]) return append(parent, point);
 
   // Otherwise, split the leaf node until the old and new point are separated.
   parent.point = undefined;
@@ -98,11 +86,7 @@ export default function(x, y, data) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
     i = bottom << 1 | right;
-    if (++depth > maxDepth) {
-      point.next = point0;
-      parent.point = point;
-      return;
-    }
+    if (++depth > maxDepth) return append(parent, point);
   }
 
   parent[i0] = leaf(point0);
@@ -113,4 +97,9 @@ function leaf(point) {
   var node = new Array(4);
   node.point = point;
   return node;
+}
+
+function append(leaf, point) {
+  point.next = leaf.point;
+  leaf.point = point;
 }
