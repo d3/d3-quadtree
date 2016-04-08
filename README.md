@@ -32,7 +32,7 @@ Creates a new quadtree generator with the default [*x*-accessor](#quadtree_x), [
 
 <a name="_quadtree" href="#_quadtree">#</a> <i>quadtree</i>(<i>data</i>)
 
-Constructs a new [quadtree root](#quadtreeRoot) for the specified array of *data*, returning the [root](#quadtreeRoot). The *x*- and *y*-coordinates of each data point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors; each point in the quadtree is represented as a two-element array of numbers [*x*, *y*] with the following additional properties:
+Constructs a new [quadtree root node](#quadtree-nodes) for the specified array of *data*. The *x*- and *y*-coordinates of each data point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors; each point in the quadtree is represented as a two-element array of numbers [*x*, *y*] with the following additional properties:
 
 * `data` - the datum associated with this node.
 * `index` - the index of the datum associated with this node.
@@ -81,7 +81,7 @@ Is equivalent to this:
 quadtree.extent([[0, 0], [960, 500]]);
 ```
 
-### Quadtree Roots
+### Quadtree Nodes
 
 Internal nodes of the quadtree are represented as sparse four-element arrays in left-to-right, top-to-bottom order:
 
