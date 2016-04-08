@@ -81,21 +81,7 @@ Is equivalent to this:
 quadtree.extent([[0, 0], [960, 500]]);
 ```
 
-<a name="quadtreeRoot" href="#quadtreeRoot">#</a> d3.<b>quadtreeRoot</b>()
-
-…
-
-<a name="root_add" href="#root_add">#</a> <i>root</i>.<b>add</b>(<i>point</i>)
-
-Adds the specified new *point* to this quadtree and returns *root*. The point must be represented as a two-element array of numbers [*x*, *y*].
-
-<a name="root_find" href="#root_find">#</a> <i>root</i>.<b>find</b>(<i>x</i>, <i>y</i>)
-
-Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree.
-
-<a name="root_each" href="#root_each">#</a> <i>root</i>.<b>each</b>(<i>callback</i>)
-
-Visits each node in this quadtree in pre-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
+### Quadtree Roots
 
 Internal nodes of the quadtree are represented as sparse four-element arrays in left-to-right, top-to-bottom order:
 
@@ -109,3 +95,19 @@ Leaf nodes of the quadtree are represent as objects with the following property:
 * `point` - a two-element array of numbers [*x*, *y*]
 
 If there are multiple coincident points in the quadtree, then *point*.next forms a linked list of coincident points.
+
+<a name="root_add" href="#root_add">#</a> <i>root</i>.<b>add</b>(<i>point</i>)
+
+Adds the specified new *point* to this quadtree and returns *root*. The point must be represented as a two-element array of numbers [*x*, *y*].
+
+<a name="root_find" href="#root_find">#</a> <i>root</i>.<b>find</b>(<i>x</i>, <i>y</i>)
+
+Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree.
+
+<a name="root_eachBefore" href="#root_eachBefore">#</a> <i>root</i>.<b>eachBefore</b>(<i>callback</i>)
+
+Visits each node in this quadtree in pre-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*. If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited.
+
+<a name="root_eachAfter" href="#root_eachAfter">#</a> <i>root</i>.<b>eachAfter</b>(<i>callback</i>)
+
+Visits each node in this quadtree in post-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*.
