@@ -1,6 +1,5 @@
 import constant from "./constant";
 import Node from "./node";
-import Point from "./point";
 import Root from "./root";
 
 var maxDepth = 64;
@@ -24,6 +23,7 @@ export default function() {
   function quadtree(data) {
     var d, i, n = data.length,
         points = new Array(n),
+        point,
         xi, yi,
         x0a = x0,
         y0a = y0,
@@ -33,7 +33,9 @@ export default function() {
     // Compute the points and the bounds.
     for (i = 0; i < n; ++i) {
       if (isNaN(xi = +x(d = data[i], i, data)) || isNaN(yi = +y(d, i, data))) continue;
-      points[i] = new Point(xi, yi, d, i);
+      points[i] = point = [xi, yi];
+      point.data = d;
+      point.index = i;
       x0a = Math.min(x0a, xi), x1a = Math.max(x1a, xi);
       y0a = Math.min(y0a, yi), y1a = Math.max(y1a, yi);
     }
@@ -67,7 +69,7 @@ function add(node, point) {
   var point0,
       parent,
       depth = 0,
-      x = point.x, y = point.y, xm, ym,
+      x = point[0], y = point[1], xm, ym,
       x0 = node.x0, x1 = node.x1,
       y0 = node.y0, y1 = node.y1,
       right,
@@ -87,7 +89,7 @@ function add(node, point) {
 
   // Otherwise, split the leaf node until the old and new point are separated.
   parent.point = undefined;
-  while (i === (i0 = (point0.y >= ym) << 1 | (point0.x >= xm))) {
+  while (i === (i0 = (point0[1] >= ym) << 1 | (point0[0] >= xm))) {
     parent = parent[i] = new Node;
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
