@@ -33,8 +33,8 @@ export default function(x, y, data) {
   if (x0 > x || x >= x1 || y0 > y || y >= y1) {
 
     // If the tree only contains coincident points so far…
-    // Note that if the points have the same x-coordinate but different y,
-    // the bounds are squarified, and this tests exact coincidence!
+    // If the points have the same x-coordinate but different y,
+    // the bounds are squarified, so this tests exact coincidence!
     if (x0 === x1) {
 
       // If the root point is coincident with the new point, just add it.
@@ -56,8 +56,6 @@ export default function(x, y, data) {
     }
 
     // Otherwise, double the size of the root until the new point fits.
-    // TODO If this creates a tree deeper than the maximum depth,
-    // collapse all the points below the given depth to a linked list.
     xm = x1 - x0;
     switch (i = (y < (y0 + y1) / 2) << 1 | (x < (x0 + x1) / 2)) {
       case 0: do parent = new Array(4), parent[i] = node, node = parent, x1 = x0 + (xm *= 2), y1 = y0 + xm; while (x >= x1 || y >= y1); break;
@@ -81,7 +79,10 @@ export default function(x, y, data) {
   }
 
   // If the new point is in an empty node, just add it.
-  if (!(point0 = parent.point)) return parent[i] = leaf(point);
+  if (!(point0 = parent.point)) {
+    parent[i] = leaf(point);
+    return;
+  }
 
   // If the new point is exactly coincident with the specified point, add it.
   if (x === point0[0] && y === point0[1]) {
@@ -97,7 +98,11 @@ export default function(x, y, data) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
     i = bottom << 1 | right;
-    if (++depth > maxDepth) return point.next = point0, parent.point = point;
+    if (++depth > maxDepth) {
+      point.next = point0;
+      parent.point = point;
+      return;
+    }
   }
 
   parent[i0] = leaf(point0);
