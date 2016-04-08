@@ -32,7 +32,7 @@ Creates a new quadtree generator with the default [*x*-accessor](#quadtree_x), [
 
 <a name="_quadtree" href="#_quadtree">#</a> <i>quadtree</i>(<i>data</i>)
 
-Constructs a new [quadtree root](#quadtreeRoot) for the specified array of *data*, returning the [root](#quadtreeRoot). The *x*- and *y*-coordinates of each data point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors; each point in the quadtree is presented as a two-element array of numbers [*x*, *y*] with the following additional properties:
+Constructs a new [quadtree root](#quadtreeRoot) for the specified array of *data*, returning the [root](#quadtreeRoot). The *x*- and *y*-coordinates of each data point are determined using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors; each point in the quadtree is represented as a two-element array of numbers [*x*, *y*] with the following additional properties:
 
 * `data` - the datum associated with this node.
 * `index` - the index of the datum associated with this node.
@@ -63,11 +63,13 @@ For each point added to the quadtree, the *y*-accessor is invoked, being passed 
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([<i>extent</i>])
 
-If *extent* is specified, sets the current extent and returns this quadtree generator. The *extent* must be specified as a two-dimensional array [​[*x0*, *y0*], [​*x1*, *y1*]​], where *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the exclusive upper bounds. If *extent* is not specified, returns the current extent, which defaults to null. When the extent is not null, any point outside the extent is ignored when [constructing the quadtree](#_quadtree).
+If *extent* is specified, sets the current extent and returns this quadtree generator. The *extent* must be specified as a two-dimensional array [​[*x0*, *y0*], [​*x1*, *y1*]​], where *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the exclusive upper bounds, or null. If *extent* is not specified, returns the current extent, which defaults to null. When the extent is not null, any point outside the extent is ignored when [constructing the quadtree](#_quadtree).
 
 <a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>([<i>size</i>])
 
-A convenience method for setting the [extent](#quadtree_extent) where the minimum *x* and *y* of the extent are ⟨0,0⟩. For example, this:
+If *size* is specified, sets the current extent and returns this quadtree generator. The *size* must be specified as a two-element array of numbers [[​*x1*, *y1*]​], where *x1* and *y1* are the exclusive upper bounds, or null; the lower bounds of the extent are implicitly ⟨0,0⟩. If *size* is not specified, returns the current upper bounds of the extent, which defaults to null. When the extent is not null, any point outside the extent is ignored when [constructing the quadtree](#_quadtree).
+
+This is a convenience method for setting the [extent](#quadtree_extent) when the lower bounds of the extent are ⟨0,0⟩. For example, this:
 
 ```js
 quadtree.size([960, 500]);
