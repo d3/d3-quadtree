@@ -3,8 +3,8 @@ export default function(point) {
 
   var point0,
       node = this._root,
-      parent0,
       parent,
+      grandparent,
       x,
       y,
       xm,
@@ -44,7 +44,7 @@ export default function(point) {
   do {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-    parent0 = parent, parent = node, node = node[i0 = i, i = bottom << 1 | right];
+    grandparent = parent, parent = node, node = node[i0 = i, i = bottom << 1 | right];
   } while (node);
 
   // If the new point is in an empty node, just add it.
@@ -54,7 +54,7 @@ export default function(point) {
   if (x === point0[0] && y === point0[1]) return append(parent, point);
 
   // Otherwise, split the leaf node until the old and new point are separated.
-  parent = parent0[i0] = new Array(4);
+  parent = grandparent[i0] = new Array(4);
   while (i === (i0 = (point0[1] >= ym) << 1 | (point0[0] >= xm))) {
     parent = parent[i] = new Array(4);
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
