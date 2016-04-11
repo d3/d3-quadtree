@@ -7,18 +7,15 @@ export default function(point) {
       node = this._root,
       parent,
       grandparent,
-      x,
-      y,
-      xm,
-      ym,
-      x0 = this._x0,
-      y0 = this._y0,
-      x1 = this._x1,
-      y1 = this._y1,
+      x, y,
+      xm, ym,
+      xp, yp,
+      x0 = this._x0, y0 = this._y0,
+      x1 = this._x1, y1 = this._y1,
       right,
       bottom,
       i,
-      i0;
+      j;
 
   // If the tree is empty, initialize the root as a leaf.
   if (!node) {
@@ -46,28 +43,30 @@ export default function(point) {
   do {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-    grandparent = parent, parent = node, node = node[i0 = i, i = bottom << 1 | right];
-  } while (node);
+  } while (grandparent = parent, parent = node, node = node[j = i, i = bottom << 1 | right]);
 
   // If the new point is in an empty node, just add it.
-  if (!(point0 = parent.point)) return void (parent[i] = new Leaf(point));
+  if (!(point0 = parent.point)) {
+    parent[i] = new Leaf(point);
+    return;
+  }
 
   // If the new point is exactly coincident with the specified point, add it.
-  if (x === point0[0] && y === point0[1]) {
+  if (xp = point0[0], yp = point0[1], x === xp && y === yp) {
     point.next = point0;
     parent.point = point;
     return;
   }
 
   // Otherwise, split the leaf node until the old and new point are separated.
-  parent = grandparent[i0] = new Array(4);
-  while (i === (i0 = (point0[1] >= ym) << 1 | (point0[0] >= xm))) {
+  node = parent, parent = grandparent[j] = new Array(4);
+  while (i === (j = (yp >= ym) << 1 | (xp >= xm))) {
     parent = parent[i] = new Array(4);
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
     i = bottom << 1 | right;
   }
 
-  parent[i0] = new Leaf(point0);
   parent[i] = new Leaf(point);
+  parent[j] = node;
 }
