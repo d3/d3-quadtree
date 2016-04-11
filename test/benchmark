@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+var d3_array = require("d3-array"),
+    d3_quadtree = require("../");
+
+var points = d3_array.range(2e5)
+    .map(function() { return {x: Math.random(), y: Math.random()}; });
+
+var quadtree = d3_quadtree.quadtree()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; });
+
+for (var sum = 0, i = 0; i < 10; ++i) {
+  var start = now();
+  var root = quadtree(points);
+  var end = now();
+  sum += end - start;
+}
+console.log("create", Math.round(sum / 10));
+
+for (var sum = 0, i = 0; i < 10; ++i) {
+  var start = now();
+  root.eachBefore(function(node, x0, y0, x1, y1) {});
+  var end = now();
+  sum += end - start;
+}
+console.log("iterate", Math.round(sum / 10));
+
+function now() {
+  var now = process.hrtime();
+  return now[0] * 1e3 + now[1] / 1e6;
+}
