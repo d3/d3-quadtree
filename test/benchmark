@@ -3,28 +3,32 @@
 var d3_array = require("d3-array"),
     d3_quadtree = require("../");
 
-var points = d3_array.range(2e5)
-    .map(function() { return {x: Math.random(), y: Math.random()}; });
+var points = d3_array.range(1000000)
+    .map(function() { return [Math.random() * 100, Math.random() * 100]; });
 
-var quadtree = d3_quadtree.quadtree()
-    .x(function(d) { return d.x; })
-    .y(function(d) { return d.y; });
+var points2 = points
+    .map(function(p) { return [p[0] + Math.random() - 0.5, p[1] + Math.random() - 0.5]; });
 
-for (var sum = 0, i = 0; i < 10; ++i) {
-  var start = now();
-  var root = quadtree(points);
-  var end = now();
-  sum += end - start;
+var quadtree = d3_quadtree.quadtree(); // blech
+
+var start = now();
+var root = quadtree([]); // blech
+for (var j = 0, n = points.length; j < n; ++j) root.add(points[j]);
+var end = now();
+console.log("create", Math.round(end - start));
+
+var start = now();
+root.eachBefore(function(node, x0, y0, x1, y1) {});
+var end = now();
+console.log("iterate", Math.round(end - start));
+
+var start = now();
+for (var j = 0, n = points.length; j < n; ++j) {
+  root.remove(points[j]);
+  root.add(points2[j]);
 }
-console.log("create", Math.round(sum / 10));
-
-for (var sum = 0, i = 0; i < 10; ++i) {
-  var start = now();
-  root.eachBefore(function(node, x0, y0, x1, y1) {});
-  var end = now();
-  sum += end - start;
-}
-console.log("iterate", Math.round(sum / 10));
+var end = now();
+console.log("update", Math.round(end - start));
 
 function now() {
   var now = process.hrtime();

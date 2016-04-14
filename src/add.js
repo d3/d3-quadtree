@@ -1,7 +1,7 @@
 import Leaf from "./leaf";
 
 export default function(point) {
-  if (isNaN(x = point[0]) || isNaN(y = point[1])) return; // ignore invalid points
+  if (isNaN(x = +point[0]) || isNaN(y = +point[1])) return this; // ignore invalid points
 
   var point0,
       node = this._root,
@@ -22,7 +22,7 @@ export default function(point) {
     this._root = new Leaf(point);
     this._x0 = this._x1 = x;
     this._y0 = this._y1 = y;
-    return;
+    return this;
   }
 
   // Expand the tree to cover the new point, if necessary.
@@ -46,27 +46,24 @@ export default function(point) {
   } while (grandparent = parent, parent = node, node = node[j = i, i = bottom << 1 | right]);
 
   // If the new point is in an empty node, just add it.
-  if (!(point0 = parent.point)) {
-    parent[i] = new Leaf(point);
-    return;
-  }
+  if (!(point0 = parent.point)) parent[i] = new Leaf(point);
 
-  // If the new point is exactly coincident with the specified point, add it.
-  if (xp = point0[0], yp = point0[1], x === xp && y === yp) {
-    point.next = point0;
-    parent.point = point;
-    return;
-  }
+  // Or if the new point is exactly coincident with the specified point, add it.
+  else if (xp = point0[0], yp = point0[1], x === xp && y === yp) point.next = point0, parent.point = point;
 
   // Otherwise, split the leaf node until the old and new point are separated.
-  node = parent, parent = grandparent[j] = new Array(4);
-  while (i === (j = (yp >= ym) << 1 | (xp >= xm))) {
-    parent = parent[i] = new Array(4);
-    if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
-    if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-    i = bottom << 1 | right;
+  else {
+    node = parent, parent = grandparent[j] = new Array(4);
+    while (i === (j = (yp >= ym) << 1 | (xp >= xm))) {
+      parent = parent[i] = new Array(4);
+      if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
+      if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
+      i = bottom << 1 | right;
+    }
+
+    parent[i] = new Leaf(point);
+    parent[j] = node;
   }
 
-  parent[i] = new Leaf(point);
-  parent[j] = node;
+  return this;
 }
