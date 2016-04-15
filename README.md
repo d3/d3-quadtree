@@ -65,7 +65,7 @@ If the specified point is outside the current bounds of this quadtree, this quad
 
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
-Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree.
+Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree. If this quadtree is empty, returns undefined.
 
 <a name="quadtree_visit" href="#quadtree_visit">#</a> <i>quadtree</i>.<b>visit</b>(<i>callback</i>)
 
