@@ -16,7 +16,7 @@ var end = now();
 console.log("create", Math.round(end - start));
 
 var start = now();
-root.eachBefore(function(node, x0, y0, x1, y1) {});
+root.visit(function(node, x0, y0, x1, y1) {});
 var end = now();
 console.log("iterate", Math.round(end - start));
 
