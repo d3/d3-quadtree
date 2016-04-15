@@ -5,6 +5,7 @@ import tree_find from "./find";
 import tree_remove from "./remove";
 
 export default function quadtree(x0, y0, x1, y1) {
+  if (arguments.length === 2) x1 = x0, y1 = y0, x0 = y0 = 0;
   return new Quadtree(x0, y0, x1, y1);
 }
 
