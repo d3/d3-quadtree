@@ -1,10 +1,8 @@
 export default function(point) {
   if (isNaN(x = +point.x) || isNaN(y = +point.y)) return this; // ignore invalid points
 
-  var point0,
-      node = this._root,
+  var node = this._root,
       parent,
-      grandparent,
       x, y,
       xm, ym,
       xp, yp,
@@ -42,7 +40,7 @@ export default function(point) {
   while (node.x == null) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-    if (grandparent = parent, parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = point, this;
+    if (parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = point, this;
   }
 
   // If the new point is exactly coincident with the specified point, add it.

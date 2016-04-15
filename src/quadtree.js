@@ -1,6 +1,6 @@
 import tree_add from "./add";
-import tree_eachAfter from "./eachAfter";
-import tree_eachBefore from "./eachBefore";
+import tree_visit from "./visit";
+import tree_visitAfter from "./visitAfter";
 import tree_find from "./find";
 import tree_remove from "./remove";
 
@@ -19,7 +19,7 @@ function Quadtree(x0, y0, x1, y1) {
 
 var treeProto = Quadtree.prototype = quadtree.prototype;
 treeProto.add = tree_add;
-treeProto.eachAfter = tree_eachAfter;
-treeProto.eachBefore = tree_eachBefore;
+treeProto.visit = tree_visit;
+treeProto.visitAfter = tree_visitAfter;
 treeProto.find = tree_find;
 treeProto.remove = tree_remove;
