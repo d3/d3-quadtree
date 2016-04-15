@@ -24,16 +24,16 @@ export default function(x, y) {
     // Stop searching if this quadrant can’t contain a closer node.
     if (!node || x1 > x3 || y1 > y3 || x2 < x0 || y2 < y0) continue;
 
-    // Visit this point.
-    if (node.point) {
-      var dx = x - node.point[0],
-          dy = y - node.point[1],
+    // Visit this point. (Visiting coincident points isn’t necessary!)
+    if (node.x != null) {
+      var dx = x - node.x,
+          dy = y - node.y,
           d2 = dx * dx + dy * dy;
       if (d2 < minDistance2) {
         var d = Math.sqrt(minDistance2 = d2);
         x0 = x - d, y0 = y - d;
         x3 = x + d, y3 = y + d;
-        minPoint = node.point;
+        minPoint = node;
       }
     }
 

@@ -1,61 +1,25 @@
-import constant from "./constant";
-import Root from "./root";
+import tree_add from "./add";
+import tree_eachAfter from "./eachAfter";
+import tree_eachBefore from "./eachBefore";
+import tree_find from "./find";
+import tree_remove from "./remove";
 
-function defaultX(d) {
-  return d[0];
+export default function quadtree(x0, y0, x1, y1) {
+  return new Quadtree(x0, y0, x1, y1);
 }
 
-function defaultY(d) {
-  return d[1];
+function Quadtree(x0, y0, x1, y1) {
+  var dx = (x1 = +x1) - (x0 = +x0), dy = (y1 = +y1) - (y0 = +y0);
+  if (dy > dx) x1 = (x0 -= (dy - dx) / 2) + dy;
+  else y1 = (y0 -= (dx - dy) / 2) + dx;
+  this._x0 = x0, this._y0 = y0;
+  this._x1 = x1, this._y1 = y1;
+  this._root = isNaN(dx) || isNaN(dy) ? null : new Array(4);
 }
 
-export default function() {
-  var x = defaultX,
-      y = defaultY,
-      ox,
-      oy,
-      l;
-
-  function quadtree(data) {
-    var d, i, n = data.length, p,
-        xi, yi,
-        x0 = -Infinity,
-        y0 = -Infinity,
-        x1 = Infinity,
-        y1 = Infinity,
-        root = new Root;
-
-    if (ox != null) {
-      root._root = new Array(4);
-      root._x0 = x0 = ox, root._x1 = x1 = ox + l;
-      root._y0 = y0 = oy, root._y1 = y1 = oy + l;
-    }
-
-    for (i = 0; i < n; ++i) {
-      xi = +x(d = data[i], i, data), yi = +y(d, i, data);
-      if (x0 > xi || xi >= x1 || y0 > yi || yi >= y1) continue;
-      p = [xi, yi], p.data = d, p.index = i;
-      root.add(p);
-    }
-
-    return root;
-  }
-
-  quadtree.x = function(_) {
-    return arguments.length ? (x = typeof _ === "function" ? _ : constant(+_), quadtree) : x;
-  };
-
-  quadtree.y = function(_) {
-    return arguments.length ? (y = typeof _ === "function" ? _ : constant(+_), quadtree) : y;
-  };
-
-  quadtree.extent = function(_) {
-    return arguments.length ? (_ == null ? ox = oy = l = null : (ox = +_[0][0], oy = +_[0][1], l = Math.max(_[1][0] - ox, _[1][1] - oy)), quadtree) : ox == null ? null : [[ox, oy], [ox + l, oy + l]];
-  };
-
-  quadtree.size = function(_) {
-    return arguments.length ? (_ == null ? ox = oy = l = null : (ox = oy = 0, l = Math.max(+_[0], +_[1])), quadtree) : ox == null ? null : [l, l];
-  };
-
-  return quadtree;
-}
+var treeProto = Quadtree.prototype = quadtree.prototype;
+treeProto.add = tree_add;
+treeProto.eachAfter = tree_eachAfter;
+treeProto.eachBefore = tree_eachBefore;
+treeProto.find = tree_find;
+treeProto.remove = tree_remove;

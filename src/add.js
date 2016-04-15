@@ -1,7 +1,5 @@
-import Leaf from "./leaf";
-
 export default function(point) {
-  if (isNaN(x = +point[0]) || isNaN(y = +point[1])) return this; // ignore invalid points
+  if (isNaN(x = +point.x) || isNaN(y = +point.y)) return this; // ignore invalid points
 
   var point0,
       node = this._root,
@@ -19,7 +17,7 @@ export default function(point) {
 
   // If the tree is empty, initialize the root as a leaf.
   if (!node) {
-    this._root = new Leaf(point);
+    this._root = point;
     this._x0 = this._x1 = x;
     this._y0 = this._y1 = y;
     return this;
@@ -40,30 +38,29 @@ export default function(point) {
   }
 
   // Find the appropriate leaf node for the new point.
-  do {
+  // If there is no leaf node, add it.
+  while (node.x == null) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-  } while (grandparent = parent, parent = node, node = node[j = i, i = bottom << 1 | right]);
-
-  // If the new point is in an empty node, just add it.
-  if (!(point0 = parent.point)) parent[i] = new Leaf(point);
-
-  // Or if the new point is exactly coincident with the specified point, add it.
-  else if (xp = point0[0], yp = point0[1], x === xp && y === yp) point.next = point0, parent.point = point;
-
-  // Otherwise, split the leaf node until the old and new point are separated.
-  else {
-    node = parent, parent = grandparent[j] = new Array(4);
-    while (i === (j = (yp >= ym) << 1 | (xp >= xm))) {
-      parent = parent[i] = new Array(4);
-      if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
-      if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-      i = bottom << 1 | right;
-    }
-
-    parent[i] = new Leaf(point);
-    parent[j] = node;
+    if (grandparent = parent, parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = point, this;
   }
 
+  // If the new point is exactly coincident with the specified point, add it.
+  if (xp = node.x, yp = node.y, x === xp && y === yp) {
+    point.next = node;
+    if (parent) parent[i] = point;
+    else this._root = point;
+    return this;
+  }
+
+  // Otherwise, split the leaf node until the old and new point are separated.
+  do {
+    parent = parent[i] = new Array(4);
+    if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
+    if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
+  } while ((i = bottom << 1 | right) === (j = (yp >= ym) << 1 | (xp >= xm)));
+
+  parent[i] = point;
+  parent[j] = node;
   return this;
 }

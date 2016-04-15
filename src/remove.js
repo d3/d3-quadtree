@@ -4,7 +4,7 @@ export default function(point) {
       point0,
       point1,
       xm, ym,
-      x = +point[0], y = +point[1],
+      x = +point.x, y = +point.y,
       x0 = this._x0, y0 = this._y0,
       x1 = this._x1, y1 = this._y1,
       right,

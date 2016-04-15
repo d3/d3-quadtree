@@ -4,15 +4,13 @@ var d3_array = require("d3-array"),
     d3_quadtree = require("../");
 
 var points = d3_array.range(1000000)
-    .map(function() { return [Math.random() * 100, Math.random() * 100]; });
+    .map(function() { return {x: Math.random() * 100, y: Math.random() * 100}; });
 
 var points2 = points
-    .map(function(p) { return [p[0] + Math.random() - 0.5, p[1] + Math.random() - 0.5]; });
-
-var quadtree = d3_quadtree.quadtree(); // blech
+    .map(function(p) { return {x: p.x + Math.random() - 0.5, y: p.y + Math.random() - 0.5}; });
 
 var start = now();
-var root = quadtree([]); // blech
+var root = d3_quadtree.quadtree();
 for (var j = 0, n = points.length; j < n; ++j) root.add(points[j]);
 var end = now();
 console.log("create", Math.round(end - start));
