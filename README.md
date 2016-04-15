@@ -59,9 +59,9 @@ The quadtree may assign the following properties to points:
 
 * `next` - the next point in this quadrant, if any
 
-Currently, the *point*.next property is only assigned for exactly-coincident points, but this may be relaxed in the future.
+Currently, the *point*.next property is only assigned for exactly coincident points. However, this may be relaxed in the future.
 
-If the specified point is outside of the current bounds, the quadtree is expanded by repeatedly doubling its width and height until the new point is contained by the quadtree; otherwise, the point is added to the appropriate place in the existing tree.
+If the specified point is outside the current bounds of this quadtree, this quadtree is expanded by repeatedly doubling its width and height until the new point is contained.
 
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
