@@ -1,8 +1,7 @@
 export default function(point) {
   var parent,
       node = this._root,
-      point0,
-      point1,
+      previous,
       xm, ym,
       x = +point.x, y = +point.y,
       x0 = this._x0, y0 = this._y0,
@@ -15,20 +14,20 @@ export default function(point) {
   if (!node) return false;
 
   // Find the leaf node for the point.
-  while (!(point1 = node.point)) {
+  while (node.x == null) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
     if (!(parent = node, node = node[i = bottom << 1 | right])) return false;
   }
 
   // Find the point to remove.
-  while (point1 !== point) {
-    if (!(point0 = point1, point1 = point1.next)) return false;
+  while (node !== point) {
+    if (!(previous = node, node = node.next)) return false;
   }
 
   // Remove the point, or the leaf if it’s the only point.
-  if (point0) { if (point.next) point0.next = point.next; else delete point0.next; }
-  else if (point.next) { node.point = point.next; delete point.next; }
-  else delete parent[i];
+  if (previous) { if (node.next) previous.next = node.next, delete node.next; else delete previous.next; }
+  else if (node.next) { if (parent) parent[i] = node.next; else this._root = node.next; delete node.next; }
+  else if (parent) delete parent[i]; else this._root = null;
   return true;
 }
