@@ -3,6 +3,7 @@ export default function(point) {
 
   var node = this._root,
       parent,
+      point0,
       x, y,
       xm, ym,
       xp, yp,
@@ -18,7 +19,7 @@ export default function(point) {
 
   // If the tree is empty, initialize the root as a leaf.
   if (!node) {
-    this._root = point;
+    this._root = {point: point};
     this._x0 = this._x1 = x;
     this._y0 = this._y1 = y;
     return this;
@@ -40,17 +41,17 @@ export default function(point) {
 
   // Find the appropriate leaf node for the new point.
   // If there is no leaf node, add it.
-  while (node.x == null) {
+  while (!(point0 = node.point)) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
-    if (parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = point, this;
+    if (parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = {point: point}, this;
   }
 
   // If the new point is exactly coincident with the specified point, add it.
-  if (xp = node.x, yp = node.y, x === xp && y === yp) {
-    point.next = node;
-    if (parent) parent[i] = point;
-    else this._root = point;
+  if (xp = point0.x, yp = point0.y, x === xp && y === yp) {
+    node = {point: point, next: node};
+    if (parent) parent[i] = node;
+    else this._root = node;
     return this;
   }
 
@@ -61,7 +62,7 @@ export default function(point) {
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
   } while ((i = bottom << 1 | right) === (j = (yp >= ym) << 1 | (xp >= xm)));
 
-  parent[i] = point;
+  parent[i] = {point: point};
   parent[j] = node;
   return this;
 }

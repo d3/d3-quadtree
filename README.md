@@ -38,6 +38,8 @@ var q = d3.quadtree(0, 0, 960, 500);
 var q = d3.quadtree(0, -230, 960, 730);
 ```
 
+If an added point is outside the current bounds of this quadtree, this quadtree is expanded by repeatedly doubling its width and height until the new point is contained.
+
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>point</i>)
 
 Adds the specified new *point* to this quadtree and returns this *quadtree*. The point must have the following properties:
@@ -55,14 +57,6 @@ var q = d3.quadtree(960, 500)
     .add({x: 100, y: 100});
 ```
 
-The quadtree may assign the following properties to points:
-
-* `next` - the next point in this quadrant, if any
-
-Currently, the *point*.next property is only assigned for exactly coincident points. However, this may be relaxed in the future.
-
-If the specified point is outside the current bounds of this quadtree, this quadtree is expanded by repeatedly doubling its width and height until the new point is contained.
-
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
 Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree. If this quadtree is empty, returns undefined.
@@ -71,17 +65,24 @@ Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree. If this
 
 Visits each node in this quadtree in pre-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns this quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.)
 
-Internal nodes of the quadtree are represented as sparse four-element arrays in left-to-right, top-to-bottom order:
+Internal nodes of the quadtree are represented as four-element arrays in left-to-right, top-to-bottom order:
 
-* `0` - the top-left quadrant
-* `1` - the top-right quadrant
-* `2` - the bottom-left quadrant
-* `3` - the bottom-right quadrant
+* `0` - the top-left quadrant, if any
+* `1` - the top-right quadrant, if any
+* `2` - the bottom-left quadrant, if any
+* `3` - the bottom-right quadrant, if any
 
-Leaf nodes are simply point objects, as passed to [*quadtree*.add](#quadtree_add).
+Each child quadrant may be undefined if the specified quadrant is empty.
+
+Leaf nodes are represented as objects with the following properties:
+
+* `point` - the point, as passed to [*quadtree*.add](#quadtree_add)
+* `next` - the next point in this leaf, if any
 
 If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited. This can be used to quickly visit only parts of the tree, for example when using the [Barnes–Hut approximation](https://en.wikipedia.org/wiki/Barnes–Hut_simulation). Note, however, that child quadrants are always visited in sibling order: top-left, top-right, bottom-left, bottom-right. In cases such as [search](#quadtree_find), visiting siblings in a specific order may be faster.
 
 <a name="quadtree_visitAfter" href="#quadtree_visitAfter">#</a> <i>root</i>.<b>visitAfter</b>(<i>callback</i>)
 
 Visits each node in this quadtree in post-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns this quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*.
+
+See [*quadtree*.visit](#quadtree_visit) for a description of the *node* data structure.

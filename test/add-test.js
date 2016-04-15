@@ -13,10 +13,10 @@ tape("quadtree.add(point) adds the specified point to the quadtree and returns t
     _x1: 1,
     _y1: 1,
     _root: [
-      {x: 0, y: 0},
-      {x: 1, y: 0},
-      {x: 0, y: 1},
-      {x: 1, y: 1}
+      {point: {x: 0, y: 0}},
+      {point: {x: 1, y: 0}},
+      {point: {x: 0, y: 1}},
+      {point: {x: 1, y: 1}}
     ]
   });
   test.end();
@@ -95,9 +95,9 @@ tape("quadtree.add(point) handles coincident points by creating a linked list", 
     _x1: 1,
     _y1: 1,
     _root: [
-      {x: 0, y: 0},
-      {x: 1, y: 0},
-      {x: 0, y: 1, next: {x: 0, y: 1}},
+      {point: {x: 0, y: 0}},
+      {point: {x: 1, y: 0}},
+      {point: {x: 0, y: 1}, next: {point: {x: 0, y: 1}}},
     ]
   });
   test.end();
@@ -110,7 +110,7 @@ tape("quadtree.add(point) implicitly defines trivial bounds for the first point"
     _y0: 2,
     _x1: 1,
     _y1: 2,
-    _root: {x: 1, y: 2}
+    _root: {point: {x: 1, y: 2}}
   });
   test.end();
 });

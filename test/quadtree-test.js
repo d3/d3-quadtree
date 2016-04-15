@@ -10,7 +10,7 @@ tape("d3.quadtree() creates an empty quadtree", function(test) {
   test.ok(isNaN(q._y0));
   test.ok(isNaN(q._x1));
   test.ok(isNaN(q._y1));
-  test.equal(q._root, null);
+  test.equal(q._root, undefined);
   test.end();
 });
 

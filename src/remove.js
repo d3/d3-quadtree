@@ -14,18 +14,18 @@ export default function(point) {
   if (!node) return false;
 
   // Find the leaf node for the point.
-  while (node.x == null) {
+  while (!node.point) {
     if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
     if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
     if (!(parent = node, node = node[i = bottom << 1 | right])) return false;
   }
 
   // Find the point to remove.
-  while (node !== point) if (!(previous = node, node = node.next)) return false;
+  while (node.point !== point) if (!(previous = node, node = node.next)) return false;
 
   // Remove the point, or the leaf if it’s the only point.
-  if (previous) { if (node.next) previous.next = node.next, delete node.next; else delete previous.next; }
-  else if (node.next) { if (parent) parent[i] = node.next; else this._root = node.next; delete node.next; }
-  else if (parent) delete parent[i]; else this._root = null;
+  if (previous) previous.next = node.next;
+  else if (parent) parent[i] = node.next;
+  else this._root = node.next;
   return true;
 }
