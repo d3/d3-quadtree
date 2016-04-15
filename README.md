@@ -30,7 +30,7 @@ var quadtree = d3_quadtree.quadtree();
 
 Creates a new, empty quadtree with the initial bounds *x0*, *y0*, *x1*, *y1*, where *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the inclusive upper bounds. If bounds are not specified, the bounds will be inferred as points are [added](#quadtree_add) to the quadtree.
 
-If only the upper bounds *x1* and *y1* are specified, the lower bounds *x0* and *y0* are assumed to be 0. If the specified bounds are not square, the shorter side is expanded to produce square bounds, while retaining the original center. Thus, the follow statements are therefore equivalent:
+If only the upper bounds *x1* and *y1* are specified, the lower bounds *x0* and *y0* are assumed to be 0. If the specified bounds are not square, the shorter side is expanded to produce square bounds while retaining the original center. Thus, the follow statements are therefore equivalent:
 
 ```js
 var q = d3.quadtree(960, 500);
