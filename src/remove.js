@@ -21,9 +21,7 @@ export default function(point) {
   }
 
   // Find the point to remove.
-  while (node !== point) {
-    if (!(previous = node, node = node.next)) return false;
-  }
+  while (node !== point) if (!(previous = node, node = node.next)) return false;
 
   // Remove the point, or the leaf if it’s the only point.
   if (previous) { if (node.next) previous.next = node.next, delete node.next; else delete previous.next; }
