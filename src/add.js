@@ -13,6 +13,9 @@ export default function(point) {
       i,
       j;
 
+  // Check if this point was previously in a quadtree!
+  if (point.next) delete point.next;
+
   // If the tree is empty, initialize the root as a leaf.
   if (!node) {
     this._root = point;

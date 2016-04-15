@@ -45,7 +45,17 @@ Adds the specified new *point* to this quadtree and returns this *quadtree*. The
 * `x` - the *x*-coordinate of the point
 * `y` - the *y*-coordinate of the point
 
-In addition, the quadtree *may* assign the following properties to points:
+By returning this quadtree, this method allows [method chaining](https://en.wikipedia.org/wiki/Method_chaining). For example:
+
+```js
+var q = d3.quadtree(960, 500)
+    .add({x:   0, y:   0})
+    .add({x: 100, y:   0})
+    .add({x:   0, y: 100})
+    .add({x: 100, y: 100});
+```
+
+The quadtree may assign the following properties to points:
 
 * `next` - the next point in this quadrant, if any
 
