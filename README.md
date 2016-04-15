@@ -28,7 +28,15 @@ var quadtree = d3_quadtree.quadtree();
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([[<i>x0</i>, <i>y0</i>, ]<i>x1</i>, <i>y1</i>])
 
-Creates a new, empty quadtree with the initial bounds *x0*, *y0*, *x1*, *y1*, where *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the inclusive upper bounds. If bounds are not specified, the bounds will be inferred as points are [added](#quadtree_add) to the quadtree; if a point is added to the quadtree outside of the current bounds, the quadtree is expanded by repeatedly doubling its width and height until the new point is contained.
+Creates a new, empty quadtree with the initial bounds *x0*, *y0*, *x1*, *y1*, where *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the inclusive upper bounds. If bounds are not specified, the bounds will be inferred as points are [added](#quadtree_add) to the quadtree.
+
+If only the upper bounds *x1* and *y1* are specified, the lower bounds *x0* and *y0* are assumed to be 0. If the specified bounds are not square, the shorter side is expanded to produce square bounds, while retaining the original center. Thus, the follow statements are therefore equivalent:
+
+```js
+var q = d3.quadtree(960, 500);
+var q = d3.quadtree(0, 0, 960, 500);
+var q = d3.quadtree(0, -230, 960, 730);
+```
 
 Internal nodes of the quadtree are represented as sparse four-element arrays in left-to-right, top-to-bottom order:
 
@@ -41,7 +49,7 @@ Leaf nodes are simply point objects, as passed to [*quadtree*.add](#quadtree_add
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>point</i>)
 
-Adds the specified new *point* to this quadtree and returns *quadtree*. The point must have the following properties:
+Adds the specified new *point* to this quadtree and returns *quadtree*. If the specified point is outside of the current bounds, the quadtree is expanded by repeatedly doubling its width and height until the new point is contained by the quadtree; otherwise, the point is added to the appropriate place in the existing tree. The point must have the following properties:
 
 * `x` - the *x*-coordinate of the point
 * `y` - the *y*-coordinate of the point
