@@ -57,6 +57,12 @@ var q = d3.quadtree(960, 500)
     .add({x: 100, y: 100});
 ```
 
+The *point*.x and *point*.y properties **must not change** while the *point* is in the quadtree. To update a point’s position, first [remove](#quadtree_remove) the point, then update its position, and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
+
+<a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
+
+Removes the specified *point* from this quadtree, returning true if the point was removed or false if this quadtree did not contain the specified point.
+
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
 Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree. If this quadtree is empty, returns undefined.
