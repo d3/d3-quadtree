@@ -15,7 +15,7 @@ function Quadtree(x0, y0, x1, y1) {
   else y1 = (y0 -= (dx - dy) / 2) + dx;
   this._x0 = x0, this._y0 = y0;
   this._x1 = x1, this._y1 = y1;
-  this._root = isNaN(dx) || isNaN(dy) ? undefined : new Array(4);
+  this._root = undefined;
 }
 
 var treeProto = Quadtree.prototype = quadtree.prototype;

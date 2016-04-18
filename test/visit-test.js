@@ -46,9 +46,9 @@ tape("quadtree.visit(callback) on an empty quadtree with no bounds does nothing"
   test.end();
 });
 
-tape("quadtree.visit(callback) on an empty quadtree with bounds visits the root quadrant", function(test) {
+tape("quadtree.visit(callback) on an empty quadtree with bounds does nothing", function(test) {
   var results = [], q = d3_quadtree.quadtree(960, 960);
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
-  test.deepEqual(results, [[0, 0, 960, 960]]);
+  test.deepEqual(results.length, 0);
   test.end();
 });
