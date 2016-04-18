@@ -10,3 +10,4 @@ extends:
 
 rules:
     no-cond-assign: 0
+    no-constant-condition: 0

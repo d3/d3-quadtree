@@ -53,12 +53,7 @@ tape("quadtree.remove(point) removes a non-root point in the quadtree and return
     _y0: 0,
     _x1: 1,
     _y1: 1,
-    _root: [
-      undefined,
-      ,
-      ,
-      {point: {x: 1, y: 1}}
-    ]
+    _root: {point: {x: 1, y: 1}}
   });
   test.deepEqual(p0, {x: 0, y: 0});
   test.deepEqual(p1, {x: 1, y: 1});
@@ -73,12 +68,7 @@ tape("quadtree.remove(point) removes another non-root point in the quadtree and 
     _y0: 0,
     _x1: 1,
     _y1: 1,
-    _root: [
-      {point: {x: 0, y: 0}},
-      ,
-      ,
-      undefined
-    ]
+    _root: {point: {x: 0, y: 0}}
   });
   test.deepEqual(p0, {x: 0, y: 0});
   test.deepEqual(p1, {x: 1, y: 1});
