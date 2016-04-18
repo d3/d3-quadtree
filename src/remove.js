@@ -39,7 +39,7 @@ export default function(point) {
 
   // If the parent now contains exactly one leaf, collapse superfluous parents.
   if ((node = parent[0] || parent[1] || parent[2] || parent[3])
-      && (node === parent[3] || parent[2] || parent[1] || parent[0])
+      && node === (parent[3] || parent[2] || parent[1] || parent[0])
       && node.point) {
     if (retainer) retainer[j] = node;
     else this._root = node;
