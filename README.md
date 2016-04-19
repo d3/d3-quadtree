@@ -114,6 +114,5 @@ Leaf nodes are represented as objects with the following properties:
 For example, to iterate over all points in a leaf node:
 
 ```js
-if (node.point) do console.log(node.point);
-while (node = node.next)
+if (node.point) do console.log(node.point); while (node = node.next)
 ```
