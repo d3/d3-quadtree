@@ -44,7 +44,7 @@ Returns the root [node](#nodes) of the quadtree.
 
 <a name="quadtree_cover" href="#quadtree_cover">#</a> <i>quadtree</i>.<b>cover</b>(<i>x</i>, <i>y</i>)
 
-Expands this quadtree to enclose the specified point ⟨*x*,*y*⟩, and returns this quadtree.
+Expands this quadtree to enclose the specified point ⟨*x*,*y*⟩, and returns this quadtree. If this quadtree’s extent already encloses the specified point, this method does nothing. If this quadtree has a defined and non-trivial extent, the extent is repeatedly doubled to enclose the specified point, wrapping the [root node](#quadtree_root) as necessary; if this quadtree has trivial bounds, *i.e.* if the lower bound ⟨*x0*,*y0*⟩ and upper bound ⟨*x1*,*y1*⟩ are coincident, the extent is expanded to enclose the specified point exactly; otherwise, if the quadtree has no extent, the extent is initialized to the trivial extent [[*x*, *y*], [*x*, *y*]].
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>point</i>)
 
