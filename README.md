@@ -58,7 +58,7 @@ Expands this quadtree to enclose the specified point ⟨*x*,*y*⟩, and returns 
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>point</i>)
 
-Adds the specified new *point* to this quadtree and returns this *quadtree*. If the specified point is outside the current [extent](#quadtree_extent) of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point. The point must have the following properties:
+Adds the specified new *point* to this quadtree and returns this *quadtree*. If the specified point is outside the current [extent](#quadtree_extent) of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point. The point must be a two-dimensional array of numbers [*x*, *y*] or an object with the following properties:
 
 * `0` - the *x*-coordinate of the point
 * `1` - the *y*-coordinate of the point
