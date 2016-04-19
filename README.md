@@ -74,6 +74,10 @@ The *point*.x and *point*.y properties **must not change** while the *point* is 
 
 Removes the specified *point* from this quadtree, returning true if the point was removed or false if this quadtree did not contain the specified point.
 
+<a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
+
+Returns a copy of this quadtree. All [nodes](#nodes) in the returned quadtree are identical copies of the corresponding node in this quadtree; however, the point objects are shared between the original and the copy.
+
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
 Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree. If this quadtree is empty, returns undefined.

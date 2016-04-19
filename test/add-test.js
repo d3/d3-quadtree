@@ -43,8 +43,7 @@ tape("quadtree.add(point) handles points being to the top of the quadtree bounds
   var results = [], q = d3_quadtree.quadtree(2, 2).add({x: 1, y: -1});
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
-    [0, -2, 4, 2],
-    [0, -2, 2, 0]
+    [0, -2, 4, 2]
   ]);
   test.end();
 });
@@ -53,8 +52,7 @@ tape("quadtree.add(point) handles points being to the right of the quadtree boun
   var results = [], q = d3_quadtree.quadtree(2, 2).add({x: 3, y: 1});
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
-    [0, 0, 4, 4],
-    [2, 0, 4, 2]
+    [0, 0, 4, 4]
   ]);
   test.end();
 });
@@ -63,8 +61,7 @@ tape("quadtree.add(point) handles points being to the bottom of the quadtree bou
   var results = [], q = d3_quadtree.quadtree(2, 2).add({x: 1, y: 3});
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
-    [0, 0, 4, 4],
-    [0, 2, 2, 4]
+    [0, 0, 4, 4]
   ]);
   test.end();
 });
@@ -73,8 +70,7 @@ tape("quadtree.add(point) handles points being to the left of the quadtree bound
   var results = [], q = d3_quadtree.quadtree(2, 2).add({x: -1, y: 1});
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
-    [-2, 0, 2, 4],
-    [-2, 0, 0, 2]
+    [-2, 0, 2, 4]
   ]);
   test.end();
 });
