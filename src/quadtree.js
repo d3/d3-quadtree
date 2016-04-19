@@ -8,16 +8,12 @@ import tree_root from "./root";
 import tree_size from "./size";
 import tree_visit from "./visit";
 import tree_visitAfter from "./visitAfter";
-import tree_x, {defaultX} from "./x";
-import tree_y, {defaultY} from "./y";
 
 export default function quadtree() {
-  return new Quadtree(defaultX, defaultY);
+  return new Quadtree;
 }
 
-function Quadtree(x, y, x0, y0, x1, y1) {
-  this._x = x;
-  this._y = y;
+function Quadtree(x0, y0, x1, y1) {
   this._x0 = +x0;
   this._y0 = +y0;
   this._x1 = +x1;
@@ -26,28 +22,28 @@ function Quadtree(x, y, x0, y0, x1, y1) {
 }
 
 function leaf_copy(leaf) {
-  var copy = {x: leaf.x, y: leaf.y}, next = copy;
-  while (leaf = leaf.next) next = next.next = {x: leaf.x, y: leaf.y};
+  var copy = [leaf[0], leaf[1]], next = copy;
+  while (leaf = leaf.next) next = next.next = [leaf[0], leaf[1]];
   return copy;
 }
 
 var treeProto = quadtree.prototype = Quadtree.prototype;
 
 treeProto.copy = function() {
-  var copy = new Quadtree(this._x, this._y, this._x0, this._y0, this._x1, this._y1),
+  var copy = new Quadtree(this._x0, this._y0, this._x1, this._y1),
       node = this._root,
       nodes,
       child;
 
   if (!node) return copy;
 
-  if (!node.length) return copy._root = leaf_copy(node), copy;
+  if (node.length === 2) return copy._root = leaf_copy(node), copy;
 
   nodes = [{source: node, target: copy._root = new Array(4)}];
   while (node = nodes.pop()) {
     for (var i = 0; i < 4; ++i) {
       if (child = node.source[i]) {
-        if (child.length) nodes.push({source: child, target: node.target[i] = new Array(4)});
+        if (child.length === 4) nodes.push({source: child, target: node.target[i] = new Array(4)});
         else node.target[i] = leaf_copy(child);
       }
     }
@@ -66,5 +62,3 @@ treeProto.root = tree_root;
 treeProto.size = tree_size;
 treeProto.visit = tree_visit;
 treeProto.visitAfter = tree_visitAfter;
-treeProto.x = tree_x;
-treeProto.y = tree_y;

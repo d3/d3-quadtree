@@ -3,15 +3,11 @@
 var d3_array = require("d3-array"),
     d3_quadtree = require("../");
 
-var points = d3_array.range(1000000)
-    .map(function() { return [Math.random() * 100, Math.random() * 100]; });
-
-var points2 = points
-    .map(function(p) { return [p[0] + Math.random() - 0.5, p[1] + Math.random() - 0.5]; });
+var n = 1000000, points = new Array(n);
 
 var start = now();
-var root = d3_quadtree.quadtree();
-for (var j = 0, n = points.length; j < n; ++j) root.add(points[j]);
+var root = d3_quadtree.quadtree().extent([[0, 0], [100, 100]]);
+for (var j = 0; j < n; ++j) points[j] = root.add(Math.random() * 99, Math.random() * 99);
 var end = now();
 console.log("create", Math.round(end - start));
 
@@ -21,9 +17,8 @@ var end = now();
 console.log("iterate", Math.round(end - start));
 
 var start = now();
-for (var j = 0, n = points.length; j < n; ++j) {
-  root.remove(points[j]);
-  root.add(points2[j]);
+for (var j = 0, p; j < n; ++j) {
+  root.remove(p = points[j]), root.add(p[0] + Math.random(), p[1] + Math.random());
 }
 var end = now();
 console.log("update", Math.round(end - start));

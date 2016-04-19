@@ -38,7 +38,7 @@ export default function(x, y) {
           break;
         }
       }
-      if (this._root && this._root.length) this._root = node;
+      if (this._root && this._root.length === 4) this._root = node;
     }
 
     // Otherwise, just expand and squarify the bounds.

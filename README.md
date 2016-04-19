@@ -28,31 +28,7 @@ var quadtree = d3_quadtree.quadtree();
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>()
 
-Creates a new, empty quadtree with the default [*x*-accessor](#quadtree_x) and [*y*-accessor](#quadtree_y) and an empty [extent](#quadtree_extent).
-
-<a name="quadtree_x" href="#quadtree_x">#</a> <i>quadtree</i>.<b>x</b>([<i>x</i>])
-
-If *x* is specified, sets this quadtree’s *x*-coordinate accessor to the specified function or constant and returns this quadtree. If *x* is not specified, returns the current *x*-accessor, which defaults to:
-
-```js
-function x(d) {
-  return d[0];
-}
-```
-
-The accessor is passed any arguments passed to [*quadtree*.add](#quadtree_add) to compute the *x*-coordinate of the added point.
-
-<a name="quadtree_y" href="#quadtree_y">#</a> <i>quadtree</i>.<b>y</b>([<i>y</i>])
-
-If *y* is specified, sets this quadtree’s *y*-coordinate accessor to the specified function or constant and returns this quadtree. If *y* is not specified, returns the current *y*-accessor, which defaults to:
-
-```js
-function y(d) {
-  return d[1];
-}
-```
-
-The accessor is passed any arguments passed to [*quadtree*.add](#quadtree_add) to compute the *y*-coordinate of the added point.
+Creates a new, empty quadtree with an empty [extent](#quadtree_extent).
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([*extent*])
 
@@ -66,11 +42,9 @@ Returns the root [node](#nodes) of the quadtree.
 
 Expands this quadtree to cover the specified point ⟨*x*,*y*⟩, and returns this quadtree. If this quadtree’s extent already covers the specified point, this method does nothing. If this quadtree has a defined and non-trivial extent, the extent is repeatedly doubled to cover the specified point, wrapping the [root node](#quadtree_root) as necessary; if this quadtree has trivial bounds, *i.e.* if the lower bound ⟨*x0*,*y0*⟩ and upper bound ⟨*x1*,*y1*⟩ are coincident, the extent is expanded to cover the specified point exactly; otherwise, if the quadtree has no extent, the extent is initialized to the trivial extent [[*x*, *y*], [*x*, *y*]].
 
-<a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>arguments…</i>)
+<a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>x</i>, <i>y</i>)
 
-Adds a new point ⟨*x*,*y*⟩ to this quadtree by invoking the [*x*-accessor](#quadtree_x) and [*y*-accessor](#quadtree_y) with the specified arguments. Returns the new point.
-
-If the new point is outside the current [extent](#quadtree_extent) of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
+Creates a new point ⟨*x*,*y*⟩, adds it to this quadtree, and returns the new point. If the new point is outside the current [extent](#quadtree_extent) of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
@@ -113,16 +87,16 @@ Internal nodes of the quadtree are represented as four-element arrays in left-to
 
 A child quadrant may be undefined if it is empty.
 
-Leaf nodes are represented as a linked-list of point objects with the following properties:
+Leaf nodes are represented as two-element arrays of numbers representing each point:
 
-* `x` - the *x*-coordinate of the point, as computed by the [*x*-accessor](#quadtree_x)
-* `y` - the *y*-coordinate of the point, as computed by the [*y*-accessor](#quadtree_y)
+* `0` - the *x*-coordinate of the point, as computed by the [*x*-accessor](#quadtree_x)
+* `1` - the *y*-coordinate of the point, as computed by the [*y*-accessor](#quadtree_y)
 * `next` - the next point in this leaf, if any
 
-The `length` property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and has the value 4 for internal nodes. For example, to iterate over all points in a leaf node:
+The `length` property may be used to distinguish leaf nodes from internal nodes: it is 2 for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
 
 ```js
-if (!node.length) do console.log(node); while (node = node.next)
+if (node.length === 2) do console.log(node); while (node = node.next)
 ```
 
-The point’s *x*- and *y*-coordinates **must not be modified** while the point is in the quadtree. To update a point’s position, [remove](#quadtree_remove) the point and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch.
+The point’s *x*- and *y*-coordinates **must not be modified** while the point is in the quadtree. To update a point’s position, [remove](#quadtree_remove) the point and then re-add it to the quadtree at the new position. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.

@@ -25,9 +25,9 @@ export default function(x, y) {
     if (!node || x1 > x3 || y1 > y3 || x2 < x0 || y2 < y0) continue;
 
     // Visit this point. (Visiting coincident points isn’t necessary!)
-    if (!node.length) {
-      var dx = x - node.x,
-          dy = y - node.y,
+    if (node.length === 2) {
+      var dx = x - node[0],
+          dy = y - node[1],
           d2 = dx * dx + dy * dy;
       if (d2 < minDistance2) {
         var d = Math.sqrt(minDistance2 = d2);
