@@ -11,7 +11,8 @@ export default function quadtree(x0, y0, x1, y1) {
 
 function Quadtree(x0, y0, x1, y1) {
   var dx = (x1 = +x1) - (x0 = +x0), dy = (y1 = +y1) - (y0 = +y0);
-  if (dy > dx) x1 = (x0 -= (dy - dx) / 2) + dy;
+  if (!(dx >= 0 && dy >= 0)) x0 = y0 = x1 = y1 = NaN;
+  else if (dy > dx) x1 = (x0 -= (dy - dx) / 2) + dy;
   else y1 = (y0 -= (dx - dy) / 2) + dx;
   this.x0 = x0, this.y0 = y0;
   this.x1 = x1, this.y1 = y1;

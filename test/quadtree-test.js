@@ -52,3 +52,25 @@ tape("d3.quadtree(x0, y0, x1, y1) squarifies and centers the specified bounds", 
   test.equal(q.root, undefined);
   test.end();
 });
+
+tape("d3.quadtree(x0, y0, x1, y1) has undefined bounds if any value is NaN", function(test) {
+  var q;
+  test.ok((q = d3_quadtree.quadtree(NaN, 2, 3, 6), isNaN(q.x0) && isNaN(q.y0) && isNaN(q.x1) && isNaN(q.y1)));
+  test.ok((q = d3_quadtree.quadtree(1, NaN, 3, 6), isNaN(q.x0) && isNaN(q.y0) && isNaN(q.x1) && isNaN(q.y1)));
+  test.ok((q = d3_quadtree.quadtree(1, 2, NaN, 6), isNaN(q.x0) && isNaN(q.y0) && isNaN(q.x1) && isNaN(q.y1)));
+  test.ok((q = d3_quadtree.quadtree(1, 2, 3, NaN), isNaN(q.x0) && isNaN(q.y0) && isNaN(q.x1) && isNaN(q.y1)));
+  test.end();
+});
+
+tape("d3.quadtree(x0, y0, x1, y1) has undefined bounds if y0 > y1 or x0 > x1", function(test) {
+  var q;
+  test.ok((q = d3_quadtree.quadtree(3, 2, 1, 6), isNaN(q.x0) && isNaN(q.y0) && isNaN(q.x1) && isNaN(q.y1)));
+  test.ok((q = d3_quadtree.quadtree(1, 6, 3, 2), isNaN(q.x0) && isNaN(q.y0) && isNaN(q.x1) && isNaN(q.y1)));
+  test.end();
+});
+
+tape("d3.quadtree(x0, y0, x1, y1) has empty bounds if y0 === y1 and x0 === x1", function(test) {
+  var q;
+  test.deepEqual((q = d3_quadtree.quadtree(1, 2, 1, 2), [q.x0, q.y0, q.x1, q.y1]), [1, 2, 1, 2]);
+  test.end();
+});
