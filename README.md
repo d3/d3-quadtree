@@ -32,7 +32,7 @@ Creates a new, empty quadtree with an empty [extent](#quadtree_extent).
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([*extent*])
 
-If *extent* is specified, the quadtree is expanded to cover the specified points [[*x0*, *y0*], [*x1*, *y1*]], and the quadtree is returned. If *extent* is not specified, returns the quadtree’s current extent [[*x0*, *y0*], [*x1*, *y1*]], where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if the quadtree has no extent. The extent may be expanded automatically by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
+If *extent* is specified, expands the quadtree to [cover](#quadtree_cover) the specified points [[*x0*, *y0*], [*x1*, *y1*]] and returns the quadtree. If *extent* is not specified, returns the quadtree’s current extent [[*x0*, *y0*], [*x1*, *y1*]], where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if the quadtree has no extent. The extent may be expanded automatically by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
 
 <a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>()
 
