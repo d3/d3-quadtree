@@ -34,6 +34,16 @@ Creates a new, empty quadtree. If an *extent* [[*x0*, *y0*], [*x1*, *y1*]] is sp
 var q = d3.quadtree([[0, 0], [960, 960]]);
 ```
 
+Or, to add a few points using [method chaining](https://en.wikipedia.org/wiki/Method_chaining):
+
+```js
+var q = d3.quadtree([[0, 0], [960, 500]])
+    .add([  0,   0])
+    .add([100,   0])
+    .add([  0, 100])
+    .add([100, 100]);
+```
+
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>()
 
 Returns the current extent [[*x0*, *y0*], [*x1*, *y1*]] of this quadtree, where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if this quadtree has no extent. The extent may be initialized when the quadtree is [created](#quadtree), and is expanded by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
@@ -56,16 +66,6 @@ Adds the specified new *point* to this quadtree and returns this *quadtree*. The
 These properties **must not change** while the *point* is in the quadtree. To update a point’s position, first [remove](#quadtree_remove) the point, then update its position, and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
 
 If the specified point is outside the current bounds of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
-
-By returning this quadtree, this method allows [method chaining](https://en.wikipedia.org/wiki/Method_chaining). For example:
-
-```js
-var q = d3.quadtree([[0, 0], [960, 500]])
-    .add([  0,   0])
-    .add([100,   0])
-    .add([  0, 100])
-    .add([100, 100]);
-```
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
