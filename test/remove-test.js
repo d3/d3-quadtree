@@ -5,11 +5,11 @@ tape("quadtree.remove(point) removes the only point in the quadtree and returns 
   var p0 = {x: 1, y: 1}, q = d3_quadtree.quadtree().add(p0);
   test.equal(q.remove(p0), true);
   test.deepEqual(q, {
-    _x0: 1,
-    _y0: 1,
-    _x1: 1,
-    _y1: 1,
-    _root: undefined
+    x0: 1,
+    y0: 1,
+    x1: 1,
+    y1: 1,
+    root: undefined
   });
   test.deepEqual(p0, {x: 1, y: 1});
   test.end();
@@ -19,11 +19,11 @@ tape("quadtree.remove(point) removes a first coincident point at the root in the
   var p0 = {x: 1, y: 1}, p1 = {x: 1, y: 1}, q = d3_quadtree.quadtree().add(p0).add(p1);
   test.equal(q.remove(p0), true);
   test.deepEqual(q, {
-    _x0: 1,
-    _y0: 1,
-    _x1: 1,
-    _y1: 1,
-    _root: {point: {x: 1, y: 1}, next: undefined}
+    x0: 1,
+    y0: 1,
+    x1: 1,
+    y1: 1,
+    root: {point: {x: 1, y: 1}, next: undefined}
   });
   test.deepEqual(p0, {x: 1, y: 1});
   test.deepEqual(p1, {x: 1, y: 1});
@@ -34,11 +34,11 @@ tape("quadtree.remove(point) removes a first coincident point at the root in the
   var p0 = {x: 1, y: 1}, p1 = {x: 1, y: 1}, q = d3_quadtree.quadtree().add(p0).add(p1);
   test.equal(q.remove(p1), true);
   test.deepEqual(q, {
-    _x0: 1,
-    _y0: 1,
-    _x1: 1,
-    _y1: 1,
-    _root: {point: {x: 1, y: 1}}
+    x0: 1,
+    y0: 1,
+    x1: 1,
+    y1: 1,
+    root: {point: {x: 1, y: 1}}
   });
   test.deepEqual(p0, {x: 1, y: 1});
   test.deepEqual(p1, {x: 1, y: 1});
@@ -49,11 +49,11 @@ tape("quadtree.remove(point) removes a non-root point in the quadtree and return
   var p0 = {x: 0, y: 0}, p1 = {x: 1, y: 1}, q = d3_quadtree.quadtree().add(p0).add(p1);
   test.equal(q.remove(p0), true);
   test.deepEqual(q, {
-    _x0: 0,
-    _y0: 0,
-    _x1: 1,
-    _y1: 1,
-    _root: {point: {x: 1, y: 1}}
+    x0: 0,
+    y0: 0,
+    x1: 1,
+    y1: 1,
+    root: {point: {x: 1, y: 1}}
   });
   test.deepEqual(p0, {x: 0, y: 0});
   test.deepEqual(p1, {x: 1, y: 1});
@@ -64,11 +64,11 @@ tape("quadtree.remove(point) removes another non-root point in the quadtree and 
   var p0 = {x: 0, y: 0}, p1 = {x: 1, y: 1}, q = d3_quadtree.quadtree().add(p0).add(p1);
   test.equal(q.remove(p1), true);
   test.deepEqual(q, {
-    _x0: 0,
-    _y0: 0,
-    _x1: 1,
-    _y1: 1,
-    _root: {point: {x: 0, y: 0}}
+    x0: 0,
+    y0: 0,
+    x1: 1,
+    y1: 1,
+    root: {point: {x: 0, y: 0}}
   });
   test.deepEqual(p0, {x: 0, y: 0});
   test.deepEqual(p1, {x: 1, y: 1});
@@ -79,11 +79,11 @@ tape("quadtree.remove(point) ignores an point not in the quadtree and returns fa
   var p0 = {x: 0, y: 0}, p1 = {x: 1, y: 1}, q = d3_quadtree.quadtree().add(p0);
   test.equal(q.remove(p1), false);
   test.deepEqual(q, {
-    _x0: 0,
-    _y0: 0,
-    _x1: 0,
-    _y1: 0,
-    _root: {point: {x: 0, y: 0}}
+    x0: 0,
+    y0: 0,
+    x1: 0,
+    y1: 0,
+    root: {point: {x: 0, y: 0}}
   });
   test.end();
 });
@@ -92,11 +92,11 @@ tape("quadtree.remove(point) ignores a coincident point not in the quadtree and 
   var p0 = {x: 0, y: 0}, p1 = {x: 0, y: 0}, q = d3_quadtree.quadtree().add(p0);
   test.equal(q.remove(p1), false);
   test.deepEqual(q, {
-    _x0: 0,
-    _y0: 0,
-    _x1: 0,
-    _y1: 0,
-    _root: {point: {x: 0, y: 0}}
+    x0: 0,
+    y0: 0,
+    x1: 0,
+    y1: 0,
+    root: {point: {x: 0, y: 0}}
   });
   test.end();
 });
@@ -115,11 +115,11 @@ tape("quadtree.remove(point) removes another point in the quadtree and returns t
       .add({x: 529, y: 444});
   test.equal(q.remove(q.find(546, 440)), true);
   test.deepEqual(q, {
-    _x0: 0,
-    _y0: 0,
-    _x1: 959,
-    _y1: 959,
-    _root: [
+    x0: 0,
+    y0: 0,
+    x1: 959,
+    y1: 959,
+    root: [
       [
         ,
         ,

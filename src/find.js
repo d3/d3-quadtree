@@ -3,16 +3,16 @@ import Quad from "./quad";
 export default function(x, y) {
   var minDistance2 = Infinity,
       minPoint,
-      x0 = this._x0,
-      y0 = this._y0,
+      x0 = this.x0,
+      y0 = this.y0,
       x1,
       y1,
       x2,
       y2,
-      x3 = this._x1,
-      y3 = this._y1,
+      x3 = this.x1,
+      y3 = this.y1,
       quads = [],
-      node = this._root,
+      node = this.root,
       q,
       i;
 
