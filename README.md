@@ -36,7 +36,7 @@ var q = d3.quadtree([[0, 0], [960, 960]]);
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>()
 
-Returns the current extent [[*x0*, *y0*], [*x1*, *y1*]] of this quadtree, where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds. The extent may be initialized when the quadtree is [created](#quadtree), and is expanded by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add). The extent may be undefined, as when a new quadtree is created without specifying an extent.
+Returns the current extent [[*x0*, *y0*], [*x1*, *y1*]] of this quadtree, where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if this quadtree has no extent. The extent may be initialized when the quadtree is [created](#quadtree), and is expanded by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
 
 <a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>()
 
