@@ -19,15 +19,38 @@ export default function(x, y) {
   if (node) quads.push(new Quad(node, x0, y0, x3, y3));
 
   while (q = quads.pop()) {
-    node = q.node, x1 = q.x0, y1 = q.y0, x2 = q.x1, y2 = q.y1;
 
     // Stop searching if this quadrant can’t contain a closer node.
-    if (!node || x1 > x3 || y1 > y3 || x2 < x0 || y2 < y0) continue;
+    if (!(node = q.node)
+        || (x1 = q.x0) > x3
+        || (y1 = q.y0) > y3
+        || (x2 = q.x1) < x0
+        || (y2 = q.y1) < y0) continue;
+
+    // Bisect the current quadrant.
+    if (node.length) {
+      var xm = (x1 + x2) / 2,
+          ym = (y1 + y2) / 2;
+
+      quads.push(
+        new Quad(node[3], xm, ym, x2, y2),
+        new Quad(node[2], x1, ym, xm, y2),
+        new Quad(node[1], xm, y1, x2, ym),
+        new Quad(node[0], x1, y1, xm, ym)
+      );
+
+      // Visit the closest quadrant first.
+      if (i = (y >= ym) << 1 | (x >= xm)) {
+        q = quads[quads.length - 1];
+        quads[quads.length - 1] = quads[quads.length - 1 - i];
+        quads[quads.length - 1 - i] = q;
+      }
+    }
 
     // Visit this point. (Visiting coincident points isn’t necessary!)
-    if (node.length === 2) {
-      var dx = x - node[0],
-          dy = y - node[1],
+    else {
+      var dx = x - node.x,
+          dy = y - node.y,
           d2 = dx * dx + dy * dy;
       if (d2 < minDistance2) {
         var d = Math.sqrt(minDistance2 = d2);
@@ -35,24 +58,6 @@ export default function(x, y) {
         x3 = x + d, y3 = y + d;
         minPoint = node;
       }
-    }
-
-    // Bisect the current quadrant.
-    var xm = (x1 + x2) / 2,
-        ym = (y1 + y2) / 2;
-
-    quads.push(
-      new Quad(node[3], xm, ym, x2, y2),
-      new Quad(node[2], x1, ym, xm, y2),
-      new Quad(node[1], xm, y1, x2, ym),
-      new Quad(node[0], x1, y1, xm, ym)
-    );
-
-    // Visit the closest quadrant first.
-    if (i = (y >= ym) << 1 | (x >= xm)) {
-      q = quads[quads.length - 1];
-      quads[quads.length - 1] = quads[quads.length - 1 - i];
-      quads[quads.length - 1 - i] = q;
     }
   }
 

@@ -22,8 +22,8 @@ function Quadtree(x0, y0, x1, y1) {
 }
 
 function leaf_copy(leaf) {
-  var copy = [leaf[0], leaf[1]], next = copy;
-  while (leaf = leaf.next) next = next.next = [leaf[0], leaf[1]];
+  var copy = {x: leaf.x, y: leaf.y}, next = copy;
+  while (leaf = leaf.next) next = next.next = {x: leaf.x, y: leaf.y};
   return copy;
 }
 
@@ -37,13 +37,13 @@ treeProto.copy = function() {
 
   if (!node) return copy;
 
-  if (node.length === 2) return copy._root = leaf_copy(node), copy;
+  if (!node.length) return copy._root = leaf_copy(node), copy;
 
   nodes = [{source: node, target: copy._root = new Array(4)}];
   while (node = nodes.pop()) {
     for (var i = 0; i < 4; ++i) {
       if (child = node.source[i]) {
-        if (child.length === 4) nodes.push({source: child, target: node.target[i] = new Array(4)});
+        if (child.length) nodes.push({source: child, target: node.target[i] = new Array(4)});
         else node.target[i] = leaf_copy(child);
       }
     }

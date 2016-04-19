@@ -18,7 +18,7 @@ console.log("iterate", Math.round(end - start));
 
 var start = now();
 for (var j = 0, p; j < n; ++j) {
-  root.remove(p = points[j]), root.add(p[0] + Math.random(), p[1] + Math.random());
+  root.remove(p = points[j]), root.add(p.x + Math.random(), p.y + Math.random());
 }
 var end = now();
 console.log("update", Math.round(end - start));

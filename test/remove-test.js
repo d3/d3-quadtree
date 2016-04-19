@@ -7,7 +7,7 @@ tape("quadtree.remove(point) removes the only point in the quadtree and returns 
   test.equal(q.remove(p0), true);
   test.deepEqual(q.extent(), [[1, 1], [1, 1]]);
   test.deepEqual(q.root(), undefined);
-  test.deepEqual(p0, [1, 1]);
+  test.deepEqual(p0, {x: 1, y: 1});
   test.end();
 });
 
@@ -17,9 +17,9 @@ tape("quadtree.remove(point) removes a first coincident point at the root in the
       p1 = q.add(1, 1);
   test.equal(q.remove(p0), true);
   test.deepEqual(q.extent(), [[1, 1], [1, 1]]);
-  test.deepEqual(q.root(), [1, 1]);
-  test.deepEqual(p0, [1, 1]);
-  test.deepEqual(p1, [1, 1]);
+  test.equal(q.root(), p1);
+  test.deepEqual(p0, {x: 1, y: 1});
+  test.deepEqual(p1, {x: 1, y: 1});
   test.end();
 });
 
@@ -29,9 +29,9 @@ tape("quadtree.remove(point) removes another coincident point at the root in the
       p1 = q.add(1, 1);
   test.equal(q.remove(p1), true);
   test.deepEqual(q.extent(), [[1, 1], [1, 1]]);
-  test.deepEqual(q.root(), [1, 1]);
-  test.deepEqual(p0, [1, 1]);
-  test.deepEqual(p1, [1, 1]);
+  test.equal(q.root(), p0);
+  test.deepEqual(p0, {x: 1, y: 1});
+  test.deepEqual(p1, {x: 1, y: 1});
   test.end();
 });
 
@@ -41,9 +41,9 @@ tape("quadtree.remove(point) removes a non-root point in the quadtree and return
       p1 = q.add(1, 1);
   test.equal(q.remove(p0), true);
   test.deepEqual(q.extent(), [[0, 0], [1, 1]]);
-  test.deepEqual(q.root(), [1, 1]);
-  test.deepEqual(p0, [0, 0]);
-  test.deepEqual(p1, [1, 1]);
+  test.equal(q.root(), p1);
+  test.deepEqual(p0, {x: 0, y: 0});
+  test.deepEqual(p1, {x: 1, y: 1});
   test.end();
 });
 
@@ -53,9 +53,9 @@ tape("quadtree.remove(point) removes another non-root point in the quadtree and 
       p1 = q.add(1, 1);
   test.equal(q.remove(p1), true);
   test.deepEqual(q.extent(), [[0, 0], [1, 1]]);
-  test.deepEqual(q.root(), [0, 0]);
-  test.deepEqual(p0, [0, 0]);
-  test.deepEqual(p1, [1, 1]);
+  test.deepEqual(q.root(), p0);
+  test.deepEqual(p0, {x: 0, y: 0});
+  test.deepEqual(p1, {x: 1, y: 1});
   test.end();
 });
 
@@ -66,7 +66,7 @@ tape("quadtree.remove(point) ignores a point not in the quadtree and returns fal
       p1 = q1.add(1, 1);
   test.equal(q0.remove(p1), false);
   test.deepEqual(q0.extent(), [[0, 0], [0, 0]]);
-  test.deepEqual(q0.root(), [0, 0]);
+  test.deepEqual(q0.root(), p0);
   test.end();
 });
 
@@ -77,7 +77,7 @@ tape("quadtree.remove(point) ignores a coincident point not in the quadtree and 
       p1 = q1.add(0, 0);
   test.equal(q0.remove(p1), false);
   test.deepEqual(q0.extent(), [[0, 0], [0, 0]]);
-  test.deepEqual(q0.root(), [0, 0]);
+  test.deepEqual(q0.root(), p0);
   test.end();
 });
 
@@ -103,31 +103,31 @@ tape("quadtree.remove(point) removes another point in the quadtree and returns t
       [
         ,
         ,
-        [346, 405],
-        [459, 443]
+        {x: 346, y: 405},
+        {x: 459, y: 443}
       ]
     ],
     [
       ,
       ,
       [
-        [520, 345],
-        [646, 318],
+        {x: 520, y: 345},
+        {x: 646, y: 318},
         ,
         [
           ,
           ,
-          [630, 438],
-          [715, 464]
+          {x: 630, y: 438},
+          {x: 715, y: 464}
         ]
       ],
     ],
-    [434, 620],
+    {x: 434, y: 620},
     [
       [
         [
-          [523, 519],
-          [570, 489],
+          {x: 523, y: 519},
+          {x: 570, y: 489},
           ,
         ],
         ,

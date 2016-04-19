@@ -87,16 +87,16 @@ Internal nodes of the quadtree are represented as four-element arrays in left-to
 
 A child quadrant may be undefined if it is empty.
 
-Leaf nodes are represented as two-element arrays of numbers representing each point:
+Leaf nodes are represented as objects with the following properties:
 
-* `0` - the *x*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
-* `1` - the *y*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
+* `x` - the *x*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
+* `y` - the *y*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
 * `next` - the next point in this leaf, if any
 
-The `length` property may be used to distinguish leaf nodes from internal nodes: it is 2 for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
+The `length` property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
 
 ```js
-if (node.length === 2) do console.log(node); while (node = node.next)
+if (!node.length) do console.log(node); while (node = node.next)
 ```
 
 The point’s *x*- and *y*-coordinates **must not be modified** while the point is in the quadtree. To update a point’s position, [remove](#quadtree_remove) the point and then re-[add](#quadtree_add) it to the quadtree at the new position. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.

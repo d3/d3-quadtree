@@ -3,11 +3,11 @@ var tape = require("tape"),
 
 tape("quadtree.add(point) creats a new point and adds it to the quadtree", function(test) {
   var q = d3_quadtree.quadtree();
-  test.deepEqual(q.add(0, 0), [0, 0]);
-  test.deepEqual(q.add(1, 1), [1, 1]);
-  test.deepEqual(q.add(1, 0), [1, 0]);
-  test.deepEqual(q.add(0, 1), [0, 1]);
-  test.deepEqual(q.root(), [[0, 0], [1, 0], [0, 1], [1, 1]]);
+  test.deepEqual(q.add(0, 0), {x: 0, y: 0});
+  test.deepEqual(q.add(1, 1), {x: 1, y: 1});
+  test.deepEqual(q.add(1, 0), {x: 1, y: 0});
+  test.deepEqual(q.add(0, 1), {x: 0, y: 1});
+  test.deepEqual(q.root(), [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}]);
   test.end();
 });
 
@@ -75,7 +75,7 @@ tape("quadtree.add(point) handles coincident points by creating a linked list", 
   q.add(0, 1);
   q.add(0, 1);
   test.deepEqual(q.extent(), [[0, 0], [1, 1]]);
-  test.deepEqual(q.root(), [[0, 0], [1, 0], {0: 0, 1: 1, next: [0, 1]}]);
+  test.deepEqual(q.root(), [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1, next: {x: 0, y: 1}}]);
   test.end();
 });
 
@@ -83,6 +83,6 @@ tape("quadtree.add(point) implicitly defines trivial bounds for the first point"
   var q = d3_quadtree.quadtree();
   q.add(1, 2);
   test.deepEqual(q.extent(), [[1, 2], [1, 2]]);
-  test.deepEqual(q.root(), [1, 2]);
+  test.deepEqual(q.root(), {x: 1, y: 2});
   test.end();
 });
