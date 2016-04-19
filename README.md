@@ -41,9 +41,9 @@ var q = d3.quadtree(0, -230, 960, 730);
 If an added point is outside the current bounds of this quadtree, this quadtree is expanded by repeatedly doubling its width and height until the new point is contained.
 
 <a name="quadtree_x0" href="#quadtree_x0">#</a> <i>quadtree</i>.<b>x0</b>
-<a name="quadtree_y0" href="#quadtree_y0">#</a> <i>quadtree</i>.<b>y0</b>
-<a name="quadtree_x1" href="#quadtree_x1">#</a> <i>quadtree</i>.<b>x1</b>
-<a name="quadtree_y1" href="#quadtree_y1">#</a> <i>quadtree</i>.<b>y1</b>
+<br><a name="quadtree_y0" href="#quadtree_y0">#</a> <i>quadtree</i>.<b>y0</b>
+<br><a name="quadtree_x1" href="#quadtree_x1">#</a> <i>quadtree</i>.<b>x1</b>
+<br><a name="quadtree_y1" href="#quadtree_y1">#</a> <i>quadtree</i>.<b>y1</b>
 
 The bounds of the quadtree: *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the inclusive upper bounds. These fields are read-only and should not be modified.
 
