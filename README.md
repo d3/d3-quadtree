@@ -48,7 +48,7 @@ Creates a new point ⟨*x*,*y*⟩ (a leaf [node](#nodes)), adds it to the quadtr
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
-Removes the specified *point* (leaf [node](#nodes)) from the quadtree, returning true if the point was removed or false if the quadtree did not contain the specified point.
+Removes the specified *point* (a leaf [node](#nodes)) from the quadtree, returning true if the point was removed or false if the quadtree did not contain the specified point.
 
 <a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
 
@@ -56,11 +56,11 @@ Returns a copy of the quadtree. All [nodes](#nodes) in the returned quadtree are
 
 <a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>()
 
-Returns the total number of points (leaf [node](#nodes)) in the quadtree.
+Returns the total number of points (leaf [nodes](#nodes)) in the quadtree.
 
 <a name="quadtree_points" href="#quadtree_points">#</a> <i>quadtree</i>.<b>points</b>()
 
-Returns an array of all points (leaf [node](#nodes)) in the quadtree.
+Returns an array of all points (leaf [nodes](#nodes)) in the quadtree.
 
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
