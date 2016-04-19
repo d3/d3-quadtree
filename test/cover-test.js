@@ -37,30 +37,33 @@ tape("quadtree.cover(x, y) repeatedly doubles the existing extent if the extent 
 });
 
 tape("quadtree.cover(x, y) repeatedly wraps the root node if it has children", function(test) {
-  var q = d3_quadtree.quadtree().add([0, 0]).add([2, 2]);
-  test.deepEqual(q.root(), [{point: [0, 0]},,, {point: [2, 2]}]);
-  test.deepEqual(q.copy().cover(3, 3).root(), [[{point: [0, 0]},,, {point: [2, 2]}],,, ]);
-  test.deepEqual(q.copy().cover(-1, 3).root(), [,[{point: [0, 0]},,, {point: [2, 2]}],, ]);
-  test.deepEqual(q.copy().cover(3, -1).root(), [,, [{point: [0, 0]},,, {point: [2, 2]}], ]);
-  test.deepEqual(q.copy().cover(-1, -1).root(), [,,, [{point: [0, 0]},,, {point: [2, 2]}]]);
-  test.deepEqual(q.copy().cover(5, 5).root(), [[[{point: [0, 0]},,, {point: [2, 2]}],,, ],,, ]);
-  test.deepEqual(q.copy().cover(-3, 5).root(), [, [,[{point: [0, 0]},,, {point: [2, 2]}],, ],, ]);
-  test.deepEqual(q.copy().cover(5, -3).root(), [,, [,, [{point: [0, 0]},,, {point: [2, 2]}], ], ]);
-  test.deepEqual(q.copy().cover(-3, -3).root(), [,,, [,,, [{point: [0, 0]},,, {point: [2, 2]}]]]);
+  var q = d3_quadtree.quadtree();
+  q.add([0, 0]);
+  q.add([2, 2]);
+  test.deepEqual(q.root(), [{x: 0, y: 0},,, {x: 2, y: 2}]);
+  test.deepEqual(q.copy().cover(3, 3).root(), [[{x: 0, y: 0},,, {x: 2, y: 2}],,, ]);
+  test.deepEqual(q.copy().cover(-1, 3).root(), [,[{x: 0, y: 0},,, {x: 2, y: 2}],, ]);
+  test.deepEqual(q.copy().cover(3, -1).root(), [,, [{x: 0, y: 0},,, {x: 2, y: 2}], ]);
+  test.deepEqual(q.copy().cover(-1, -1).root(), [,,, [{x: 0, y: 0},,, {x: 2, y: 2}]]);
+  test.deepEqual(q.copy().cover(5, 5).root(), [[[{x: 0, y: 0},,, {x: 2, y: 2}],,, ],,, ]);
+  test.deepEqual(q.copy().cover(-3, 5).root(), [, [,[{x: 0, y: 0},,, {x: 2, y: 2}],, ],, ]);
+  test.deepEqual(q.copy().cover(5, -3).root(), [,, [,, [{x: 0, y: 0},,, {x: 2, y: 2}], ], ]);
+  test.deepEqual(q.copy().cover(-3, -3).root(), [,,, [,,, [{x: 0, y: 0},,, {x: 2, y: 2}]]]);
   test.end();
 });
 
 tape("quadtree.cover(x, y) does not wrap the root node if it is a leaf", function(test) {
-  var q = d3_quadtree.quadtree().cover(0, 0).add([2, 2]);
-  test.deepEqual(q.root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(3, 3).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(-1, 3).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(3, -1).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(-1, -1).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(5, 5).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(-3, 5).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(5, -3).root(), {point: [2, 2]});
-  test.deepEqual(q.copy().cover(-3, -3).root(), {point: [2, 2]});
+  var q = d3_quadtree.quadtree().cover(0, 0);
+  q.add([2, 2]);
+  test.deepEqual(q.root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(3, 3).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(-1, 3).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(3, -1).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(-1, -1).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(5, 5).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(-3, 5).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(5, -3).root(), {x: 2, y: 2});
+  test.deepEqual(q.copy().cover(-3, -3).root(), {x: 2, y: 2});
   test.end();
 });
 

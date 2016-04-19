@@ -2,7 +2,11 @@ var tape = require("tape"),
     d3_quadtree = require("../");
 
 tape("quadtree.visit(callback) visits each node in a quadtree", function(test) {
-  var results = [], q = d3_quadtree.quadtree([[0, 0], [1, 1]]).add([0, 0]).add([1, 0]).add([0, 1]).add([1, 1]);
+  var results = [], q = d3_quadtree.quadtree().extent([[0, 0], [1, 1]]);
+  q.add([0, 0]);
+  q.add([1, 0]);
+  q.add([0, 1]);
+  q.add([1, 1]);
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
     [0.0, 0.0, 1.0, 1.0],
@@ -15,7 +19,10 @@ tape("quadtree.visit(callback) visits each node in a quadtree", function(test) {
 });
 
 tape("quadtree.visit(callback) applies pre-order traversal", function(test) {
-  var results = [], q = d3_quadtree.quadtree([[0, 0], [960, 960]]).add([100, 100]).add([200, 200]).add([300, 300]);
+  var results = [], q = d3_quadtree.quadtree().extent([[0, 0], [960, 960]]);
+  q.add([100, 100]);
+  q.add([200, 200]);
+  q.add([300, 300]);
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
     [  0,   0, 960, 960],
@@ -29,7 +36,10 @@ tape("quadtree.visit(callback) applies pre-order traversal", function(test) {
 });
 
 tape("quadtree.visit(callback) does not recurse if the callback returns truthy", function(test) {
-  var results = [], q = d3_quadtree.quadtree([[0, 0], [960, 960]]).add([100, 100]).add([700, 700]).add([800, 800]);
+  var results = [], q = d3_quadtree.quadtree().extent([[0, 0], [960, 960]]);
+  q.add([100, 100]);
+  q.add([700, 700]);
+  q.add([800, 800]);
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); return x0 > 0; }), q);
   test.deepEqual(results, [
     [  0,   0, 960, 960],
@@ -47,7 +57,7 @@ tape("quadtree.visit(callback) on an empty quadtree with no bounds does nothing"
 });
 
 tape("quadtree.visit(callback) on an empty quadtree with bounds does nothing", function(test) {
-  var results = [], q = d3_quadtree.quadtree([[0, 0], [960, 960]]);
+  var results = [], q = d3_quadtree.quadtree().extent([[0, 0], [960, 960]]);
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results.length, 0);
   test.end();
