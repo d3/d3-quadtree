@@ -34,7 +34,15 @@ Creates a new, empty quadtree. If an *extent* [[*x0*, *y0*], [*x1*, *y1*]] is sp
 var q = d3.quadtree([[0, 0], [960, 960]]);
 ```
 
-Or, to add a few points using [method chaining](https://en.wikipedia.org/wiki/Method_chaining):
+This is equivalent to [method chaining](https://en.wikipedia.org/wiki/Method_chaining) [*quadtree*.cover](#quadtree_cover):
+
+```js
+var q = d3.quadtree()
+    .cover(0, 0)
+    .cover(960, 960);
+```
+
+To likewise add a few points upon creation:
 
 ```js
 var q = d3.quadtree([[0, 0], [960, 500]])
