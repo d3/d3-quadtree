@@ -104,9 +104,16 @@ Internal nodes of the quadtree are represented as four-element arrays in left-to
 * `2` - the bottom-left quadrant, if any
 * `3` - the bottom-right quadrant, if any
 
-Each child quadrant may be undefined if the specified quadrant is empty.
+A child quadrant may be undefined if it is empty.
 
 Leaf nodes are represented as objects with the following properties:
 
 * `point` - the point, as passed to [*quadtree*.add](#quadtree_add)
 * `next` - the next point in this leaf, if any
+
+For example, to iterate over all points in a leaf node:
+
+```js
+if (node.point) do console.log(node.point);
+while (node = node.next)
+```
