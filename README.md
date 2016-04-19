@@ -55,6 +55,8 @@ Adds the specified new *point* to this quadtree and returns this *quadtree*. The
 
 These properties **must not change** while the *point* is in the quadtree. To update a point’s position, first [remove](#quadtree_remove) the point, then update its position, and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
 
+If the specified point is outside the current bounds of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
+
 By returning this quadtree, this method allows [method chaining](https://en.wikipedia.org/wiki/Method_chaining). For example:
 
 ```js
@@ -64,8 +66,6 @@ var q = d3.quadtree([[0, 0], [960, 500]])
     .add([  0, 100])
     .add([100, 100]);
 ```
-
-If the specified point is outside the current bounds of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
