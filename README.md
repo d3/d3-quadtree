@@ -44,7 +44,7 @@ Expands the quadtree to cover the specified point ⟨*x*,*y*⟩, and returns the
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>x</i>, <i>y</i>)
 
-Creates a new point ⟨*x*,*y*⟩, adds it to the quadtree, and returns the new leaf [node](#nodes). If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
+Creates a new point ⟨*x*,*y*⟩ (a leaf [node](#nodes)), adds it to the quadtree, and returns it. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
