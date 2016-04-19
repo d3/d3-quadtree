@@ -28,7 +28,7 @@ var quadtree = d3_quadtree.quadtree();
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([*extent*])
 
-Creates a new, empty quadtree. If an *extent* [[*x0*, *y0*], [*x1*, *y1*]] is specified, the [extent](#quadtree_extent) is initialized according to the given values; otherwise, the extent is initially undefined. For example, to initialize a quadtree covering the extent [[0, 0], [960, 960]]:
+Creates a new, empty quadtree. If an *extent* [[*x0*, *y0*], [*x1*, *y1*]] is specified, the [extent](#quadtree_extent) is initialized according to the given values; otherwise, the extent is initially undefined. For example, to initialize a quadtree covering from ⟨0, 0⟩ to ⟨960, 960⟩:
 
 ```js
 var q = d3.quadtree([[0, 0], [960, 960]]);
@@ -36,7 +36,7 @@ var q = d3.quadtree([[0, 0], [960, 960]]);
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>()
 
-Returns the extent [[*x0*, *y0*], [*x1*, *y1*]] of this quadtree, where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds. The extent is computed automatically as points are [added](#quadtree_add), or by calling [*quadtree*.cover](#quadtree_cover). The extent may be undefined, as when an empty quadtree is created without initial bounds.
+Returns the current extent [[*x0*, *y0*], [*x1*, *y1*]] of this quadtree, where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds. The extent may be initialized when the quadtree is [created](#quadtree), and is expanded automatically as points are [added](#quadtree_add) or by calling [*quadtree*.cover](#quadtree_cover). The extent may be undefined, as when a new quadtree is created without specifying an extent.
 
 <a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>()
 
