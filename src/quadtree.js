@@ -10,17 +10,8 @@ import tree_visit from "./visit";
 import tree_visitAfter from "./visitAfter";
 
 export default function quadtree(_) {
-  var x0, y0, x1, y1;
-  if (_) {
-    x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1];
-    var dx = x1 - x0, dy = y1 - y0;
-    if (!(dx >= 0 && dy >= 0)) x0 = y0 = x1 = y1 = NaN;
-    else if (dy > dx) x1 = (x0 -= (dy - dx) / 2) + dy;
-    else y1 = (y0 -= (dx - dy) / 2) + dx;
-  } else {
-    x0 = y0 = x1 = y1 = NaN;
-  }
-  return new Quadtree(x0, y0, x1, y1);
+  var tree = new Quadtree(NaN, NaN, NaN, NaN);
+  return _ ? tree.cover(+_[0][0], +_[0][1]).cover(+_[1][0], +_[1][1]) : tree;
 }
 
 function Quadtree(x0, y0, x1, y1) {

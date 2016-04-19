@@ -11,6 +11,11 @@ tape("quadtree.cover(x, y) sets a non-trivial squarified and centered extent if
   test.end();
 });
 
+tape("quadtree.cover(x, y) ignores invalid points", function(test) {
+  test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(NaN, 2).extent(), [[0, 0], [0, 0]]);
+  test.end();
+});
+
 tape("quadtree.cover(x, y) repeatedly doubles the existing extent if the extent was non-trivial", function(test) {
   test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(2, 2).cover(-1, -1).extent(), [[-2, -2], [2, 2]]);
   test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(2, 2).cover(1, -1).extent(), [[0, -2], [4, 2]]);

@@ -1,5 +1,5 @@
 export default function(x, y) {
-  x = +x, y = +y;
+  if (isNaN(x = +x) || isNaN(y = +y)) return this; // ignore invalid points
 
   var node = this._root,
       parent,

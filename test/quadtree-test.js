@@ -29,11 +29,22 @@ tape("d3.quadtree(extent) squarifies and centers the specified extent", function
 });
 
 tape("d3.quadtree(extent) ignores invalid extents", function(test) {
-  test.equal(d3_quadtree.quadtree([[1, 1], [0, 0]]).extent(), undefined);
-  test.equal(d3_quadtree.quadtree([[NaN, 0], [1, 1]]).extent(), undefined);
-  test.equal(d3_quadtree.quadtree([[0, NaN], [1, 1]]).extent(), undefined);
-  test.equal(d3_quadtree.quadtree([[0, 0], [NaN, 1]]).extent(), undefined);
-  test.equal(d3_quadtree.quadtree([[0, 0], [1, NaN]]).extent(), undefined);
+  test.equal(d3_quadtree.quadtree([[1, NaN], [NaN, 0]]).extent(), undefined);
+  test.equal(d3_quadtree.quadtree([[NaN, 1], [0, NaN]]).extent(), undefined);
+  test.equal(d3_quadtree.quadtree([[NaN, NaN], [NaN, NaN]]).extent(), undefined);
+  test.end();
+});
+
+tape("d3.quadtree(extent) flips inverted extents", function(test) {
+  test.deepEqual(d3_quadtree.quadtree([[1, 1], [0, 0]]).extent(), [[0, 0], [1, 1]]);
+  test.end();
+});
+
+tape("d3.quadtree(extent) tolerates partially-valid extents", function(test) {
+  test.deepEqual(d3_quadtree.quadtree([[NaN, 0], [1, 1]]).extent(), [[1, 1], [1, 1]]);
+  test.deepEqual(d3_quadtree.quadtree([[0, NaN], [1, 1]]).extent(), [[1, 1], [1, 1]]);
+  test.deepEqual(d3_quadtree.quadtree([[0, 0], [NaN, 1]]).extent(), [[0, 0], [0, 0]]);
+  test.deepEqual(d3_quadtree.quadtree([[0, 0], [1, NaN]]).extent(), [[0, 0], [0, 0]]);
   test.end();
 });
 
