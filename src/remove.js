@@ -1,12 +1,16 @@
 export default function(point) {
   var parent,
-      node = this.root,
+      node = this._root,
       retainer,
       previous,
-      xm, ym,
-      x = +point.x, y = +point.y,
-      x0 = this.x0, y0 = this.y0,
-      x1 = this.x1, y1 = this.y1,
+      x = +point[0],
+      y = +point[1],
+      x0 = this._x0,
+      y0 = this._y0,
+      x1 = this._x1,
+      y1 = this._y1,
+      xm,
+      ym,
       right,
       bottom,
       i,
@@ -32,7 +36,7 @@ export default function(point) {
   if (previous) return previous.next = node.next, true;
 
   // If this is the root point, remove it.
-  if (!parent) return this.root = node.next, true;
+  if (!parent) return this._root = node.next, true;
 
   // Remove this leaf.
   parent[i] = node.next;
@@ -42,7 +46,7 @@ export default function(point) {
       && node === (parent[3] || parent[2] || parent[1] || parent[0])
       && node.point) {
     if (retainer) retainer[j] = node;
-    else this.root = node;
+    else this._root = node;
   }
 
   return true;

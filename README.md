@@ -26,49 +26,46 @@ var quadtree = d3_quadtree.quadtree();
 
 ## API Reference
 
-<a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([[<i>x0</i>, <i>y0</i>, ]<i>x1</i>, <i>y1</i>])
+<a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([*extent*])
 
-Creates a new, empty quadtree with the initial bounds *x0*, *y0*, *x1*, *y1*, where *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the inclusive upper bounds. If the initial bounds are not specified, the bounds will be inferred as points are [added](#quadtree_add) to the quadtree.
-
-If only the upper bounds *x1* and *y1* are specified, the lower bounds *x0* and *y0* are assumed to be 0. If the specified bounds are not square, the shorter side is expanded to produce square bounds while retaining the original center. Thus, the following statements are therefore equivalent:
+Creates a new, empty quadtree. If an *extent* [[*x0*, *y0*], [*x1*, *y1*]] is specified, the [extent](#quadtree_extent) is initialized according to the given values; otherwise, the extent is initially undefined. For example, to initialize a quadtree covering the extent [[0, 0], [960, 960]]:
 
 ```js
-var q = d3.quadtree(960, 500);
-var q = d3.quadtree(0, 0, 960, 500);
-var q = d3.quadtree(0, -230, 960, 730);
+var q = d3.quadtree([[0, 0], [960, 960]]);
 ```
 
-If an added point is outside the current bounds of this quadtree, this quadtree is expanded by repeatedly doubling its width and height until the new point is contained.
+<a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>()
 
-<a name="quadtree_x0" href="#quadtree_x0">#</a> <i>quadtree</i>.<b>x0</b>
-<br><a name="quadtree_y0" href="#quadtree_y0">#</a> <i>quadtree</i>.<b>y0</b>
-<br><a name="quadtree_x1" href="#quadtree_x1">#</a> <i>quadtree</i>.<b>x1</b>
-<br><a name="quadtree_y1" href="#quadtree_y1">#</a> <i>quadtree</i>.<b>y1</b>
+Returns the extent [[*x0*, *y0*], [*x1*, *y1*]] of this quadtree, where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds. The extent is computed automatically as points are [added](#quadtree_add), or by calling [*quadtree*.cover](#quadtree_cover). The extent may be undefined, as when an empty quadtree is created without initial bounds.
 
-The bounds of the quadtree: *x0* and *y0* are the inclusive lower bounds of the extent and *x1* and *y1* are the inclusive upper bounds. These fields are read-only and should not be modified.
+<a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>()
 
-<a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>
+Returns the root [node](#nodes) of the quadtree.
 
-The root [node](#nodes) of the quadtree. This field is read-only and should not be modified.
+<a name="quadtree_cover" href="#quadtree_cover">#</a> <i>quadtree</i>.<b>cover</b>(<i>x</i>, <i>y</i>)
+
+Expands this quadtree to enclose the specified point ⟨*x*,*y*⟩, and returns this quadtree.
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>point</i>)
 
 Adds the specified new *point* to this quadtree and returns this *quadtree*. The point must have the following properties:
 
-* `x` - the *x*-coordinate of the point
-* `y` - the *y*-coordinate of the point
+* `0` - the *x*-coordinate of the point
+* `1` - the *y*-coordinate of the point
+
+These properties **must not change** while the *point* is in the quadtree. To update a point’s position, first [remove](#quadtree_remove) the point, then update its position, and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
 
 By returning this quadtree, this method allows [method chaining](https://en.wikipedia.org/wiki/Method_chaining). For example:
 
 ```js
-var q = d3.quadtree(960, 500)
-    .add({x:   0, y:   0})
-    .add({x: 100, y:   0})
-    .add({x:   0, y: 100})
-    .add({x: 100, y: 100});
+var q = d3.quadtree([[0, 0], [960, 500]])
+    .add([  0,   0])
+    .add([100,   0])
+    .add([  0, 100])
+    .add([100, 100]);
 ```
 
-The *point*.x and *point*.y properties **must not change** while the *point* is in the quadtree. To update a point’s position, first [remove](#quadtree_remove) the point, then update its position, and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
+If the specified point is outside the current bounds of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
@@ -77,6 +74,14 @@ Removes the specified *point* from this quadtree, returning true if the point wa
 <a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
 
 Returns a copy of this quadtree. All [nodes](#nodes) in the returned quadtree are identical copies of the corresponding node in this quadtree; however, the point objects are shared between the original and the copy.
+
+<a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>()
+
+Returns the total number of points in the quadtree.
+
+<a name="quadtree_points" href="#quadtree_points">#</a> <i>quadtree</i>.<b>points</b>()
+
+Returns an array of all points in the quadtree.
 
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
