@@ -58,14 +58,12 @@ Expands this quadtree to enclose the specified point ⟨*x*,*y*⟩, and returns 
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>point</i>)
 
-Adds the specified new *point* to this quadtree and returns this *quadtree*. The point must have the following properties:
+Adds the specified new *point* to this quadtree and returns this *quadtree*. If the specified point is outside the current [extent](#quadtree_extent) of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point. The point must have the following properties:
 
 * `0` - the *x*-coordinate of the point
 * `1` - the *y*-coordinate of the point
 
 These properties **must not change** while the *point* is in the quadtree. To update a point’s position, first [remove](#quadtree_remove) the point, then update its position, and then re-add it to the quadtree. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
-
-If the specified point is outside the current bounds of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
