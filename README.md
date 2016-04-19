@@ -32,7 +32,7 @@ Creates a new, empty quadtree with an empty [extent](#quadtree_extent).
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([*extent*])
 
-If *extent* is specified, this quadtree is expanded to cover the specified points [[*x0*, *y0*], [*x1*, *y1*]], and this quadtree is returned. If *extent* is not specified, returns this quadtree’s current extent [[*x0*, *y0*], [*x1*, *y1*]], where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if this quadtree has no extent. The extent may be expanded automatically by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
+If *extent* is specified, the quadtree is expanded to cover the specified points [[*x0*, *y0*], [*x1*, *y1*]], and the quadtree is returned. If *extent* is not specified, returns the quadtree’s current extent [[*x0*, *y0*], [*x1*, *y1*]], where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if the quadtree has no extent. The extent may be expanded automatically by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
 
 <a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>()
 
@@ -40,19 +40,19 @@ Returns the root [node](#nodes) of the quadtree.
 
 <a name="quadtree_cover" href="#quadtree_cover">#</a> <i>quadtree</i>.<b>cover</b>(<i>x</i>, <i>y</i>)
 
-Expands this quadtree to cover the specified point ⟨*x*,*y*⟩, and returns this quadtree. If this quadtree’s extent already covers the specified point, this method does nothing. If this quadtree has a defined and non-trivial extent, the extent is repeatedly doubled to cover the specified point, wrapping the [root node](#quadtree_root) as necessary; if this quadtree has trivial bounds, *i.e.* if the lower bound ⟨*x0*,*y0*⟩ and upper bound ⟨*x1*,*y1*⟩ are coincident, the extent is expanded to cover the specified point exactly; otherwise, if the quadtree has no extent, the extent is initialized to the trivial extent [[*x*, *y*], [*x*, *y*]].
+Expands the quadtree to cover the specified point ⟨*x*,*y*⟩, and returns the quadtree. If the quadtree’s extent already covers the specified point, this method does nothing. If the quadtree has a defined and non-trivial extent, the extent is repeatedly doubled to cover the specified point, wrapping the [root node](#quadtree_root) as necessary; if the quadtree has trivial bounds, *i.e.* if the lower bound ⟨*x0*,*y0*⟩ and upper bound ⟨*x1*,*y1*⟩ are coincident, the extent is expanded to cover the specified point exactly; otherwise, if the quadtree has no extent, the extent is initialized to the trivial extent [[*x*, *y*], [*x*, *y*]].
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>x</i>, <i>y</i>)
 
-Creates a new point ⟨*x*,*y*⟩, adds it to this quadtree, and returns the new point. If the new point is outside the current [extent](#quadtree_extent) of this quadtree, this quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
+Creates a new point ⟨*x*,*y*⟩, adds it to the quadtree, and returns the new point. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
-Removes the specified *point* from this quadtree, returning true if the point was removed or false if this quadtree did not contain the specified point.
+Removes the specified *point* from the quadtree, returning true if the point was removed or false if the quadtree did not contain the specified point.
 
 <a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
 
-Returns a copy of this quadtree. All [nodes](#nodes) in the returned quadtree are identical copies of the corresponding node in this quadtree; however, the point objects are shared between the original and the copy.
+Returns a copy of the quadtree. All [nodes](#nodes) in the returned quadtree are identical copies of the corresponding node in the quadtree; however, the point objects are shared between the original and the copy.
 
 <a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>()
 
@@ -64,17 +64,17 @@ Returns an array of all points in the quadtree.
 
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
-Given a point ⟨*x*,*y*⟩, returns the closest point in this quadtree. If this quadtree is empty, returns undefined.
+Given a point ⟨*x*,*y*⟩, returns the closest point in the quadtree. If the quadtree is empty, returns undefined.
 
 <a name="quadtree_visit" href="#quadtree_visit">#</a> <i>quadtree</i>.<b>visit</b>(<i>callback</i>)
 
-Visits each [node](#nodes) in this quadtree in pre-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns this quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.)
+Visits each [node](#nodes) in the quadtree in pre-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns the quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.)
 
 If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited. This can be used to quickly visit only parts of the tree, for example when using the [Barnes–Hut approximation](https://en.wikipedia.org/wiki/Barnes–Hut_simulation). Note, however, that child quadrants are always visited in sibling order: top-left, top-right, bottom-left, bottom-right. In cases such as [search](#quadtree_find), visiting siblings in a specific order may be faster.
 
 <a name="quadtree_visitAfter" href="#quadtree_visitAfter">#</a> <i>root</i>.<b>visitAfter</b>(<i>callback</i>)
 
-Visits each [node](#nodes) in this quadtree in post-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns this quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*.
+Visits each [node](#nodes) in the quadtree in post-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns the quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*.
 
 ### Nodes
 
@@ -89,8 +89,8 @@ A child quadrant may be undefined if it is empty.
 
 Leaf nodes are represented as two-element arrays of numbers representing each point:
 
-* `0` - the *x*-coordinate of the point, as computed by the [*x*-accessor](#quadtree_x)
-* `1` - the *y*-coordinate of the point, as computed by the [*y*-accessor](#quadtree_y)
+* `0` - the *x*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
+* `1` - the *y*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
 * `next` - the next point in this leaf, if any
 
 The `length` property may be used to distinguish leaf nodes from internal nodes: it is 2 for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
