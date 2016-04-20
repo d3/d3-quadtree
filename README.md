@@ -80,7 +80,7 @@ Visits each [node](#nodes) in the quadtree in pre-order traversal, invoking the 
 
 If the *callback* returns true for a given node, then the children of that node are not visited; otherwise, all child nodes are visited. This can be used to quickly visit only parts of the tree, for example when using the [Barnes–Hut approximation](https://en.wikipedia.org/wiki/Barnes–Hut_simulation). Note, however, that child quadrants are always visited in sibling order: top-left, top-right, bottom-left, bottom-right. In cases such as [search](#quadtree_find), visiting siblings in a specific order may be faster.
 
-<a name="quadtree_visitAfter" href="#quadtree_visitAfter">#</a> <i>root</i>.<b>visitAfter</b>(<i>callback</i>)
+<a name="quadtree_visitAfter" href="#quadtree_visitAfter">#</a> <i>quadtree</i>.<b>visitAfter</b>(<i>callback</i>)
 
 Visits each [node](#nodes) in the quadtree in post-order traversal, invoking the specified *callback* with arguments *node*, *x0*, *y0*, *x1*, *y1* for each node, where *node* is the node being visited, ⟨*x0*, *y0*⟩ are the lower bounds of the node, and ⟨*x1*, *y1*⟩ are the upper bounds, and returns the quadtree. (Assuming that positive *x* is right and positive *y* is down, as is typically the case in Canvas and SVG, ⟨*x0*, *y0*⟩ is the top-left corner and ⟨*x1*, *y1*⟩ is the lower-right corner; however, the coordinate system is arbitrary, so more formally *x0* <= *x1* and *y0* <= *y1*.) Returns *root*.
 
@@ -88,18 +88,18 @@ Visits each [node](#nodes) in the quadtree in post-order traversal, invoking the
 
 Internal nodes of the quadtree are represented as four-element arrays in left-to-right, top-to-bottom order:
 
-* `0` - the top-left quadrant, if any
-* `1` - the top-right quadrant, if any
-* `2` - the bottom-left quadrant, if any
-* `3` - the bottom-right quadrant, if any
+* `0` - the top-left quadrant, if any.
+* `1` - the top-right quadrant, if any.
+* `2` - the bottom-left quadrant, if any.
+* `3` - the bottom-right quadrant, if any.
 
 A child quadrant may be undefined if it is empty.
 
 Leaf nodes are represented as objects with the following properties:
 
-* `x` - the *x*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
-* `y` - the *y*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add)
-* `next` - the next point in this leaf, if any
+* `x` - the *x*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add).
+* `y` - the *y*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add).
+* `next` - the next point in this leaf, if any.
 
 The `length` property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
 
