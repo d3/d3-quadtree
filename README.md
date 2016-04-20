@@ -32,7 +32,7 @@ Creates a new, empty quadtree with an empty [extent](#quadtree_extent).
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([*extent*])
 
-If *extent* is specified, expands the quadtree to [cover](#quadtree_cover) the specified points [[*x0*, *y0*], [*x1*, *y1*]] and returns the quadtree. If *extent* is not specified, returns the quadtree’s current extent [[*x0*, *y0*], [*x1*, *y1*]], where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if the quadtree has no extent. The extent may be expanded automatically by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
+If *extent* is specified, expands the quadtree to [cover](#quadtree_cover) the specified points [[*x0*, *y0*], [*x1*, *y1*]] and returns the quadtree. If *extent* is not specified, returns the quadtree’s current extent [[*x0*, *y0*], [*x1*, *y1*]], where *x0* and *y0* are the inclusive lower bounds and *x1* and *y1* are the inclusive upper bounds, or undefined if the quadtree has no extent. The extent may also be expanded by calling [*quadtree*.cover](#quadtree_cover) or [*quadtree*.add](#quadtree_add).
 
 <a name="quadtree_cover" href="#quadtree_cover">#</a> <i>quadtree</i>.<b>cover</b>(<i>x</i>, <i>y</i>)
 
@@ -40,7 +40,15 @@ Expands the quadtree to cover the specified point ⟨*x*,*y*⟩, and returns the
 
 <a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>x</i>, <i>y</i>)
 
-Creates a new point ⟨*x*,*y*⟩ (a leaf [node](#nodes)), adds it to the quadtree, and returns it. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
+Creates a new point ⟨*x*,*y*⟩ (a leaf [node](#nodes)), adds it to the quadtree, and returns it. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point. To store additional data on the point, simply assign to the returned object. For example:
+
+```js
+for (var i = 0, n = nodes.length, node, point; i < n; ++i) {
+  node = nodes[i];
+  point = quadtree.add(node.x, node.y);
+  point.index = i;
+}
+```
 
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
 
