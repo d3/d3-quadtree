@@ -49,14 +49,14 @@ export default function(x, y) {
 
     // Visit this point. (Visiting coincident points isn’t necessary!)
     else {
-      var dx = x - node.x,
-          dy = y - node.y,
+      var dx = x - +this._x.call(null, node.data),
+          dy = y - +this._y.call(null, node.data),
           d2 = dx * dx + dy * dy;
       if (d2 < minDistance2) {
         var d = Math.sqrt(minDistance2 = d2);
         x0 = x - d, y0 = y - d;
         x3 = x + d, y3 = y + d;
-        minPoint = node;
+        minPoint = node.data;
       }
     }
   }
