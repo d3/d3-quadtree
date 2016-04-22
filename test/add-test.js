@@ -55,7 +55,7 @@ tape("quadtree.add(datum) handles coincident points by creating a linked list", 
 
 tape("quadtree.add(datum) implicitly defines trivial bounds for the first point", function(test) {
   var q = d3_quadtree.quadtree().add([1, 2]);
-  test.deepEqual(q.extent(), [[1, 2], [1, 2]]);
+  test.deepEqual(q.extent(), [[1, 2], [2, 3]]);
   test.deepEqual(q.root(), {data: [1, 2]});
   test.end();
 });

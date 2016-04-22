@@ -2,17 +2,17 @@ var tape = require("tape"),
     d3_quadtree = require("../");
 
 tape("quadtree.cover(x, y) sets a trivial extent if the extent was undefined", function(test) {
-  test.deepEqual(d3_quadtree.quadtree().cover(1, 2).extent(), [[1, 2], [1, 2]]);
+  test.deepEqual(d3_quadtree.quadtree().cover(1, 2).extent(), [[1, 2], [2, 3]]);
   test.end();
 });
 
 tape("quadtree.cover(x, y) sets a non-trivial squarified and centered extent if the extent was trivial", function(test) {
-  test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(1, 2).extent(), [[-0.5, 0], [1.5, 2]]);
+  test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(1, 2).extent(), [[0, 0], [2, 2]]);
   test.end();
 });
 
 tape("quadtree.cover(x, y) ignores invalid points", function(test) {
-  test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(NaN, 2).extent(), [[0, 0], [0, 0]]);
+  test.deepEqual(d3_quadtree.quadtree().cover(0, 0).cover(NaN, 2).extent(), [[0, 0], [1, 1]]);
   test.end();
 });
 

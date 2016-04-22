@@ -3,14 +3,14 @@ var tape = require("tape"),
 
 tape("quadtree.y(y) sets the y-accessor used by quadtree.add", function(test) {
   var q = d3_quadtree.quadtree().y(y).add({0: 1, y: 2});
-  test.deepEqual(q.extent(), [[1, 2], [1, 2]]);
+  test.deepEqual(q.extent(), [[1, 2], [2, 3]]);
   test.deepEqual(q.root(), {data: {0: 1, y: 2}});
   test.end();
 });
 
 tape("quadtree.y(y) sets the y-accessor used by quadtree.addAll", function(test) {
   var q = d3_quadtree.quadtree().y(y).addAll([{0: 1, y: 2}]);
-  test.deepEqual(q.extent(), [[1, 2], [1, 2]]);
+  test.deepEqual(q.extent(), [[1, 2], [2, 3]]);
   test.deepEqual(q.root(), {data: {0: 1, y: 2}});
   test.end();
 });
