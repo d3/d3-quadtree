@@ -11,8 +11,9 @@ import tree_visitAfter from "./visitAfter";
 import tree_x, {defaultX} from "./x";
 import tree_y, {defaultY} from "./y";
 
-export default function quadtree() {
-  return new Quadtree(defaultX, defaultY, NaN, NaN, NaN, NaN);
+export default function quadtree(nodes, x, y) {
+  var tree = new Quadtree(x == null ? defaultX : x, y == null ? defaultY : y, NaN, NaN, NaN, NaN);
+  return nodes == null ? tree : tree.addAll(nodes);
 }
 
 function Quadtree(x, y, x0, y0, x1, y1) {

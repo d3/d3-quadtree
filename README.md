@@ -26,9 +26,23 @@ var quadtree = d3_quadtree.quadtree();
 
 ## API Reference
 
-<a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>()
+<a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([<i>data</i>[, <i>x</i>, <i>y</i>]])
 
-Creates a new, empty quadtree with an empty [extent](#quadtree_extent) and the default [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors.
+Creates a new, empty quadtree with an empty [extent](#quadtree_extent) and the default [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors. If *data* is specified, [adds](#quadtree_addAll) the specified array of data to the quadtree. This is equivalent to:
+
+```js
+var tree = d3.quadtree()
+    .addAll(data);
+```
+
+If *x* and *y* are also specified, sets the [*x*-](#quadtree_x) and [*y*-](#quadtree_y) accessors to the specified functions before adding the specified array of data to the quadtree, equivalent to:
+
+```js
+var tree = d3.quadtree()
+    .x(x)
+    .y(y)
+    .addAll(data);
+```
 
 <a name="quadtree_x" href="#quadtree_x">#</a> <i>quadtree</i>.<b>x</b>([<i>x</i>])
 
