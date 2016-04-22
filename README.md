@@ -28,7 +28,31 @@ var quadtree = d3_quadtree.quadtree();
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>()
 
-Creates a new, empty quadtree with an empty [extent](#quadtree_extent).
+Creates a new, empty quadtree with an empty [extent](#quadtree_extent) and the default [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors.
+
+<a name="quadtree_x" href="#quadtree_x">#</a> <i>quadtree</i>.<b>x</b>([<i>x</i>])
+
+If *x* is specified, sets the current *x*-coordinate accessor and returns the quadtree. If *x* is not specified, returns the current *x*-accessor, which defaults to:
+
+```js
+function x(d) {
+  return d[0];
+}
+```
+
+The *x*-acccessor is used to derive the *x*-coordinate of data when [adding](#quadtree_add) to and [removing](#quadtree_remove) from the tree. It is also used when [finding](#quadtree_find) to re-access the coordinates of data previously added to the tree; therefore, the *x*- and *y*-accessors must be consistent, returning the same value given the same input.
+
+<a name="quadtree_y" href="#quadtree_y">#</a> <i>quadtree</i>.<b>y</b>([<i>y</i>])
+
+If *y* is specified, sets the current *y*-coordinate accessor and returns the quadtree. If *y* is not specified, returns the current *y*-accessor, which defaults to:
+
+```js
+function y(d) {
+  return d[1];
+}
+```
+
+The *y*-acccessor is used to derive the *y*-coordinate of data when [adding](#quadtree_add) to and [removing](#quadtree_remove) from the tree. It is also used when [finding](#quadtree_find) to re-access the coordinates of data previously added to the tree; therefore, the *x*- and *y*-accessors must be consistent, returning the same value given the same input.
 
 <a name="quadtree_extent" href="#quadtree_extent">#</a> <i>quadtree</i>.<b>extent</b>([*extent*])
 
@@ -38,41 +62,45 @@ If *extent* is specified, expands the quadtree to [cover](#quadtree_cover) the s
 
 Expands the quadtree to cover the specified point ⟨*x*,*y*⟩, and returns the quadtree. If the quadtree’s extent already covers the specified point, this method does nothing. If the quadtree has a defined and non-trivial extent, the extent is repeatedly doubled to cover the specified point, wrapping the [root](#quadtree_root) [node](#nodes) as necessary; if the quadtree has trivial bounds, *i.e.* if the lower bound ⟨*x0*,*y0*⟩ and upper bound ⟨*x1*,*y1*⟩ are coincident, the extent is expanded to cover the specified point exactly; otherwise, if the quadtree has no extent, the extent is initialized to the trivial extent [[*x*, *y*], [*x*, *y*]].
 
-<a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>x</i>, <i>y</i>)
+<a name="quadtree_add" href="#quadtree_add">#</a> <i>quadtree</i>.<b>add</b>(<i>datum</i>)
 
-Creates a new point ⟨*x*,*y*⟩ (a leaf [node](#nodes)), adds it to the quadtree, and returns it. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point. To store additional data on the point, simply assign to the returned object. For example:
+Adds the specified *datum* to the quadtree, deriving its coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and returns the quadtree. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
+
+<a name="quadtree_addAll" href="#quadtree_addAll">#</a> <i>quadtree</i>.<b>addAll</b>(<i>data</i>)
+
+Adds the specified array of *data* to the quadtree, deriving each element’s coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and return this quadtree. This is approximately equivalent to calling [*quadtree*.add](#quadtree_add) repeatedly:
 
 ```js
-for (var i = 0, n = nodes.length, node, point; i < n; ++i) {
-  node = nodes[i];
-  point = quadtree.add(node.x, node.y);
-  point.index = i;
+for (var i = 0, n = data.length; i < n; ++i) {
+  quadtree.add(data[i]);
 }
 ```
 
-<a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>point</i>)
+However, this method results in a more compact quadtree because the extent of the *data* is computed first before adding the data.
 
-Removes the specified *point* (a leaf [node](#nodes)) from the quadtree, returning true if the point was removed or false if the quadtree did not contain the specified point.
+<a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>datum</i>)
+
+Removes the specified *datum* to the quadtree, deriving its coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and returns the quadtree. If the specified *datum* does not exist in this quadtree, this method does nothing.
 
 <a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
 
-Returns a copy of the quadtree. All [nodes](#nodes) in the returned quadtree are identical copies of the corresponding node in the quadtree.
+Returns a copy of the quadtree. All [nodes](#nodes) in the returned quadtree are identical copies of the corresponding node in the quadtree; however, any data in the quadtree is shared by reference and not copied.
 
 <a name="quadtree_root" href="#quadtree_root">#</a> <i>quadtree</i>.<b>root</b>()
 
 Returns the root [node](#nodes) of the quadtree.
 
-<a name="quadtree_points" href="#quadtree_points">#</a> <i>quadtree</i>.<b>points</b>()
+<a name="quadtree_data" href="#quadtree_data">#</a> <i>quadtree</i>.<b>data</b>()
 
-Returns an array of all points (leaf [nodes](#nodes)) in the quadtree.
+Returns an array of all data in the quadtree.
 
 <a name="quadtree_size" href="#quadtree_size">#</a> <i>quadtree</i>.<b>size</b>()
 
-Returns the total number of points (leaf [nodes](#nodes)) in the quadtree.
+Returns the total number of data in the quadtree.
 
 <a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
 
-Given a point ⟨*x*,*y*⟩, returns the closest point in the quadtree. If the quadtree is empty, returns undefined.
+Given a point ⟨*x*,*y*⟩, returns the closest datum in the quadtree. If the quadtree is empty, returns undefined.
 
 <a name="quadtree_visit" href="#quadtree_visit">#</a> <i>quadtree</i>.<b>visit</b>(<i>callback</i>)
 
@@ -97,9 +125,8 @@ A child quadrant may be undefined if it is empty.
 
 Leaf nodes are represented as objects with the following properties:
 
-* `x` - the *x*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add).
-* `y` - the *y*-coordinate of the point, as passed to [*quadtree*.add](#quadtree_add).
-* `next` - the next point in this leaf, if any.
+* `data` - the data associated with this point, as passed to [*quadtree*.add](#quadtree_add).
+* `next` - the next datum in this leaf, if any.
 
 The `length` property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
 

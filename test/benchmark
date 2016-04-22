@@ -16,8 +16,7 @@ for (var j = 0; j < n; ++j) {
 }
 
 var start = now();
-var root = d3_quadtree.quadtree().extent([[0, 0], [100, 100]]);
-for (var j = 0; j < n; ++j) root.add(points1[j]);
+var root = d3_quadtree.quadtree().extent([[0, 0], [100, 100]]).addAll(points1);
 var end = now();
 console.log("create", Math.round(end - start));
 

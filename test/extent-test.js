@@ -15,9 +15,9 @@ tape("quadtree.extent() can be inferred by quadtree.cover", function(test) {
 
 tape("quadtree.extent() can be inferred by quadtree.add", function(test) {
   var q = d3_quadtree.quadtree();
-  q.add(0, 0);
+  q.add([0, 0]);
   test.deepEqual(q.extent(), [[0, 0], [0, 0]]);
-  q.add(2, 4);
+  q.add([2, 4]);
   test.deepEqual(q.extent(), [[-1, 0], [3, 4]]);
   test.end();
 });

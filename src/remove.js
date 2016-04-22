@@ -55,3 +55,8 @@ export default function(d) {
 
   return this;
 }
+
+export function removeAll(data) {
+  for (var i = 0, n = data.length; i < n; ++i) this.remove(data[i]);
+  return this;
+}

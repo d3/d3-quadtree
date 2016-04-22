@@ -1,21 +1,15 @@
-import tree_add from "./add";
+import tree_add, {addAll as tree_addAll} from "./add";
 import tree_cover from "./cover";
+import tree_data from "./data";
 import tree_extent from "./extent";
 import tree_find from "./find";
-import tree_data from "./data";
-import tree_remove from "./remove";
+import tree_remove, {removeAll as tree_removeAll} from "./remove";
 import tree_root from "./root";
 import tree_size from "./size";
 import tree_visit from "./visit";
 import tree_visitAfter from "./visitAfter";
-
-function defaultX(d) {
-  return d[0];
-}
-
-function defaultY(d) {
-  return d[1];
-}
+import tree_x, {defaultX} from "./x";
+import tree_y, {defaultY} from "./y";
 
 export default function quadtree() {
   return new Quadtree(defaultX, defaultY, NaN, NaN, NaN, NaN);
@@ -63,12 +57,16 @@ treeProto.copy = function() {
 };
 
 treeProto.add = tree_add;
+treeProto.addAll = tree_addAll;
 treeProto.cover = tree_cover;
+treeProto.data = tree_data;
 treeProto.extent = tree_extent;
 treeProto.find = tree_find;
-treeProto.data = tree_data;
 treeProto.remove = tree_remove;
+treeProto.removeAll = tree_removeAll;
 treeProto.root = tree_root;
 treeProto.size = tree_size;
 treeProto.visit = tree_visit;
 treeProto.visitAfter = tree_visitAfter;
+treeProto.x = tree_x;
+treeProto.y = tree_y;

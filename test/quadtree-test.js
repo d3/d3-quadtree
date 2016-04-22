@@ -8,6 +8,6 @@ tape("d3.quadtree() creates an empty quadtree", function(test) {
   test.equal(q.size(), 0);
   test.equal(q.extent(), undefined);
   test.equal(q.root(), undefined);
-  test.deepEqual(q.points(), []);
+  test.deepEqual(q.data(), []);
   test.end();
 });

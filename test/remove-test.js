@@ -1,99 +1,100 @@
 var tape = require("tape"),
     d3_quadtree = require("../");
 
-tape("quadtree.remove(point) removes the only point in the quadtree and returns true", function(test) {
-  var q = d3_quadtree.quadtree(),
-      p0 = q.add(1, 1);
-  test.equal(q.remove(p0), true);
+tape("quadtree.remove(datum) removes a point and returns the quadtree", function(test) {
+  var p0 = [1, 1],
+      q = d3_quadtree.quadtree().add(p0);
+  test.deepEqual(q.root(), {data: p0});
+  test.equal(q.remove(p0), q);
+  test.deepEqual(q.root(), undefined);
+  test.end();
+});
+
+tape("quadtree.remove(datum) removes the only point in the quadtree", function(test) {
+  var p0 = [1, 1],
+      q = d3_quadtree.quadtree().add(p0);
+  test.equal(q.remove(p0), q);
   test.deepEqual(q.extent(), [[1, 1], [1, 1]]);
   test.deepEqual(q.root(), undefined);
-  test.deepEqual(p0, {x: 1, y: 1});
+  test.deepEqual(p0, [1, 1]);
   test.end();
 });
 
-tape("quadtree.remove(point) removes a first coincident point at the root in the quadtree and returns true", function(test) {
-  var q = d3_quadtree.quadtree(),
-      p0 = q.add(1, 1),
-      p1 = q.add(1, 1);
-  test.equal(q.remove(p0), true);
+tape("quadtree.remove(datum) removes a first coincident point at the root in the quadtree", function(test) {
+  var p0 = [1, 1],
+      p1 = [1, 1],
+      q = d3_quadtree.quadtree().addAll([p0, p1]);
+  test.equal(q.remove(p0), q);
   test.deepEqual(q.extent(), [[1, 1], [1, 1]]);
-  test.equal(q.root(), p1);
-  test.deepEqual(p0, {x: 1, y: 1});
-  test.deepEqual(p1, {x: 1, y: 1});
+  test.equal(q.root().data, p1);
+  test.deepEqual(p0, [1, 1]);
+  test.deepEqual(p1, [1, 1]);
   test.end();
 });
 
-tape("quadtree.remove(point) removes another coincident point at the root in the quadtree and returns true", function(test) {
-  var q = d3_quadtree.quadtree(),
-      p0 = q.add(1, 1),
-      p1 = q.add(1, 1);
-  test.equal(q.remove(p1), true);
+tape("quadtree.remove(datum) removes another coincident point at the root in the quadtree", function(test) {
+  var p0 = [1, 1],
+      p1 = [1, 1],
+      q = d3_quadtree.quadtree().addAll([p0, p1]);
+  test.equal(q.remove(p1), q);
   test.deepEqual(q.extent(), [[1, 1], [1, 1]]);
-  test.equal(q.root(), p0);
-  test.deepEqual(p0, {x: 1, y: 1});
-  test.deepEqual(p1, {x: 1, y: 1});
+  test.equal(q.root().data, p0);
+  test.deepEqual(p0, [1, 1]);
+  test.deepEqual(p1, [1, 1]);
   test.end();
 });
 
-tape("quadtree.remove(point) removes a non-root point in the quadtree and returns true", function(test) {
-  var q = d3_quadtree.quadtree(),
-      p0 = q.add(0, 0),
-      p1 = q.add(1, 1);
-  test.equal(q.remove(p0), true);
+tape("quadtree.remove(datum) removes a non-root point in the quadtree", function(test) {
+  var p0 = [0, 0],
+      p1 = [1, 1],
+      q = d3_quadtree.quadtree().addAll([p0, p1]);
+  test.equal(q.remove(p0), q);
   test.deepEqual(q.extent(), [[0, 0], [1, 1]]);
-  test.equal(q.root(), p1);
-  test.deepEqual(p0, {x: 0, y: 0});
-  test.deepEqual(p1, {x: 1, y: 1});
+  test.equal(q.root().data, p1);
+  test.deepEqual(p0, [0, 0]);
+  test.deepEqual(p1, [1, 1]);
   test.end();
 });
 
-tape("quadtree.remove(point) removes another non-root point in the quadtree and returns true", function(test) {
-  var q = d3_quadtree.quadtree(),
-      p0 = q.add(0, 0),
-      p1 = q.add(1, 1);
-  test.equal(q.remove(p1), true);
+tape("quadtree.remove(datum) removes another non-root point in the quadtree", function(test) {
+  var p0 = [0, 0],
+      p1 = [1, 1],
+      q = d3_quadtree.quadtree().addAll([p0, p1]);
+  test.equal(q.remove(p1), q);
   test.deepEqual(q.extent(), [[0, 0], [1, 1]]);
-  test.deepEqual(q.root(), p0);
-  test.deepEqual(p0, {x: 0, y: 0});
-  test.deepEqual(p1, {x: 1, y: 1});
+  test.equal(q.root().data, p0);
+  test.deepEqual(p0, [0, 0]);
+  test.deepEqual(p1, [1, 1]);
   test.end();
 });
 
-tape("quadtree.remove(point) ignores a point not in the quadtree and returns false", function(test) {
-  var q0 = d3_quadtree.quadtree(),
-      q1 = d3_quadtree.quadtree(),
-      p0 = q0.add(0, 0),
-      p1 = q1.add(1, 1);
-  test.equal(q0.remove(p1), false);
+tape("quadtree.remove(datum) ignores a point not in the quadtree", function(test) {
+  var p0 = [0, 0],
+      p1 = [1, 1],
+      q0 = d3_quadtree.quadtree().add(p0),
+      q1 = d3_quadtree.quadtree().add(p1);
+  test.equal(q0.remove(p1), q0);
   test.deepEqual(q0.extent(), [[0, 0], [0, 0]]);
-  test.deepEqual(q0.root(), p0);
+  test.equal(q0.root().data, p0);
   test.end();
 });
 
-tape("quadtree.remove(point) ignores a coincident point not in the quadtree and returns false", function(test) {
-  var q0 = d3_quadtree.quadtree(),
-      q1 = d3_quadtree.quadtree(),
-      p0 = q0.add(0, 0),
-      p1 = q1.add(0, 0);
-  test.equal(q0.remove(p1), false);
+tape("quadtree.remove(datum) ignores a coincident point not in the quadtree", function(test) {
+  var p0 = [0, 0],
+      p1 = [0, 0],
+      q0 = d3_quadtree.quadtree().add(p0),
+      q1 = d3_quadtree.quadtree().add(p1);
+  test.equal(q0.remove(p1), q0);
   test.deepEqual(q0.extent(), [[0, 0], [0, 0]]);
-  test.deepEqual(q0.root(), p0);
+  test.equal(q0.root().data, p0);
   test.end();
 });
 
-tape("quadtree.remove(point) removes another point in the quadtree and returns true", function(test) {
-  var q = d3_quadtree.quadtree().extent([[0, 0], [959, 959]]);
-  q.add(630, 438);
-  q.add(715, 464);
-  q.add(523, 519);
-  q.add(646, 318);
-  q.add(434, 620);
-  q.add(570, 489);
-  q.add(520, 345);
-  q.add(459, 443);
-  q.add(346, 405);
-  q.add(529, 444);
-  test.equal(q.remove(q.find(546, 440)), true);
+tape("quadtree.remove(datum) removes another point in the quadtree", function(test) {
+  var q = d3_quadtree.quadtree()
+      .extent([[0, 0], [959, 959]])
+      .addAll([[630, 438], [715, 464], [523, 519], [646, 318], [434, 620], [570, 489], [520, 345], [459, 443], [346, 405], [529, 444]]);
+  test.equal(q.remove(q.find(546, 440)), q);
   test.deepEqual(q.extent(), [[0, 0], [959, 959]]);
   test.deepEqual(q.root(), [
     [
@@ -103,31 +104,31 @@ tape("quadtree.remove(point) removes another point in the quadtree and returns t
       [
         ,
         ,
-        {x: 346, y: 405},
-        {x: 459, y: 443}
+        {data: [346, 405]},
+        {data: [459, 443]}
       ]
     ],
     [
       ,
       ,
       [
-        {x: 520, y: 345},
-        {x: 646, y: 318},
+        {data: [520, 345]},
+        {data: [646, 318]},
         ,
         [
           ,
           ,
-          {x: 630, y: 438},
-          {x: 715, y: 464}
+          {data: [630, 438]},
+          {data: [715, 464]}
         ]
       ],
     ],
-    {x: 434, y: 620},
+    {data: [434, 620]},
     [
       [
         [
-          {x: 523, y: 519},
-          {x: 570, y: 489},
+          {data: [523, 519]},
+          {data: [570, 489]},
           ,
         ],
         ,
