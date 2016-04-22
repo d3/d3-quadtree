@@ -142,10 +142,10 @@ Leaf nodes are represented as objects with the following properties:
 * `data` - the data associated with this point, as passed to [*quadtree*.add](#quadtree_add).
 * `next` - the next datum in this leaf, if any.
 
-The `length` property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes. For example, to iterate over all points in a leaf node:
+The `length` property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes. For example, to iterate over all data in a leaf node:
 
 ```js
-if (!node.length) do console.log(node); while (node = node.next)
+if (!node.length) do console.log(node.data); while (node = node.next)
 ```
 
 The point’s *x*- and *y*-coordinates **must not be modified** while the point is in the quadtree. To update a point’s position, [remove](#quadtree_remove) the point and then re-[add](#quadtree_add) it to the quadtree at the new position. Alternatively, you may discard the existing quadtree entirely and create a new one from scratch; this may be more efficient if many of the points have moved.
