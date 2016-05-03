@@ -1,6 +1,6 @@
 {
   "name": "d3-quadtree",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Two-dimensional recursive spatial subdivision.",
   "keywords": [
     "d3",
