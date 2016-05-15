@@ -112,9 +112,9 @@ Returns an array of all data in the quadtree.
 
 Returns the total number of data in the quadtree.
 
-<a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>)
+<a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>[, <i>radius</i>])
 
-Given a point ⟨*x*,*y*⟩, returns the closest datum in the quadtree. If the quadtree is empty, returns undefined.
+Returns the datum closest to the position ⟨*x*,*y*⟩ with the given search *radius*. If *radius* is not specified, it defaults to infinity. If there is no datum within the search area, returns undefined.
 
 <a name="quadtree_visit" href="#quadtree_visit">#</a> <i>quadtree</i>.<b>visit</b>(<i>callback</i>)
 
