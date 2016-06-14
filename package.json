@@ -4,6 +4,7 @@
   "description": "Two-dimensional recursive spatial subdivision.",
   "keywords": [
     "d3",
+    "d3-module",
     "quadtree"
   ],
   "homepage": "https://d3js.org/d3-quadtree/",
