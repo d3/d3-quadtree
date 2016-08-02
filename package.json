@@ -14,6 +14,7 @@
     "url": "http://bost.ocks.org/mike"
   },
   "main": "build/d3-quadtree.js",
+  "module": "index",
   "jsnext:main": "index",
   "repository": {
     "type": "git",
@@ -23,13 +24,13 @@
     "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -n d3 -o build/d3-quadtree.js -- index.js",
     "test": "tape 'test/**/*-test.js' && eslint index.js src",
     "prepublish": "npm run test && uglifyjs --preamble \"$(preamble)\" build/d3-quadtree.js -c -m -o build/d3-quadtree.min.js",
-    "postpublish": "VERSION=`node -e 'console.log(require(\"./package.json\").version)'`; git push && git push --tags && cp build/d3-quadtree.js ../d3.github.com/d3-quadtree.v1.js && cp build/d3-quadtree.min.js ../d3.github.com/d3-quadtree.v1.min.js && cd ../d3.github.com && git add d3-quadtree.v1.js d3-quadtree.v1.min.js && git commit -m \"d3-quadtree ${VERSION}\" && git push && cd - && zip -j build/d3-quadtree.zip -- LICENSE README.md build/d3-quadtree.js build/d3-quadtree.min.js"
+    "postpublish": "VERSION=`node -e 'console.log(require(\"./package.json\").version)'`; git push && git push --tags && cd ../d3.github.com && git pull && cp ../d3-quadtree/build/d3-quadtree.js d3-quadtree.v1.js && cp ../d3-quadtree/build/d3-quadtree.min.js d3-quadtree.v1.min.js && git add d3-quadtree.v1.js d3-quadtree.v1.min.js && git commit -m \"d3-quadtree ${VERSION}\" && git push && cd - && zip -j build/d3-quadtree.zip -- LICENSE README.md build/d3-quadtree.js build/d3-quadtree.min.js"
   },
   "devDependencies": {
     "d3-array": "1",
     "eslint": "2",
     "package-preamble": "0.0",
-    "rollup": "0.31",
+    "rollup": "0.34",
     "tape": "4",
     "uglify-js": "2"
   }
