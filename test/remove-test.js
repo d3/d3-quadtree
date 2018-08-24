@@ -76,6 +76,7 @@ tape("quadtree.remove(datum) ignores a point not in the quadtree", function(test
   test.equal(q0.remove(p1), q0);
   test.deepEqual(q0.extent(), [[0, 0], [1, 1]]);
   test.equal(q0.root().data, p0);
+  test.equal(q1.root().data, p1);
   test.end();
 });
 
@@ -87,6 +88,7 @@ tape("quadtree.remove(datum) ignores a coincident point not in the quadtree", fu
   test.equal(q0.remove(p1), q0);
   test.deepEqual(q0.extent(), [[0, 0], [1, 1]]);
   test.equal(q0.root().data, p0);
+  test.equal(q1.root().data, p1);
   test.end();
 });
 
