@@ -102,7 +102,7 @@ Removes the specified *datum* to the quadtree, deriving its coordinates ⟨*x*,*
 <a name="quadtree_removeAll" href="#quadtree_removeAll">#</a> <i>quadtree</i>.<b>removeAll</b>(<i>data</i>)
  [<>](https://github.com/d3/d3-quadtree/blob/master/src/remove.js#L59 "Source")
 
-…
+Removes the specified data to the quadtree, deriving their coordinates ⟨x,y⟩ using the current x- and y-accessors, and returns the quadtree. If a specified datum does not exist in this quadtree, it is ignored.
 
 <a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
 
