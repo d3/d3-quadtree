@@ -3,11 +3,11 @@ var tape = require("tape"),
 
 tape("quadtree.add(datum) creates a new point and adds it to the quadtree", function(test) {
   var q = d3_quadtree.quadtree();
-  test.deepEqual(q.add([0, 0]).root(), {data: [0, 0]});
-  test.deepEqual(q.add([1, 1]).root(), [{data: [0, 0]},,, {data: [1, 1]}]);
-  test.deepEqual(q.add([1, 0]).root(), [{data: [0, 0]}, {data: [1, 0]},, {data: [1, 1]}]);
-  test.deepEqual(q.add([0, 1]).root(), [{data: [0, 0]}, {data: [1, 0]}, {data: [0, 1]}, {data: [1, 1]}]);
-  test.deepEqual(q.add([0.4, 0.4]).root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}], {data: [1, 0]}, {data: [0, 1]}, {data: [1, 1]}]);
+  test.deepEqual(q.add([0.0, 0.0]).root(), {data: [0, 0]});
+  test.deepEqual(q.add([0.9, 0.9]).root(), [{data: [0, 0]},,, {data: [0.9, 0.9]}]);
+  test.deepEqual(q.add([0.9, 0.0]).root(), [{data: [0, 0]}, {data: [0.9, 0]},, {data: [0.9, 0.9]}]);
+  test.deepEqual(q.add([0.0, 0.9]).root(), [{data: [0, 0]}, {data: [0.9, 0]}, {data: [0, 0.9]}, {data: [0.9, 0.9]}]);
+  test.deepEqual(q.add([0.4, 0.4]).root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}], {data: [0.9, 0]}, {data: [0, 0.9]}, {data: [0.9, 0.9]}]);
   test.end();
 });
 
@@ -22,7 +22,7 @@ tape("quadtree.add(datum) handles points being on the perimeter of the quadtree 
 
 tape("quadtree.add(datum) handles points being to the top of the quadtree bounds", function(test) {
   var q = d3_quadtree.quadtree().extent([[0, 0], [2, 2]]);
-  test.deepEqual(q.add([1, -1]).extent(), [[0, -2], [4, 2]]);
+  test.deepEqual(q.add([1, -1]).extent(), [[0, -4], [8, 4]]);
   test.end();
 });
 
@@ -40,7 +40,7 @@ tape("quadtree.add(datum) handles points being to the bottom of the quadtree bou
 
 tape("quadtree.add(datum) handles points being to the left of the quadtree bounds", function(test) {
   var q = d3_quadtree.quadtree().extent([[0, 0], [2, 2]]);
-  test.deepEqual(q.add([-1, 1]).extent(), [[-2, 0], [2, 4]]);
+  test.deepEqual(q.add([-1, 1]).extent(), [[-4, 0], [4, 8]]);
   test.end();
 });
 

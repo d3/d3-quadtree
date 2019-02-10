@@ -6,11 +6,11 @@ tape("quadtree.visit(callback) visits each node in a quadtree", function(test) {
       .addAll([[0, 0], [1, 0], [0, 1], [1, 1]]);
   test.equal(q.visit(function(node, x0, y0, x1, y1) { results.push([x0, y0, x1, y1]); }), q);
   test.deepEqual(results, [
-    [0.0, 0.0, 1.0, 1.0],
-    [0.0, 0.0, 0.5, 0.5],
-    [0.5, 0.0, 1.0, 0.5],
-    [0.0, 0.5, 0.5, 1.0],
-    [0.5, 0.5, 1.0, 1.0]
+    [0, 0, 2, 2],
+    [0, 0, 1, 1],
+    [1, 0, 2, 1],
+    [0, 1, 1, 2],
+    [1, 1, 2, 2]
   ]);
   test.end();
 });
