@@ -23,7 +23,7 @@ var quadtree = d3.quadtree();
 ## API Reference
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([<i>data</i>[, <i>x</i>, <i>y</i>]])
- [<>](https://github.com/d3/d3-quadtree/blob/master/src/quadtree.js#L14 "Source")
+ [<>](https://github.com/d3/d3-quadtree/blob/master/src/quadtree.js "Source")
 
 Creates a new, empty quadtree with an empty [extent](#quadtree_extent) and the default [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors. If *data* is specified, [adds](#quadtree_addAll) the specified array of data to the quadtree. This is equivalent to:
 
@@ -82,7 +82,7 @@ Expands the quadtree to cover the specified point ⟨*x*,*y*⟩, and returns the
 Adds the specified *datum* to the quadtree, deriving its coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and returns the quadtree. If the new point is outside the current [extent](#quadtree_extent) of the quadtree, the quadtree is automatically expanded to [cover](#quadtree_cover) the new point.
 
 <a name="quadtree_addAll" href="#quadtree_addAll">#</a> <i>quadtree</i>.<b>addAll</b>(<i>data</i>)
- [<>](https://github.com/d3/d3-quadtree/blob/master/src/add.js#L50 "Source")
+ [<>](https://github.com/d3/d3-quadtree/blob/master/src/add.js "Source")
 
 Adds the specified array of *data* to the quadtree, deriving each element’s coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and return this quadtree. This is approximately equivalent to calling [*quadtree*.add](#quadtree_add) repeatedly:
 
@@ -97,12 +97,12 @@ However, this method results in a more compact quadtree because the extent of th
 <a name="quadtree_remove" href="#quadtree_remove">#</a> <i>quadtree</i>.<b>remove</b>(<i>datum</i>)
  [<>](https://github.com/d3/d3-quadtree/blob/master/src/remove.js "Source")
 
-Removes the specified *datum* to the quadtree, deriving its coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and returns the quadtree. If the specified *datum* does not exist in this quadtree, this method does nothing.
+Removes the specified *datum* from the quadtree, deriving its coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and returns the quadtree. If the specified *datum* does not exist in this quadtree, this method does nothing.
 
 <a name="quadtree_removeAll" href="#quadtree_removeAll">#</a> <i>quadtree</i>.<b>removeAll</b>(<i>data</i>)
- [<>](https://github.com/d3/d3-quadtree/blob/master/src/remove.js#L59 "Source")
+ [<>](https://github.com/d3/d3-quadtree/blob/master/src/remove.js "Source")
 
-Removes the specified data to the quadtree, deriving their coordinates ⟨x,y⟩ using the current x- and y-accessors, and returns the quadtree. If a specified datum does not exist in this quadtree, it is ignored.
+Removes the specified *data* from the quadtree, deriving their coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and returns the quadtree. If a specified datum does not exist in this quadtree, it is ignored.
 
 <a name="quadtree_copy" href="#quadtree_copy">#</a> <i>quadtree</i>.<b>copy</b>()
 
