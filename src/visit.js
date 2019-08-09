@@ -1,4 +1,4 @@
-import Quad from "./quad";
+import Quad from "./quad.js";
 
 export default function(callback) {
   var quads = [], q, node = this._root, child, x0, y0, x1, y1;

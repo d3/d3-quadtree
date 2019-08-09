@@ -1,15 +1,15 @@
-import tree_add, {addAll as tree_addAll} from "./add";
-import tree_cover from "./cover";
-import tree_data from "./data";
-import tree_extent from "./extent";
-import tree_find from "./find";
-import tree_remove, {removeAll as tree_removeAll} from "./remove";
-import tree_root from "./root";
-import tree_size from "./size";
-import tree_visit from "./visit";
-import tree_visitAfter from "./visitAfter";
-import tree_x, {defaultX} from "./x";
-import tree_y, {defaultY} from "./y";
+import tree_add, {addAll as tree_addAll} from "./add.js";
+import tree_cover from "./cover.js";
+import tree_data from "./data.js";
+import tree_extent from "./extent.js";
+import tree_find from "./find.js";
+import tree_remove, {removeAll as tree_removeAll} from "./remove.js";
+import tree_root from "./root.js";
+import tree_size from "./size.js";
+import tree_visit from "./visit.js";
+import tree_visitAfter from "./visitAfter.js";
+import tree_x, {defaultX} from "./x.js";
+import tree_y, {defaultY} from "./y.js";
 
 export default function quadtree(nodes, x, y) {
   var tree = new Quadtree(x == null ? defaultX : x, y == null ? defaultY : y, NaN, NaN, NaN, NaN);

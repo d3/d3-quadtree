@@ -1,4 +1,4 @@
-import Quad from "./quad";
+import Quad from "./quad.js";
 
 export default function(callback) {
   var quads = [], next = [], q;

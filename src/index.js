@@ -1,1 +1,1 @@
-export {default as quadtree} from "./quadtree";
+export {default as quadtree} from "./quadtree.js";
