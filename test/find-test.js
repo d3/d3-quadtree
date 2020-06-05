@@ -32,3 +32,12 @@ tape("quadtree.find(x, y, null) treats the given radius as Infinity", function(t
   test.deepEqual(q.find(20, 20, undefined), [0, 0]);
   test.end();
 });
+
+tape("quadtree.find(x, y, radius, filter) considers only filtered points", function(test) {
+  var q = d3_quadtree.quadtree([[0, 0, "red"], [100, 0, "blue"], [100, 0, "blue"], [0, 100, "red"], [100, 100, "red"], [100, 100, "blue"]]);
+  test.deepEqual(q.find(20, 0, null, d => d[2] == "red"), [0, 0, "red"]);
+  test.deepEqual(q.find(20, 0, null, d => d[2] == "blue"), [100, 0, "blue"]);
+  test.deepEqual(q.find(20, 0, 50, d => d[2] == "blue"), undefined);
+  test.deepEqual(q.find(20, 0, null, d => d[2] == "green"), undefined);
+  test.end();
+});

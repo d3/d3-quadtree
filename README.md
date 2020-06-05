@@ -121,10 +121,10 @@ Returns an array of all data in the quadtree.
 
 Returns the total number of data in the quadtree.
 
-<a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>[, <i>radius</i>])
+<a name="quadtree_find" href="#quadtree_find">#</a> <i>quadtree</i>.<b>find</b>(<i>x</i>, <i>y</i>[, <i>radius</i>][, <i>filter</i>])
  [<>](https://github.com/d3/d3-quadtree/blob/master/src/find.js "Source")
 
-Returns the datum closest to the position ⟨*x*,*y*⟩ with the given search *radius*. If *radius* is not specified, it defaults to infinity. If there is no datum within the search area, returns undefined.
+Returns the datum closest to the position ⟨*x*,*y*⟩ with the given search *radius* that satisfies the *filter*. If *radius* is not specified, it defaults to infinity. If *filter* is not specified, all data are considered. If there is no acceptable datum within the search area, returns undefined.
 
 <a name="quadtree_visit" href="#quadtree_visit">#</a> <i>quadtree</i>.<b>visit</b>(<i>callback</i>)
  [<>](https://github.com/d3/d3-quadtree/blob/master/src/visit.js "Source")
