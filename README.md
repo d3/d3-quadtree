@@ -126,6 +126,11 @@ Returns the total number of data in the quadtree.
 
 Returns the datum closest to the position ⟨*x*,*y*⟩ with the given search *radius*. If *radius* is not specified, it defaults to infinity. If there is no datum within the search area, returns undefined.
 
+<a name="quadtree_findInCircle" href="#quadtree_findInCircle">#</a> <i>quadtree</i>.<b>findInCircle</b>(<i>x</i>, <i>y</i>[, <i>radius</i>][, <i>filter</i>])
+ [<>](https://github.com/d3/d3-quadtree/blob/master/src/findInCircle.js "Source")
+
+Returns all the data within the given search *radius* of the position ⟨*x*,*y*⟩ that satisfy the filter *filter*, if specified. If *radius* is not specified, it defaults to infinity. If there is no acceptable datum within the search area, returns an empty array.
+
 <a name="quadtree_visit" href="#quadtree_visit">#</a> <i>quadtree</i>.<b>visit</b>(<i>callback</i>)
  [<>](https://github.com/d3/d3-quadtree/blob/master/src/visit.js "Source")
 
