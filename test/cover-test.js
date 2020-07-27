@@ -77,3 +77,8 @@ tape("quadtree.cover(x, y) does not wrap the root node if it is undefined", func
   test.equal(q.copy().cover(-3, -3).root(), undefined);
   test.end();
 });
+
+tape("quadtree.cover() does not crash on huge values", function(test) {
+  d3_quadtree.quadtree([[1e23, 0]]);
+  test.end();
+});

@@ -16,7 +16,7 @@ export default function(x, y) {
 
   // Otherwise, double repeatedly to cover.
   else {
-    var z = x1 - x0,
+    var z = x1 - x0 || 1,
         node = this._root,
         parent,
         i;
