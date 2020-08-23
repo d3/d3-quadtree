@@ -1,5 +1,5 @@
 export default function(d) {
-  var x = +this._x.call(null, d),
+  const x = +this._x.call(null, d),
       y = +this._y.call(null, d);
   return add(this.cover(x, y), x, y, d);
 }

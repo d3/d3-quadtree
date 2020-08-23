@@ -1,6 +1,9 @@
 {
   "name": "d3-quadtree",
-  "version": "1.0.7",
+  "version": "2.0.0-rc.1",
+  "publishConfig": {
+    "tag": "next"
+  },
   "description": "Two-dimensional recursive spatial subdivision.",
   "keywords": [
     "d3",
