@@ -1,6 +1,6 @@
 import Quad from "./quad.js";
 
-export default function(x, y, radius) {
+export default function(x, y, radius, filter) {
   var data,
       x0 = this._x0,
       y0 = this._y0,
@@ -58,10 +58,16 @@ export default function(x, y, radius) {
           dy = y - +this._y.call(null, node.data),
           d2 = dx * dx + dy * dy;
       if (d2 < radius) {
-        var d = Math.sqrt(radius = d2);
-        x0 = x - d, y0 = y - d;
-        x3 = x + d, y3 = y + d;
-        data = node.data;
+        var f, d;
+        do {
+          if (!filter || filter(node.data)) f = node;
+        } while (!f && (node = node.next));
+        if (f) {
+          d = Math.sqrt(radius = d2);
+          x0 = x - d, y0 = y - d;
+          x3 = x + d, y3 = y + d;
+          data = f.data;
+        }
       }
     }
   }
