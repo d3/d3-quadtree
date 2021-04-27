@@ -1,17 +1,15 @@
-var tape = require("tape"),
-    d3_quadtree = require("../");
+import assert from "assert";
+import * as d3 from "../src/index.js";
 
-tape("quadtree.size() returns the number of points in the quadtree", function(test) {
-  var q = d3_quadtree.quadtree();
-  test.equal(q.size(), 0);
+it("quadtree.size() returns the number of points in the quadtree", () => {
+  const q = d3.quadtree();
+  assert.strictEqual(q.size(), 0);
   q.add([0, 0]).add([1, 2]);
-  test.equal(q.size(), 2);
-  test.end();
+  assert.strictEqual(q.size(), 2);
 });
 
-tape("quadtree.size() correctly counts coincident nodes", function(test) {
-  var q = d3_quadtree.quadtree();
+it("quadtree.size() correctly counts coincident nodes", () => {
+  const q = d3.quadtree();
   q.add([0, 0]).add([0, 0]);
-  test.equal(q.size(), 2);
-  test.end();
+  assert.strictEqual(q.size(), 2);
 });
