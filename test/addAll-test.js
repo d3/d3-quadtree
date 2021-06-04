@@ -1,8 +1,8 @@
 import assert from "assert";
-import * as d3 from "../src/index.js";
+import {quadtree} from "../src/index.js";
 
 it("quadtree.addAll(data) creates new points and adds them to the quadtree", () => {
-  const q = d3.quadtree();
+  const q = quadtree();
   assert.deepStrictEqual(q.add([0.0, 0.0]).root(), {data: [0, 0]});
   assert.deepStrictEqual(q.add([0.9, 0.9]).root(), [{data: [0, 0]},,, {data: [0.9, 0.9]}]);
   assert.deepStrictEqual(q.add([0.9, 0.0]).root(), [{data: [0, 0]}, {data: [0.9, 0]},, {data: [0.9, 0.9]}]);
@@ -11,7 +11,7 @@ it("quadtree.addAll(data) creates new points and adds them to the quadtree", () 
 });
 
 it("quadtree.addAll(data) ignores points with NaN coordinates", () => {
-  const q = d3.quadtree();
+  const q = quadtree();
   assert.deepStrictEqual(q.addAll([[NaN, 0], [0, NaN]]).root(), undefined);
   assert.strictEqual(q.extent(), undefined);
   assert.deepStrictEqual(q.addAll([[0, 0], [0.9, 0.9]]).root(), [{data: [0, 0]},,, {data: [0.9, 0.9]}]);
@@ -20,7 +20,7 @@ it("quadtree.addAll(data) ignores points with NaN coordinates", () => {
 });
 
 it("quadtree.addAll(data) correctly handles the empty array", () => {
-  const q = d3.quadtree();
+  const q = quadtree();
   assert.deepStrictEqual(q.addAll([]).root(), undefined);
   assert.strictEqual(q.extent(), undefined);
   assert.deepStrictEqual(q.addAll([[0, 0], [1, 1]]).root(), [{data: [0, 0]},,, {data: [1, 1]}]);
@@ -29,6 +29,6 @@ it("quadtree.addAll(data) correctly handles the empty array", () => {
 });
 
 it("quadtree.addAll(data) computes the extent of the data before adding", () => {
-  const q = d3.quadtree().addAll([[0.4, 0.4], [0, 0], [0.9, 0.9]]);
+  const q = quadtree().addAll([[0.4, 0.4], [0, 0], [0.9, 0.9]]);
   assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
 });

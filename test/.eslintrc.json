@@ -5,6 +5,10 @@
     "ecmaVersion": 8
   },
   "env": {
+    "node": true,
     "mocha": true
+  },
+  "rules": {
+    "no-sparse-arrays": 0
   }
 }
