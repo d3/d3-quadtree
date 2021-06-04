@@ -1,29 +1,26 @@
-var tape = require("tape"),
-    d3_quadtree = require("../");
+import assert from "assert";
+import {quadtree} from "../src/index.js";
 
-tape("quadtree.y(y) sets the y-accessor used by quadtree.add", function(test) {
-  var q = d3_quadtree.quadtree().y(y).add({0: 1, y: 2});
-  test.deepEqual(q.extent(), [[1, 2], [2, 3]]);
-  test.deepEqual(q.root(), {data: {0: 1, y: 2}});
-  test.end();
+it("quadtree.y(y) sets the y-accessor used by quadtree.add", () => {
+  const q = quadtree().y(y).add({0: 1, y: 2});
+  assert.deepStrictEqual(q.extent(), [[1, 2], [2, 3]]);
+  assert.deepStrictEqual(q.root(), {data: {0: 1, y: 2}});
 });
 
-tape("quadtree.y(y) sets the y-accessor used by quadtree.addAll", function(test) {
-  var q = d3_quadtree.quadtree().y(y).addAll([{0: 1, y: 2}]);
-  test.deepEqual(q.extent(), [[1, 2], [2, 3]]);
-  test.deepEqual(q.root(), {data: {0: 1, y: 2}});
-  test.end();
+it("quadtree.y(y) sets the y-accessor used by quadtree.addAll", () => {
+  const q = quadtree().y(y).addAll([{0: 1, y: 2}]);
+  assert.deepStrictEqual(q.extent(), [[1, 2], [2, 3]]);
+  assert.deepStrictEqual(q.root(), {data: {0: 1, y: 2}});
 });
 
-tape("quadtree.y(y) sets the y-accessor used by quadtree.remove", function(test) {
-  var p0 = {0: 0, y: 1},
-      p1 = {0: 1, y: 2},
-      q = d3_quadtree.quadtree().y(y);
-  test.deepEqual(q.add(p0).root(), {data: {0: 0, y: 1}});
-  test.deepEqual(q.add(p1).root(), [{data: {0: 0, y: 1}},,, {data: {0: 1, y: 2}}]);
-  test.deepEqual(q.remove(p1).root(), {data: {0: 0, y: 1}});
-  test.equal(q.remove(p0).root(), undefined);
-  test.end();
+it("quadtree.y(y) sets the y-accessor used by quadtree.remove", () => {
+  const p0 = {0: 0, y: 1};
+  const p1 = {0: 1, y: 2};
+  const q = quadtree().y(y);
+  assert.deepStrictEqual(q.add(p0).root(), {data: {0: 0, y: 1}});
+  assert.deepStrictEqual(q.add(p1).root(), [{data: {0: 0, y: 1}},,, {data: {0: 1, y: 2}}]);
+  assert.deepStrictEqual(q.remove(p1).root(), {data: {0: 0, y: 1}});
+  assert.strictEqual(q.remove(p0).root(), undefined);
 });
 
 function y(d) {

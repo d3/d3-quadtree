@@ -1,17 +1,15 @@
-var tape = require("tape"),
-    d3_quadtree = require("../");
+import assert from "assert";
+import {quadtree} from "../src/index.js";
 
-tape("quadtree.data() returns an array of data in the quadtree", function(test) {
-  var q = d3_quadtree.quadtree();
-  test.deepEqual(q.data(), []);
+it("quadtree.data() returns an array of data in the quadtree", () => {
+  const q = quadtree();
+  assert.deepStrictEqual(q.data(), []);
   q.add([0, 0]).add([1, 2]);
-  test.deepEqual(q.data(), [[0, 0], [1, 2]]);
-  test.end();
+  assert.deepStrictEqual(q.data(), [[0, 0], [1, 2]]);
 });
 
-tape("quadtree.data() correctly handles coincident nodes", function(test) {
-  var q = d3_quadtree.quadtree();
+it("quadtree.data() correctly handles coincident nodes", () => {
+  const q = quadtree();
   q.add([0, 0]).add([0, 0]);
-  test.deepEqual(q.data(), [[0, 0], [0, 0]]);
-  test.end();
+  assert.deepStrictEqual(q.data(), [[0, 0], [0, 0]]);
 });
