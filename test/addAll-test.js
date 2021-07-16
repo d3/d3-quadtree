@@ -32,3 +32,13 @@ it("quadtree.addAll(data) computes the extent of the data before adding", () => 
   const q = quadtree().addAll([[0.4, 0.4], [0, 0], [0.9, 0.9]]);
   assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
 });
+
+it("quadtree.addAll(iterable) adds points from an iterable", () => {
+  const q = quadtree().addAll(new Set([[0.4, 0.4], [0, 0], [0.9, 0.9]]));
+  assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
+});
+
+it("quadtree(iterable) adds points from an iterable", () => {
+  const q = quadtree(new Set([[0.4, 0.4], [0, 0], [0.9, 0.9]]));
+  assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
+});

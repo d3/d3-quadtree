@@ -48,15 +48,15 @@ function add(tree, x, y, d) {
 }
 
 export function addAll(data) {
-  var d, i, n = data.length,
-      x,
-      y,
-      xz = new Array(n),
-      yz = new Array(n),
-      x0 = Infinity,
-      y0 = Infinity,
-      x1 = -Infinity,
-      y1 = -Infinity;
+  if (!Array.isArray(data)) data = Array.from(data);
+  const n = data.length;
+  const xz = new Float64Array(n);
+  const yz = new Float64Array(n);
+  let d, i, x, y,
+    x0 = Infinity,
+    y0 = Infinity,
+    x1 = -Infinity,
+    y1 = -Infinity;
 
   // Compute the points and their extent.
   for (i = 0; i < n; ++i) {
