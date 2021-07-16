@@ -34,14 +34,14 @@ const tree = d3.quadtree();
 
 <a name="quadtree" href="#quadtree">#</a> d3.<b>quadtree</b>([<i>data</i>[, <i>x</i>, <i>y</i>]]) [<>](https://github.com/d3/d3-quadtree/blob/master/src/quadtree.js "Source")
 
-Creates a new, empty quadtree with an empty [extent](#quadtree_extent) and the default [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors. If *data* is specified, [adds](#quadtree_addAll) the specified array of data to the quadtree. This is equivalent to:
+Creates a new, empty quadtree with an empty [extent](#quadtree_extent) and the default [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors. If *data* is specified, [adds](#quadtree_addAll) the specified iterable of data to the quadtree. This is equivalent to:
 
 ```js
 const tree = d3.quadtree()
     .addAll(data);
 ```
 
-If *x* and *y* are also specified, sets the [*x*-](#quadtree_x) and [*y*-](#quadtree_y) accessors to the specified functions before adding the specified array of data to the quadtree, equivalent to:
+If *x* and *y* are also specified, sets the [*x*-](#quadtree_x) and [*y*-](#quadtree_y) accessors to the specified functions before adding the specified iterable of data to the quadtree, equivalent to:
 
 ```js
 const tree = d3.quadtree()
@@ -88,7 +88,7 @@ Adds the specified *datum* to the quadtree, deriving its coordinates ⟨*x*,*y*�
 
 <a name="quadtree_addAll" href="#quadtree_addAll">#</a> <i>quadtree</i>.<b>addAll</b>(<i>data</i>) [<>](https://github.com/d3/d3-quadtree/blob/master/src/add.js "Source")
 
-Adds the specified array of *data* to the quadtree, deriving each element’s coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and return this quadtree. This is approximately equivalent to calling [*quadtree*.add](#quadtree_add) repeatedly:
+Adds the specified iterable of *data* to the quadtree, deriving each element’s coordinates ⟨*x*,*y*⟩ using the current [*x*-](#quadtree_x) and [*y*-](#quadtree_y)accessors, and return this quadtree. This is approximately equivalent to calling [*quadtree*.add](#quadtree_add) repeatedly:
 
 ```js
 for (let i = 0, n = data.length; i < n; ++i) {
