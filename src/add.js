@@ -52,14 +52,10 @@ export function addAll(data) {
   const n = data.length;
   const xz = new Float64Array(n);
   const yz = new Float64Array(n);
-  let d, i, x, y,
-    x0 = Infinity,
-    y0 = Infinity,
-    x1 = -Infinity,
-    y1 = -Infinity;
+  let x0 = Infinity, y0 = x0, x1 = -x0, y1 = x1;
 
   // Compute the points and their extent.
-  for (i = 0; i < n; ++i) {
+  for (let i = 0, d, x, y; i < n; ++i) {
     if (isNaN(x = +this._x.call(null, d = data[i])) || isNaN(y = +this._y.call(null, d))) continue;
     xz[i] = x;
     yz[i] = y;
@@ -76,7 +72,7 @@ export function addAll(data) {
   this.cover(x0, y0).cover(x1, y1);
 
   // Add the new points.
-  for (i = 0; i < n; ++i) {
+  for (let i = 0; i < n; ++i) {
     add(this, xz[i], yz[i], data[i]);
   }
 
