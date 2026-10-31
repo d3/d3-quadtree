@@ -19,6 +19,53 @@ it("quadtree.addAll(data) ignores points with NaN coordinates", () => {
   assert.deepStrictEqual(q.extent(), [[0, 0], [1, 1]]);
 });
 
+it("quadtree.addAll(data) ignores invalid coordinates mixed with valid points", () => {
+  const a = [0, 0], b = [1, 1];
+  const q = quadtree().addAll([a, [NaN, 1], b, [1, NaN]]);
+  assert.strictEqual(q.size(), 2);
+  assert.deepStrictEqual(q.data(), [a, b]);
+});
+
+it("quadtree.addAll(data) ignores invalid points before valid points", () => {
+  const a = [0, 0];
+  const q = quadtree().addAll([[NaN, 2], a]);
+  assert.deepStrictEqual(q.root(), {data: a});
+  assert.deepStrictEqual(q.extent(), [[0, 0], [1, 1]]);
+});
+
+it("quadtree.addAll(iterable) ignores invalid points mixed with valid points", () => {
+  const a = [0, 0];
+  const q = quadtree().addAll(new Set([a, [NaN, NaN]]));
+  assert.deepStrictEqual(q.data(), [a]);
+});
+
+it("quadtree.addAll(data) ignores mixed invalid points when extending a tree", () => {
+  const a = [0, 0], b = [1, 1];
+  const q = quadtree().add(a);
+  assert.strictEqual(q.addAll([b, [2, NaN]]), q);
+  assert.deepStrictEqual(q.data(), [a, b]);
+  assert.deepStrictEqual(q.extent(), [[0, 0], [2, 2]]);
+});
+
+it("quadtree.addAll(data) does not evaluate y for an invalid x", () => {
+  const a = [0, 0], b = [NaN, 1];
+  let yCalls = 0;
+  const q = quadtree().y(d => {
+    assert.notStrictEqual(d, b);
+    ++yCalls;
+    return d[1];
+  }).addAll([a, b]);
+  assert.deepStrictEqual(q.data(), [a]);
+  assert.strictEqual(yCalls, 1);
+});
+
+it("quadtree.addAll(data) preserves coerced zero and coincident points", () => {
+  const a = [null, "0"], b = [-0, -0];
+  const q = quadtree().addAll([a, b]);
+  assert.strictEqual(q.size(), 2);
+  assert.deepStrictEqual(q.data(), [b, a]);
+});
+
 it("quadtree.addAll(data) correctly handles the empty array", () => {
   const q = quadtree();
   assert.deepStrictEqual(q.addAll([]).root(), undefined);

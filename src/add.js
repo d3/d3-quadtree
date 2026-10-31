@@ -56,7 +56,10 @@ export function addAll(data) {
 
   // Compute the points and their extent.
   for (let i = 0, d, x, y; i < n; ++i) {
-    if (isNaN(x = +this._x.call(null, d = data[i])) || isNaN(y = +this._y.call(null, d))) continue;
+    if (isNaN(x = +this._x.call(null, d = data[i])) || isNaN(y = +this._y.call(null, d))) {
+      xz[i] = NaN;
+      continue;
+    }
     xz[i] = x;
     yz[i] = y;
     if (x < x0) x0 = x;
