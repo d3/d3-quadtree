@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {it} from "vitest";
-import {quadtree} from "../src/index.js";
+import {quadtree} from "d3-quadtree";
 
 it("quadtree.x(x) sets the x-accessor used by quadtree.add", () => {
   const q = quadtree().x(x).add({x: 1, 1: 2});

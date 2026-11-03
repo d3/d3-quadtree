@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {it} from "vitest";
-import {quadtree} from "../src/index.js";
+import {quadtree} from "d3-quadtree";
 
 it("quadtree.cover(x, y) sets a trivial extent if the extent was undefined", () => {
   assert.deepStrictEqual(quadtree().cover(1, 2).extent(), [[1, 2], [2, 3]]);

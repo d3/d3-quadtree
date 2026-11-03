@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {it} from "vitest";
-import {quadtree} from "../src/index.js";
+import {quadtree} from "d3-quadtree";
 
 it("quadtree.data() returns an array of data in the quadtree", () => {
   const q = quadtree();

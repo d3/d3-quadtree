@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {it} from "vitest";
-import {quadtree} from "../src/index.js";
+import {quadtree} from "d3-quadtree";
 
 it("quadtree.copy() returns a copy of this quadtree", () => {
   const q0 = quadtree().addAll([[0, 0], [1, 0], [0, 1], [1, 1]]);
