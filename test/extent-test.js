@@ -1,5 +1,6 @@
-import assert from "assert";
-import {quadtree} from "../src/index.js";
+import assert from "node:assert";
+import {it} from "vitest";
+import {quadtree} from "d3-quadtree";
 
 it("quadtree.extent(extent) extends the extent", () => {
   assert.deepStrictEqual(quadtree().extent([[0, 1], [2, 6]]).extent(), [[0, 1], [8, 9]]);

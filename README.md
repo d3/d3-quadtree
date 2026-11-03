@@ -7,6 +7,6 @@ A [quadtree](https://en.wikipedia.org/wiki/Quadtree) recursively partitions two-
 ## Resources
 
 - [Documentation](https://d3js.org/d3-quadtree)
-- [Examples](https://observablehq.com/collection/@d3/d3-quadtree)
+- [Examples](https://observablehq.com/@d3/-/collection/d3-quadtree)
 - [Releases](https://github.com/d3/d3-quadtree/releases)
 - [Getting help](https://d3js.org/community)

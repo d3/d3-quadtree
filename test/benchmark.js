@@ -1,4 +1,4 @@
-import {quadtree} from "../src/index.js";
+import {quadtree} from "d3-quadtree";
 
 const n = 1000000;
 const points1 = new Array(n);
