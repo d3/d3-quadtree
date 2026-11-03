@@ -1,5 +1,5 @@
+import assert from "node:assert";
 import {it} from "vitest";
-import assert from "assert";
 import {quadtree} from "../src/index.js";
 
 it("quadtree.remove(datum) removes a point and returns the quadtree", () => {

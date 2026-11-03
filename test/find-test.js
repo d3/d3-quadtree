@@ -1,5 +1,5 @@
+import assert from "node:assert";
 import {it} from "vitest";
-import assert from "assert";
 import {quadtree} from "../src/index.js";
 
 it("quadtree.find(x, y) returns the closest point to the given [x, y]", () => {

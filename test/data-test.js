@@ -1,5 +1,5 @@
+import assert from "node:assert";
 import {it} from "vitest";
-import assert from "assert";
 import {quadtree} from "../src/index.js";
 
 it("quadtree.data() returns an array of data in the quadtree", () => {
