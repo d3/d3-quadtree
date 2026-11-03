@@ -1,12 +1,13 @@
+import {test} from "vitest";
 import assert from "assert";
 import {quadtree} from "../src/index.js";
 
-it("quadtree.copy() returns a copy of this quadtree", () => {
+test("quadtree.copy() returns a copy of this quadtree", () => {
   const q0 = quadtree().addAll([[0, 0], [1, 0], [0, 1], [1, 1]]);
   assert.deepStrictEqual(q0.copy(), q0);
 });
 
-it("quadtree.copy() isolates changes to the extent", () => {
+test("quadtree.copy() isolates changes to the extent", () => {
   const q0 = quadtree().extent([[0, 0], [1, 1]]);
   const q1 = q0.copy();
   q0.add([2, 2]);
@@ -15,7 +16,7 @@ it("quadtree.copy() isolates changes to the extent", () => {
   assert.deepStrictEqual(q0.extent(), [[0, 0], [4, 4]]);
 });
 
-it("quadtree.copy() isolates changes to the root when a leaf", () => {
+test("quadtree.copy() isolates changes to the root when a leaf", () => {
   const q0 = quadtree().extent([[0, 0], [1, 1]]);
   const q1 = q0.copy();
   const p0 = [2, 2];
@@ -29,7 +30,7 @@ it("quadtree.copy() isolates changes to the root when a leaf", () => {
   assert.deepStrictEqual(q2.root(), {data: [2, 2]});
 });
 
-it("quadtree.copy() isolates changes to the root when not a leaf", () => {
+test("quadtree.copy() isolates changes to the root when not a leaf", () => {
   const p0 = [1, 1];
   const p1 = [2, 2];
   const p2 = [3, 3];

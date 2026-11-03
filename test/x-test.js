@@ -1,19 +1,20 @@
+import {test} from "vitest";
 import assert from "assert";
 import {quadtree} from "../src/index.js";
 
-it("quadtree.x(x) sets the x-accessor used by quadtree.add", () => {
+test("quadtree.x(x) sets the x-accessor used by quadtree.add", () => {
   const q = quadtree().x(x).add({x: 1, 1: 2});
   assert.deepStrictEqual(q.extent(), [[1, 2], [2, 3]]);
   assert.deepStrictEqual(q.root(), {data: {x: 1, 1: 2}});
 });
 
-it("quadtree.x(x) sets the x-accessor used by quadtree.addAll", () => {
+test("quadtree.x(x) sets the x-accessor used by quadtree.addAll", () => {
   const q = quadtree().x(x).addAll([{x: 1, 1: 2}]);
   assert.deepStrictEqual(q.extent(), [[1, 2], [2, 3]]);
   assert.deepStrictEqual(q.root(), {data: {x: 1, 1: 2}});
 });
 
-it("quadtree.x(x) sets the x-accessor used by quadtree.remove", () => {
+test("quadtree.x(x) sets the x-accessor used by quadtree.remove", () => {
   const p0 = {x: 0, 1: 1};
   const p1 = {x: 1, 1: 2};
   const q = quadtree().x(x);
