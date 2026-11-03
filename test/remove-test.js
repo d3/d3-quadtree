@@ -1,8 +1,8 @@
-import {test} from "vitest";
+import {it} from "vitest";
 import assert from "assert";
 import {quadtree} from "../src/index.js";
 
-test("quadtree.remove(datum) removes a point and returns the quadtree", () => {
+it("quadtree.remove(datum) removes a point and returns the quadtree", () => {
   const p0 = [1, 1];
   const q = quadtree().add(p0);
   assert.deepStrictEqual(q.root(), {data: p0});
@@ -10,7 +10,7 @@ test("quadtree.remove(datum) removes a point and returns the quadtree", () => {
   assert.deepStrictEqual(q.root(), undefined);
 });
 
-test("quadtree.remove(datum) removes the only point in the quadtree", () => {
+it("quadtree.remove(datum) removes the only point in the quadtree", () => {
   const p0 = [1, 1];
   const q = quadtree().add(p0);
   assert.strictEqual(q.remove(p0), q);
@@ -19,7 +19,7 @@ test("quadtree.remove(datum) removes the only point in the quadtree", () => {
   assert.deepStrictEqual(p0, [1, 1]);
 });
 
-test("quadtree.remove(datum) removes a first coincident point at the root in the quadtree", () => {
+it("quadtree.remove(datum) removes a first coincident point at the root in the quadtree", () => {
   const p0 = [1, 1];
   const p1 = [1, 1];
   const q = quadtree().addAll([p0, p1]);
@@ -30,7 +30,7 @@ test("quadtree.remove(datum) removes a first coincident point at the root in the
   assert.deepStrictEqual(p1, [1, 1]);
 });
 
-test("quadtree.remove(datum) removes another coincident point at the root in the quadtree", () => {
+it("quadtree.remove(datum) removes another coincident point at the root in the quadtree", () => {
   const p0 = [1, 1];
   const p1 = [1, 1];
   const q = quadtree().addAll([p0, p1]);
@@ -41,7 +41,7 @@ test("quadtree.remove(datum) removes another coincident point at the root in the
   assert.deepStrictEqual(p1, [1, 1]);
 });
 
-test("quadtree.remove(datum) removes a non-root point in the quadtree", () => {
+it("quadtree.remove(datum) removes a non-root point in the quadtree", () => {
   const p0 = [0, 0];
   const p1 = [1, 1];
   const q = quadtree().addAll([p0, p1]);
@@ -52,7 +52,7 @@ test("quadtree.remove(datum) removes a non-root point in the quadtree", () => {
   assert.deepStrictEqual(p1, [1, 1]);
 });
 
-test("quadtree.remove(datum) removes another non-root point in the quadtree", () => {
+it("quadtree.remove(datum) removes another non-root point in the quadtree", () => {
   const p0 = [0, 0];
   const p1 = [1, 1];
   const q = quadtree().addAll([p0, p1]);
@@ -63,7 +63,7 @@ test("quadtree.remove(datum) removes another non-root point in the quadtree", ()
   assert.deepStrictEqual(p1, [1, 1]);
 });
 
-test("quadtree.remove(datum) ignores a point not in the quadtree", () => {
+it("quadtree.remove(datum) ignores a point not in the quadtree", () => {
   const p0 = [0, 0];
   const p1 = [1, 1];
   const q0 = quadtree().add(p0);
@@ -74,7 +74,7 @@ test("quadtree.remove(datum) ignores a point not in the quadtree", () => {
   assert.strictEqual(q1.root().data, p1);
 });
 
-test("quadtree.remove(datum) ignores a coincident point not in the quadtree", () => {
+it("quadtree.remove(datum) ignores a coincident point not in the quadtree", () => {
   const p0 = [0, 0];
   const p1 = [0, 0];
   const q0 = quadtree().add(p0);
@@ -85,7 +85,7 @@ test("quadtree.remove(datum) ignores a coincident point not in the quadtree", ()
   assert.strictEqual(q1.root().data, p1);
 });
 
-test("quadtree.remove(datum) removes another point in the quadtree", () => {
+it("quadtree.remove(datum) removes another point in the quadtree", () => {
   const q = quadtree().extent([[0, 0], [959, 959]]);
   q.addAll([[630, 438], [715, 464], [523, 519], [646, 318], [434, 620], [570, 489], [520, 345], [459, 443], [346, 405], [529, 444]]);
   assert.strictEqual(q.remove(q.find(546, 440)), q);

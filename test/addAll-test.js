@@ -1,8 +1,8 @@
-import {test} from "vitest";
+import {it} from "vitest";
 import assert from "assert";
 import {quadtree} from "../src/index.js";
 
-test("quadtree.addAll(data) creates new points and adds them to the quadtree", () => {
+it("quadtree.addAll(data) creates new points and adds them to the quadtree", () => {
   const q = quadtree();
   assert.deepStrictEqual(q.add([0.0, 0.0]).root(), {data: [0, 0]});
   assert.deepStrictEqual(q.add([0.9, 0.9]).root(), [{data: [0, 0]},,, {data: [0.9, 0.9]}]);
@@ -11,7 +11,7 @@ test("quadtree.addAll(data) creates new points and adds them to the quadtree", (
   assert.deepStrictEqual(q.add([0.4, 0.4]).root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}], {data: [0.9, 0]}, {data: [0, 0.9]}, {data: [0.9, 0.9]}]);
 });
 
-test("quadtree.addAll(data) ignores points with NaN coordinates", () => {
+it("quadtree.addAll(data) ignores points with NaN coordinates", () => {
   const q = quadtree();
   assert.deepStrictEqual(q.addAll([[NaN, 0], [0, NaN]]).root(), undefined);
   assert.strictEqual(q.extent(), undefined);
@@ -20,7 +20,7 @@ test("quadtree.addAll(data) ignores points with NaN coordinates", () => {
   assert.deepStrictEqual(q.extent(), [[0, 0], [1, 1]]);
 });
 
-test("quadtree.addAll(data) correctly handles the empty array", () => {
+it("quadtree.addAll(data) correctly handles the empty array", () => {
   const q = quadtree();
   assert.deepStrictEqual(q.addAll([]).root(), undefined);
   assert.strictEqual(q.extent(), undefined);
@@ -29,17 +29,17 @@ test("quadtree.addAll(data) correctly handles the empty array", () => {
   assert.deepStrictEqual(q.extent(), [[0, 0], [2, 2]]);
 });
 
-test("quadtree.addAll(data) computes the extent of the data before adding", () => {
+it("quadtree.addAll(data) computes the extent of the data before adding", () => {
   const q = quadtree().addAll([[0.4, 0.4], [0, 0], [0.9, 0.9]]);
   assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
 });
 
-test("quadtree.addAll(iterable) adds points from an iterable", () => {
+it("quadtree.addAll(iterable) adds points from an iterable", () => {
   const q = quadtree().addAll(new Set([[0.4, 0.4], [0, 0], [0.9, 0.9]]));
   assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
 });
 
-test("quadtree(iterable) adds points from an iterable", () => {
+it("quadtree(iterable) adds points from an iterable", () => {
   const q = quadtree(new Set([[0.4, 0.4], [0, 0], [0.9, 0.9]]));
   assert.deepStrictEqual(q.root(), [[{data: [0, 0]},,, {data: [0.4, 0.4]}],,, {data: [0.9, 0.9]}]);
 });
