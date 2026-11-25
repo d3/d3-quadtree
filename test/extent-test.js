@@ -45,3 +45,11 @@ it("quadtree.extent(extent) allows trivial extents", () => {
   assert.deepStrictEqual(quadtree().extent([[0, 0], [0, 0]]).extent(), [[0, 0], [1, 1]]);
   assert.deepStrictEqual(quadtree().extent([[1, 1], [1, 1]]).extent(), [[1, 1], [2, 2]]);
 });
+
+it("quadtree.extent(quadtree.extent()) is idempotent", () => {
+  const q = quadtree().extent([[1, 1], [5, 5]]);
+  const extent = q.extent();
+  assert.deepStrictEqual(extent, [[1, 1], [9, 9]]);
+  assert.strictEqual(q.extent(extent), q);
+  assert.deepStrictEqual(q.extent(), extent);
+});
